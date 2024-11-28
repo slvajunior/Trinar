@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Trinar{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8; /* Tom suave de azul claro */
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #a8d0e6; /* Azul claro */
+            color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            text-align: center;
+            margin-top: 20px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #4a4a4a; /* Cor suave para o texto */
+            margin: 0 15px;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: #6fa3e5; /* Azul mais escuro quando passa o mouse */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f1f1f1; /* Cinza claro */
+            color: #333;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Trinar</h1>
+        {% if user.is_authenticated %}
+            <!-- Saudação com o primeiro nome -->
+            <p>Olá, <strong>{{ user.first_name }}</strong>! Seja bem-vindo(a)!</p>
+        {% else %}
+            <p>Olá, visitante! Faça login ou registre-se.</p>
+        {% endif %}
+    </header>
+
+    <nav>
+        <a href="{% url 'home:index' %}">Início</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'users:logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'users:login' %}">Login</a>
+            <a href="{% url 'users:register' %}">Registrar</a>
+        {% endif %}
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Trinar. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

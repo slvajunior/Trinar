@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Início{% endblock %}
+
+{% block content %}
+    <div style="text-align: center;">
+        <h2 style="color: #4a4a4a;">Bem-vindo ao Recital!</h2>
+        <p style="color: #6fa3e5;">Faça login ou registre-se para começar.</p>
+
+        {% if user.is_authenticated %}
+            <!-- Saudação com o nome do usuário -->
+            <p style="color: #4a4a4a;">Você está logado(a)<strong> {{ user.username }}</strong>!</p>
+        {% else %}
+            <p style="color: #4a4a4a;">Você não está logado.</p>
+        {% endif %}
+    </div>
+{% endblock %}

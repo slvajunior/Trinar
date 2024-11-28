@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Trinar</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <script defer src="{% static 'js/login.js' %}"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h1>Login</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }} <!-- Renderiza o formulário de login do Django automaticamente -->
+                
+                <button type="submit" class="btn-submit">Login</button>
+            </form>
+            <p class="redirect">Não tem uma conta ? <a href="{% url 'users:register' %}">Registre-se.</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Certifique-se de que o autocomplete seja desabilitado para todos os campos de input.
+        document.querySelectorAll('input').forEach(input => {
+            input.setAttribute('autocomplete', 'off');
+        });
+    </script>
+</body>
+</html>
