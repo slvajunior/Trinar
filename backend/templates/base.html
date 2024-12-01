@@ -1,0 +1,235 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Link para o Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Link para a fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+
+        /* Usando a fonte Montserrat sem serifa */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #00cbff;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #00cbff;
+            padding: 20px 20px;
+            border-bottom: 1px solid #fff;
+            width: 100%;
+            height: 100px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+        }
+
+        .search-bar {
+            position: absolute;
+            left: 20px;
+            top: 30px;
+        }
+
+        .search-bar input {
+            border-radius: 20px;
+            padding: 10px 15px;
+            width: 200px;
+            border: none;
+        }
+
+        .user-photo {
+            position: absolute;
+            right: 20px;
+            top: 30px;
+        }
+
+        .user-photo img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+
+        .side-menu {
+            width: 300px;
+            height: calc(100vh - 100px);
+            background-color: #00cbff;
+            position: fixed;
+            top: 100px;
+            left: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            border-right: 1px solid #fff;
+            z-index: 1;
+        }
+
+        .side-menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .side-menu ul li {
+            margin-bottom: 15px;
+        }
+
+        .side-menu ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .side-menu ul li a i {
+            margin-right: 10px;
+        }
+
+        .side-menu ul li a:hover {
+            background-color: #009bba;
+            padding-left: 15px;
+        }
+
+        .side-menu ul li.active a {
+            background-color: #007b8b;
+        }
+
+        .timeline {
+            margin-left: 320px;
+            padding: 20px;
+            width: 37.5%;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            box-sizing: border-box;
+            margin-top: 100px;
+        }
+
+        .post {
+            background-color: #fff;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+        }
+
+        .post h2 {
+            margin: 0;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .post p {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight:normal;
+        }
+            
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo" style="flex: 1;"></div>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar...">
+            </div>
+            <div class="user-photo">
+                <img src="{{ user.profile.profile_picture.url }}" alt="Foto do Usuário">
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu lateral -->
+    <div class="side-menu">
+        <ul>
+            <li><a href="{% url 'home:index' %}"><i class="fas fa-home"></i> Home Page</a></li>
+            <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+            <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
+            <li><a href="{% url 'users:profile' %}"><i class="fas fa-user"></i> Profile</a></li> <!-- Alteração aqui -->
+            <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
+            <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy</a></li>
+        </ul>
+    </div>
+    {% block content %}
+
+
+    <!-- Timeline -->
+    <div class="timeline">
+        <!-- Adicionando mais posts para testar a rolagem -->
+        <div class="post">
+            <h2>Post 1</h2>
+            <p>Este é o primeiro post na timeline. Aqui é onde o conteúdo será exibido.</p>
+        </div>
+
+        <div class="post">
+            <h2>Post 2</h2>
+            <p>Este é o segundo post na timeline. O conteúdo continua aqui.</p>
+        </div>
+
+        <div class="post">
+            <h2>Post 3</h2>
+            <p>Outro post interessante na timeline. Os posts continuam descendo.</p>
+        </div>
+
+        <div class="post">
+            <h2>Post 4</h2>
+            <p>Mais conteúdo sendo adicionado para testar a rolagem. Isso deve ajudar a visualizar como a rolagem funciona.</p>
+        </div>
+
+        <div class="post">
+            <h2>Post 5</h2>
+            <p>Outro exemplo de post para ver se a rolagem é ativada corretamente.</p>
+        </div>
+
+        <div class="post">
+            <h2>Post 6</h2>
+            <p>Este post está aqui apenas para garantir que a rolagem vertical apareça quando necessário.</p>
+        </div>
+
+        <div class="post">
+            <h2>Post 7</h2>
+            <p>Outro exemplo. Com muitos posts, a rolagem deve funcionar agora!</p>
+        </div>
+
+        <div class="post">
+            <h2>Post 8</h2>
+            <p>Estamos adicionando mais conteúdo para garantir que o limite da timeline seja atingido e a rolagem funcione.</p>
+        </div>
+
+        <div class="post">
+            <h2>Post 9</h2>
+            <p>Este é o post 9, com o objetivo de garantir que a rolagem aconteça.</p>
+        </div>
+
+        <div class="post">
+            <h2>Post 10</h2>
+            <p>Post final para garantir que a rolagem vertical seja ativada com a quantidade suficiente de conteúdo.</p>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
