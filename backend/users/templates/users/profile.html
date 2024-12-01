@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="profile-container">
+    <!-- Informações do perfil -->
+    <div class="profile-header">
+        <img src="{{ user_profile.profile_picture.url }}" alt="Foto de perfil" class="profile-picture">
+        <h1>{{ user_profile.user.username }}</h1>
+        <p>Membro desde: {{ date_joined|date:"d M Y" }}</p>
+        <p>{{ user_profile.bio }}</p>
+    </div>
+
+    <style>
+        /* Define o contêiner principal */
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            /* Ocupa a altura total da tela */
+        }
+
+        .profile-header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            width: 100%;
+            max-width: 688px;
+            height: 300px;
+            margin: 20px 0 0 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-left: 315px;
+            margin-top: 150px;
+        }
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 20px auto 10px;
+            /* Espaçamento acima e abaixo da foto */
+            display: block;
+            position: relative;
+            /* Garante que fique no fluxo correto */
+        }
+
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .profile-header h1 {
+            margin-top: 10px;
+            font-size: 1.5em;
+        }
+
+        .profile-header p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        /* Timeline com rolagem */
+        .timeline {
+            flex-grow: 1;
+            /* Ocupa o restante do espaço disponível */
+            overflow-y: auto;
+            /* Adiciona rolagem vertical */
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .timeline h2 {
+            margin-bottom: 20px;
+        }
+
+        .post-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            /* Espaço entre os posts */
+        }
+
+        .post {
+            background-color: #f0f0f0;
+            /* Fundo claro para os posts */
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            /* Sombra leve */
+        }
+
+        .post h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .post p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .post small {
+            color: #888;
+        }
+    </style>
+
+
+    <!-- Timeline com rolagem -->
+    <div class="timeline">
+        <h2>Posts Recentes</h2>
+        <div class="post-list">
+            {% for post in user_posts %}
+            <div class="post">
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.content }}</p>
+                <small>Publicado em {{ post.created_at|date:"d M Y H:i" }}</small>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
