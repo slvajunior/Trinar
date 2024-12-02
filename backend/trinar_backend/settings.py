@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home/'
 
 LOGOUT_REDIRECT_URL = '/users/login/'
 
@@ -25,6 +25,8 @@ LOGIN_URL = '/users/login/'
 LOGOUT_URL = '/users/logout/'
 
 ALLOWED_HOSTS = []
+
+GEOIP_PATH = os.path.join(BASE_DIR, 'geoip_data')
 
 # Application definition
 
@@ -81,6 +83,7 @@ DATABASE_USER = os.getenv("DATABASE_USER")
 DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD")
 DATABASE_HOST = os.getenv("DATABASE_HOST")
 DATABASE_PORT = os.getenv("DATABASE_PORT")
+DATABASE_OPTIONS = eval(os.getenv("DATABASE_OPTIONS", '{}'))
 
 DATABASES = {
     "default": {
@@ -90,6 +93,7 @@ DATABASES = {
         "PASSWORD": DATABASE_PASSWORD,
         "HOST": DATABASE_HOST,
         "PORT": DATABASE_PORT,
+        "OPTIONS": DATABASE_OPTIONS,
     }
 }
 
@@ -119,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "pt-br"
 
 TIME_ZONE = "UTC"
 

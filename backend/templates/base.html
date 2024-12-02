@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
@@ -11,13 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- Link para a fonte Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    
+
     <style>
 
         /* Usando a fonte Montserrat sem serifa */
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #00cbff;
+            background-color: #007bff;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -25,7 +26,7 @@
 
         /* Cabeçalho */
         header {
-            background-color: #00cbff;
+            background-color: #007bff;
             padding: 20px 20px;
             border-bottom: 1px solid #fff;
             width: 100%;
@@ -47,8 +48,9 @@
 
         .search-bar {
             position: absolute;
-            left: 20px;
-            top: 30px;
+            left: 1590px;
+            top: 32px;
+            margin-left: 10px;
         }
 
         .search-bar input {
@@ -58,22 +60,34 @@
             border: none;
         }
 
+        .logo {
+            position: absolute;
+            left:30px;
+            top:28px;
+            font-size: 40px;
+            color: #fff;
+            font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bold;
+        }
+
         .user-photo {
             position: absolute;
-            right: 20px;
-            top: 30px;
+            right: 25px;
+            top: 25px;
+            object-fit: cover;
         }
 
         .user-photo img {
-            border-radius: 50%;
+            border-radius: 100%;
             width: 50px;
             height: 50px;
+            object-fit: cover;
         }
 
         .side-menu {
             width: 300px;
             height: calc(100vh - 100px);
-            background-color: #00cbff;
+            background-color: #007bff;
             position: fixed;
             top: 100px;
             left: 0;
@@ -109,12 +123,12 @@
         }
 
         .side-menu ul li a:hover {
-            background-color: #009bba;
+            background-color: #424be8;
             padding-left: 15px;
         }
 
         .side-menu ul li.active a {
-            background-color: #007b8b;
+            background-color: #424be8;
         }
 
         .timeline {
@@ -151,11 +165,14 @@
     </style>
 </head>
 <body>
+
     <header>
         <div class="header-container">
+            <div class="logo">Trinar</div>
+
             <div class="logo" style="flex: 1;"></div>
             <div class="search-bar">
-                <input type="text" placeholder="Buscar...">
+                <input type="text" placeholder="Pesquisa no Trinar">
             </div>
             <div class="user-photo">
                 <img src="{{ user.profile.profile_picture.url }}" alt="Foto do Usuário">
@@ -174,62 +191,10 @@
             <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy</a></li>
         </ul>
     </div>
-    {% block content %}
 
-    {% endblock %}
-
-    <!-- Timeline -->
-    <div class="timeline">
-        <!-- Adicionando mais posts para testar a rolagem -->
-        <div class="post">
-            <h2>Post 1</h2>
-            <p>Eu não sei vocês mas sei lá eu.</p>
-        </div>
-
-        <div class="post">
-            <h2>Post 2</h2>
-            <p>DEPOIS DAS 12 HORAS VOCE SOME E SALVA MEU CONTATO COM OUTRO NOME 🎵🎵🎵</p>
-        </div>
-
-        <div class="post">
-            <h2>Post 3</h2>
-            <p>vsf, sabe</p>
-        </div>
-
-        <div class="post">
-            <h2>Post 4</h2>
-            <p>pq eu sou incapaz de MANTER organizado? pq???????</p>
-        </div>
-
-        <div class="post">
-            <h2>Post 5</h2>
-            <p>EU ODEIO O PROCESSO DE VERTICALIZAÇÃO DO LITORAL COM TODAS AS MINHAS FORÇAS A BALNEARIO CAMBORIUZAÇÃO DA ORLA ME DEIXA MALUCO TIREM AS CONSTRUÇÕES DA MINHA PRAIA</p>
-        </div>
-
-        <div class="post">
-            <h2>Post 6</h2>
-            <p>Este post está aqui apenas para garantir que a rolagem vertical apareça quando necessário.</p>
-        </div>
-
-        <div class="post">
-            <h2>Post 7</h2>
-            <p>Outro exemplo. Com muitos posts, a rolagem deve funcionar agora!</p>
-        </div>
-
-        <div class="post">
-            <h2>Post 8</h2>
-            <p>Estamos adicionando mais conteúdo para garantir que o limite da timeline seja atingido e a rolagem funcione.</p>
-        </div>
-
-        <div class="post">
-            <h2>Post 9</h2>
-            <p>Este é o post 9, com o objetivo de garantir que a rolagem aconteça.</p>
-        </div>
-
-        <div class="post">
-            <h2>Post 10</h2>
-            <p>Post final para garantir que a rolagem vertical seja ativada com a quantidade suficiente de conteúdo.</p>
-        </div>
-    </div>
 </body>
 </html>
+
+{% block content %}
+
+{% endblock %}
