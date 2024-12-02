@@ -53,3 +53,22 @@ class UserRegistrationForm(forms.ModelForm):
             user_profile.save()
 
         return user
+
+
+class UserProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = [
+            'profile_picture', 'full_name', 'bio', 'locale', 'born'
+        ]
+        widgets = {
+            'full_name': forms.TextInput(attrs={'placeholder': 'full_name'}),
+            'bio': forms.Textarea(attrs={'placeholder': 'Tell us about yourself'}),
+            'locale': forms.TextInput(attrs={'plaaceholder': 'Location'}),
+            'born': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+
+class PostForm(forms.Form):
+    # Defina os campos do formulário aqui
+    field_name = forms.CharField(max_length=100)

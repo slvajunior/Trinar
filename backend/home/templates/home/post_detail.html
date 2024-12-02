@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalhes do Post</title>
+</head>
+<body>
+    <h1>{{ post.content }}</h1>
+    <p>Postado por: {{ post.user.username }}</p>
+    <p>Data: {{ post.created_at }}</p>
+
+    <a href="{% url 'home:index' %}">Voltar para a Home</a>
+</body>
+</html>

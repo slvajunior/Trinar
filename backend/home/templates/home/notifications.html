@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificações</title>
+</head>
+<body>
+    <h1>Notificações</h1>
+    <div class="notifications">
+        {% for notification in notifications %}
+            <div class="notification">
+                <h2>{{ notification.title }}</h2>
+                <p>{{ notification.description }}</p>
+                <small>{{ notification.created_at|date:"d/m/Y H:i" }}</small>
+            </div>
+        {% empty %}
+            <p>Não há notificações no momento.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
