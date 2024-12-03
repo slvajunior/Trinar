@@ -1,4 +1,3 @@
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -317,14 +316,16 @@
 
             <!-- Linha com a data da postagem -->
             <div class="post-footer">
-                <button 
-                    class="btn-like" 
-                    data-post-id="{{ post.id }}" 
-                    data-likes="{{ post.likes.count }}" 
-                    {% if post.user_has_liked %}style="color: red;"{% endif %}>
-                    <i class="fas fa-heart"></i> Curtir ({{ post.likes.count }})
-                    <button class="btn-repost"><i class="fas fa-retweet"></i> Repostar</button>
+                <button class="btn-like" 
+                        data-post-id="{{ post.id }}" 
+                        data-likes="{{ post.likes.count }}" 
+                        {% if post.user_has_liked %} style="color: red;" {% endif %}>
+                    <i class="fas fa-heart"></i> Curtir (<span class="like-count">{{ post.likes.count }}</span>)
                 </button>
+                <button class="btn-repost">
+                    <i class="fas fa-retweet"></i> Repostar
+                </button>
+
             </div>
             
         </div>
@@ -333,54 +334,61 @@
     </div>
 
 </body>
+
+
 <script>
-    
-    document.querySelectorAll('.btn-like').forEach(button => {
-        button.addEventListener('click', (event) => {
-            const postId = button.dataset.postId; // Obtém o id do post do botão
-            let likes = parseInt(button.dataset.likes || 0); // Pega o número de curtidas do botão
 
-            fetch(`/curtir/${postId}/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken') // CSRF token para segurança
-                },
-                body: JSON.stringify({ 'post_id': postId }) // Envia o id do post
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.likes !== undefined) {
-                        // Atualiza o contador de curtidas no botão
-                        button.dataset.likes = data.likes; // Atualiza o número de curtidas no atributo data-likes
-                        button.innerHTML = `<i class="fas fa-heart"></i> Curtir (${data.likes})`; // Mostra no botão
-                        button.style.color = 'red'; // Muda a cor para vermelho ao curtir
-                    } else {
-                        alert('Erro ao curtir o post');
-                    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const likeButtons = document.querySelectorAll('.btn-like');
+
+        likeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const postId = this.getAttribute('data-post-id');
+                const likeCountSpan = this.querySelector('.like-count');
+
+                fetch('/toggle-like/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCSRFToken(),
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `post_id=${postId}`
                 })
-                .catch(error => console.error('Erro ao enviar requisição:', error));
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error(data.error);
+                        } else {
+                            // Atualiza contagem de likes
+                            likeCountSpan.textContent = data.likes_count;
+
+                            // Muda a cor do botão
+                            if (data.user_has_liked) {
+                                button.style.color = 'red';
+                            } else {
+                                button.style.color = '';
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
         });
     });
 
-
-
-    document.querySelectorAll('.btn-repost').forEach(button => {
-        button.addEventListener('click', () => {
-            alert('Post retrinado com sucesso!'); // Mensagem temporária
-            button.innerHTML = `<i class="fas fa-retweet"></i> Retrinado`; // Atualiza o botão
-            button.style.color = 'green'; // Muda a cor
-        });
-    });
+    // Função para obter o CSRF token (se necessário)
+    function getCSRFToken() {
+        const cookieValue = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('csrftoken='))
+            ?.split('=')[1];
+        return cookieValue || '';
+    }
 
 </script>
+
 
 </html>
 
 {% block content %}
 
 {% endblock %}
-
-
-
-
