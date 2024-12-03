@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/users/login/'
 

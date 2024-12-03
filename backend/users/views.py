@@ -100,9 +100,9 @@ def create_post(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
-            post.location = location  
+            post.location = location
             post.save()
-            return redirect('home')  
+            return redirect('home:index')
     else:
         form = PostForm()
 
