@@ -184,7 +184,7 @@
     <div class="side-menu">
         <ul>
             <li><a href="{% url 'home:index' %}"><i class="fas fa-home"></i> Home Page</a></li>
-            <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+            <li><a href="{% url 'home:notifications' %}"><i class="fas fa-bell"></i> Notifications</a></li>
             <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
             <li><a href="{% url 'users:profile' %}"><i class="fas fa-user"></i> Profile</a></li> <!-- Alteração aqui -->
             <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
@@ -192,9 +192,12 @@
         </ul>
     </div>
 
-</body>
-</html>
 
 {% block content %}
 
 {% endblock %}
+
+</body>
+</html>
+
+

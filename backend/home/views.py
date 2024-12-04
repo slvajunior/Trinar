@@ -49,11 +49,24 @@ def toggle_like(request):
             post.likes.add(user)  # Curtir
             user_has_liked = True
 
+            create_like_notification(user, post)
+
         return JsonResponse(
             {"likes_count": post.likes.count(), "user_has_liked": user_has_liked}
         )
 
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+def create_like_notification(like_user, post):
+    # Cria uma notificação para o usuário que recebeu o like
+    notification = Notification.objects.create(
+        notification_type='like',
+        user=post.user,  # Quem recebeu o like
+        post=post,
+        like_user=like_user  # O usuário que deu o like
+    )
+    return notification
 
 
 @login_required
@@ -65,11 +78,12 @@ def post_detail(request, post_id):
 
 @login_required
 def notifications(request):
-    notifications = Notification.objects.all().order_by("-created_at")
-    return render(
-        request, "home/notifications.html", {
-            "notifications": notifications
-            })
+    notifications = Notification.objects.filter(user=request.user).order_by(
+        "-created_at"
+    )
+    print(f"Notificações: {notifications}")
+    return render(request, "home/notifications.html", {
+        "notifications": notifications})
 
 
 @login_required
@@ -90,4 +104,5 @@ def retrinar_post(request, post_id):
             "status": "success",
             "message": "Post retrinado com sucesso!",
             "contex": context,
-        })
+        }
+    )
