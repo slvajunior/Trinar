@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -7,6 +9,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/users/profile.css' %}">
+
     <title>Profile</title>
     <!-- Link para o Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -20,19 +24,20 @@
         <div style="display: flex; align-items: center; margin-bottom: 20px;">
             <!-- Foto do perfil -->
             <div style="flex-shrink: 0; width: 100px; height: 100px; margin-right: 20px;">
-                <img src="{{ user_profile.profile_picture.url }}" alt="Foto do Usuário" style="border-radius: 50%; width: 100%; height: 100%; object-fit: cover;">
+                <img class="avatar" src="{{ user_profile.profile_picture.url }}" alt="Foto do Usuário" style="border-radius: 50%; width: 100%; height: 100%; object-fit: cover;">
             </div>
 
             <!-- Informações do usuário -->
             <div>
-                <h2 style="margin: 0; font-size: 24px; font-weight: bold;">{{ request.user.username }}</h2>
-                <p style="margin: 5px 0; color: #666;">{{ user_profile.bio }}</p>
+                <h2 class="nome" style="margin: 0; font-size: 24px; font-weight: bold;">{{ request.user.username }}</h2>
+                <p class="info" style="margin: 5px 0; color: #666;">{{ user_profile.bio }}</p>
                 <p style="margin: 5px 0; color: #666;">
-                    <strong>Local:</strong> {{ user_profile.locale }} | 
-                    <strong>Born - </strong> {{ user_profile.birth_date }} | 
-                    <strong>Joined in - </strong> {{ date_joined|date:"d M Y" }}
+                    <strong><i class="fas fa-map-marker-alt"></i></strong> {{ user_profile.locale }}   
+                    <strong><i class="fas fa-birthday-cake"></i> Nascido(a) em </strong> {{ user_profile.born|date:"j F Y" }}  
+                    <strong>Ingressou em </strong> {{ date_joined|date:"j F Y" }}
                 </p>
             </div>
+
         </div>
 
         <!-- Botão de Editar Perfil -->
@@ -61,4 +66,5 @@
 </div>
 </head>
 </html>
+
 {% endblock %}
