@@ -1,0 +1,267 @@
+
+
+/* Usando a fonte Montserrat sem serifa */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #007bff;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #007bff;
+    padding: 20px 20px;
+    border-bottom: 1px solid #fff;
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.search-bar {
+    position: absolute;
+    left: 1510px;
+    top: 23px;
+    margin-left: 10px;
+}
+
+.search-bar input {
+    border-radius: 20px;
+    padding: 10px 15px;
+    width: 200px;
+    border: none;
+    font-size: 17px;
+    border-radius: 25px;
+    border: 4px solid #007bff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+
+
+}
+
+.logo {
+    position: absolute;
+    left: 30px;
+    top: 28px;
+    font-size: 40px;
+    color: #fff;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+}
+
+.user-photo {
+    right: 40px;
+    top: 13px;
+    object-fit: cover;
+    position: absolute;
+}
+
+.user-photo img {
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 4px solid #007bff;
+    object-fit: cover;
+    padding: 0.5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); 
+
+}
+
+.side-menu {
+    width: 320px;
+    height: calc(100vh - 100px);
+    background-color: #007bff;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    border-right: 1px solid #fff;
+    z-index: 1;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.side-menu ul li {
+    margin-bottom: 15px;
+}
+
+.side-menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+.side-menu ul li a i {
+    margin-right: 10px;
+}
+
+/* hover da responsiva: menu lateral*/
+.side-menu ul li a:hover {
+    background-color: #2833f7;
+    padding-left: 15px;
+}
+
+.side-menu ul li.active a {
+    background-color: #2833f7;
+}
+
+.timeline {
+    margin-left: 320px;
+    padding: 20px;
+    width: 37.5%;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    margin-top: 100px;
+}
+
+.post {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.post .user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.post .user-info img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    object-fit: cover;
+    border: 3px solid #007bff;
+    object-fit: cover;
+    padding: 0.5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); 
+}
+
+.post h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.post p {
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+/* Formulário de postagem */
+.post-form {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.post-form textarea {
+    width: 90%;
+    height: 90px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    resize: none;
+    margin-bottom: 15px;
+}
+
+.post-form button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post-form button:hover {
+    background-color: #0056b3;
+}
+
+/*EXIF de postagens dd/mm/aaaa*/
+.post {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    /* Alinha os elementos de cima para baixo */
+}
+
+.post .post-date {
+    color: rgb(92, 91, 91);
+    font-size: 13px;
+    margin-top: auto;
+    /* Faz a data ficar no final do post */
+    margin-top: 13px;
+    margin-left: 3px;
+    /* Adiciona um pequeno espaço entre o conteúdo e a data */
+}
+
+/*Botões de curtir e retrinar*/
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.btn-repost,
+.btn-like {
+    background-color: #f5f5f5;
+    color: #333;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-repost:hover,
+.btn-like:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-repost i,
+.btn-like i {
+    margin-right: 5px;
+}

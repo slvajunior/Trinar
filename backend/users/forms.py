@@ -62,9 +62,9 @@ class UserProfileEditForm(forms.ModelForm):
             'profile_picture', 'full_name', 'bio', 'locale', 'born'
         ]
         widgets = {
-            'full_name': forms.TextInput(attrs={'placeholder': 'full_name'}),
+            'full_name': forms.TextInput(attrs={'placeholder': 'Full Name'}),
             'bio': forms.Textarea(attrs={'placeholder': 'Tell us about yourself'}),
-            'locale': forms.TextInput(attrs={'plaaceholder': 'Location'}),
+            'locale': forms.TextInput(attrs={'placeholder': 'Location'}),
             'born': forms.DateInput(attrs={'type': 'date'}),
         }
 

@@ -10,4 +10,5 @@ urlpatterns = [
     path("post_detail/<int:post_id>/", views.post_detail, name="post_detail"),
     path('notifications/', views.notifications, name='notifications'),
     path("toggle-like/", views.toggle_like, name="toggle_like"),
+    path('search/', views.search, name='search'),
 ]

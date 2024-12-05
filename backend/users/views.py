@@ -41,10 +41,10 @@ def logout_view(request):
 
 @login_required
 def profile(request):
+    # Obtendo o perfil do usuário logado
     user_profile = UserProfile.objects.get(user=request.user)
 
-    #  obitendo os posts do usuário logado
-
+    # Obtendo os posts do usuário logado
     user_posts = Post.objects.filter(user=request.user).order_by("-created_at")
 
     return render(
@@ -54,6 +54,7 @@ def profile(request):
             "user_profile": user_profile,
             "user_posts": user_posts,
             "date_joined": request.user.date_joined,
+            "born": user_profile.born,
         },
     )
 
@@ -61,16 +62,17 @@ def profile(request):
 @login_required
 def edit_profile(request):
     try:
-        user_profile = request.user.profile  
+        user_profile = request.user.profile
     except UserProfile.DoesNotExist:
         user_profile = UserProfile.objects.create(user=request.user)
 
     if request.method == 'POST':
         form = UserProfileEditForm(
-            request.POST, 
-            request.FILES, 
+            request.POST,
+            request.FILES,
             instance=user_profile
         )
+
         if form.is_valid():
             form.save()
             return redirect('users:profile')

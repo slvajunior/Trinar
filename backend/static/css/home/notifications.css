@@ -1,0 +1,112 @@
+.notifications-wrapper {
+    max-height: 400px;
+    /* Altura máxima permitida */
+    overflow-y: auto;
+    /* Habilita o scroll vertical */
+    padding: 2px;
+    /* Espaçamento interno opcional */
+    border: 0.5px solid #ccc;
+    /* Opcional: borda para delimitar o espaço */
+    background-color: whitesmoke;
+    /* Cor de fundo opcional */
+    border-radius: 5px;
+    /* Borda arredondada opcional */
+}
+
+/* Responsável por colocar o conteúdo ao lado do menu lateral */
+.content-wrapper {
+    max-width: 630px;
+    margin-left: 320px;
+    margin-top: 120px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+    /* Garante que fique acima do fundo, mas abaixo do cabeçalho */
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tab:hover {
+    background-color: #f0f0f0;
+}
+
+.tab.active {
+    font-weight: bold;
+    color: #fff;
+    background-color: #007BFF;
+    border-radius: 5px 5px 0 0;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.notification-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.notification-item p {
+    margin: 0;
+}
+
+.notification-time {
+    font-size: 0.9em;
+    color: gray;
+}
+
+.content-wrapper {
+    max-width: 650px;
+    margin-left: 320px;
+    margin-top: 120px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+    height: 80vh;
+    /* Ajuste conforme necessário */
+    overflow: hidden;
+    /* Impede a rolagem da área toda */
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.tab-content {
+    max-height: calc(80vh - 60px);
+    /* Altura máxima para o conteúdo das notificações */
+    overflow-y: auto;
+    /* Barra de rolagem apenas para o conteúdo das notificações */
+    padding-right: 10px;
+    /* Evita que a rolagem vá até a borda */
+}
+
+.tab-content .notification-item {
+    margin-bottom: 15px;
+}

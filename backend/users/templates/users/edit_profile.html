@@ -1,66 +1,74 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
+
 <div class="timeline">
     <!-- Cabeçalho de Edição do Perfil -->
-    <div class="profile-header" style="background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); position: relative;">
-        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+    <div class="profile-header">
+        <div style="display: flex; align-items: center;">
             <!-- Foto do perfil -->
             <div style="flex-shrink: 0; width: 100px; height: 100px; margin-right: 20px;">
-                <img src="{{ user.profile.profile_picture.url }}" alt="Foto do Usuário" style="border-radius: 50%; width: 100%; height: 100%; object-fit: cover;">
+                <img src="{{ user.profile.profile_picture.url }}" alt="Foto do Usuário">
             </div>
+
+            <link rel="stylesheet" href="{% static 'css/users/edit_profile.css' %}">
 
             <!-- Informações do usuário -->
             <div>
-                <h2 style="margin: 0; font-size: 24px; font-weight: bold;">Editar Perfil de {{ user.get_full_name }}</h2>
+                <h2>Editar Perfil de {{ user.get_username }}</h2>
             </div>
         </div>
     </div>
 
     <!-- Formulário de Edição de Perfil -->
-    <div class="edit-profile-form" style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-top: 30px;">
-        <h3 style="font-size: 22px; font-weight: bold; margin-bottom: 20px;">Editar Informações</h3>
+    <div class="edit-profile-form">
+        <h3>Editar Informações</h3>
 
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            
+
             <!-- Nome Completo -->
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="full_name" style="font-size: 16px; font-weight: bold;">Nome Completo</label>
-                <input type="text" id="full_name" name="full_name" value="{{ user.get_username }}" class="form-control" style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+            <div class="form-group">
+                <label for="full_name">Nome Completo</label>
+                <input type="text" id="full_name" name="full_name" value="{{ user.get_username }}" class="form-control">
             </div>
 
             <!-- Bio -->
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="bio" style="font-size: 16px; font-weight: bold;">Bio</label>
-                <textarea id="bio" name="bio" rows="4" class="form-control" style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">{{ user.profile.bio }}</textarea>
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" rows="4" class="form-control">{{ user.profile.bio }}</textarea>
             </div>
 
             <!-- Localização -->
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="location" style="font-size: 16px; font-weight: bold;">Localização</label>
-                <input type="text" id="location" name="location" value="{{ user.profile.locale }}" class="form-control" style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+            <div class="form-group">
+                <label for="location">Localização</label>
+                <input type="text" id="locale" name="locale" value="{{ user.profile.locale }}" class="form-control">
             </div>
 
             <!-- Data de Nascimento -->
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="birth_date" style="font-size: 16px; font-weight: bold;">Data de Nascimento</label>
-                <input type="date" id="birth_date" name="birth_date" value="{{ user.profile.birth_date }}" class="form-control" style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+            <div class="form-group">
+                <label for="birth_date">Data de Nascimento</label>
+                {{ form.born }}
             </div>
-
+            
             <!-- Foto de Perfil -->
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label for="profile_picture" style="font-size: 16px; font-weight: bold;">Alterar Foto de Perfil</label>
-                <input type="file" id="profile_picture" name="profile_picture" class="form-control" style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+            <div class="form-group">
+                <label for="profile_picture">Alterar Foto de Perfil</label>
+                <input type="file" id="profile_picture" name="profile_picture" class="form-control">
             </div>
 
             <!-- Botão de Enviar -->
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" style="background-color: #007bff; border: none; padding: 10px 20px; font-size: 16px; color: white; border-radius: 5px;">
+                <button type="submit" class="btn btn-primary">
                     Salvar Alterações
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+
+
 {% endblock %}

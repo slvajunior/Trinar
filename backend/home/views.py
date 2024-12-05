@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .models import Notification
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 
 
 @login_required
@@ -106,3 +107,16 @@ def retrinar_post(request, post_id):
             "contex": context,
         }
     )
+
+
+def search(request):
+    query = request.GET.get('q', '')
+    users = User.objects.filter(username__icontains=query)[:5] 
+    posts = Post.objects.filter(text__icontains=query)[:5] 
+
+    user_results = [{"username": user.username, "id": user.id} for user in users]
+    post_results = [{"text": post.text[:100], "id": post.id} for post in posts]
+
+    results = {"users": user_results, "posts": post_results}
+
+    return JsonResponse(results)
