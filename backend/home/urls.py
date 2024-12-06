@@ -11,4 +11,8 @@ urlpatterns = [
     path('notifications/', views.notifications, name='notifications'),
     path("toggle-like/", views.toggle_like, name="toggle_like"),
     path('search/', views.search, name='search'),
+    path('follow/<int:user_id>/', views.follow_user, name='follow_user'),
+    path('unfollow/<int:user_id>/', views.unfollow_user, name='unfollow_user'),
+    path('followers/', views.followers_list, name='followers_list'),
+
 ]
