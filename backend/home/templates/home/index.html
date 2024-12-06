@@ -4,52 +4,47 @@
 
 {% block content %}
 
-    <div class="timeline">
-        <!-- Formulário de postagem -->
-        <div class="post-form">
-            <form method="POST" action="{% url 'home:post' %}">
-                {% csrf_token %}
-                <textarea name="content" placeholder="O que está acontecendo?"></textarea>
-                <button type="submit">Postar</button>
-            </form>
-        </div>
-
-        <!-- Exibição das postagens -->
-        {% for post in posts %}
-        <div class="post">
-            <div class="user-info">
-                <img src="{{ post.user.profile.profile_picture.url }}" alt="Foto do Usuário">
-                <h2>{{ post.user.username }}</h2>
-                <p class="post-date"> @{{ post.user.username }}  </p>
-                <p class="post-date"> - {{ post.created_at|date:"d M Y" }} </p>
-
-            </div>
-            <p>{{ post.content|linebreaksbr }}</p>
-
-            <!-- Linha com a data da postagem -->
-            <div class="post-footer">
-                <button class="btn-like" 
-                        data-post-id="{{ post.id }}" 
-                        data-likes="{{ post.likes.count }}" 
-                        {% if post.user_has_liked %} style="color: red;" {% endif %}>
-                    <i class="fas fa-heart"></i> Curtir (<span class="like-count">{{ post.likes.count }}</span>)
-                </button>
-                <button class="btn-repost">
-                    <i class="fas fa-retweet"></i> Repostar
-                </button>
-
-            </div>
-            
-        </div>
-        {% endfor %}
-
+<div class="timeline">
+    <!-- Formulário de postagem -->
+    <div class="post-form">
+        <form method="POST" action="{% url 'home:post' %}">
+            {% csrf_token %}
+            <textarea name="content" placeholder="O que está acontecendo?"></textarea>
+            <button type="submit">Postar</button>
+        </form>
     </div>
 
-</body>
+    <!-- Exibição das postagens -->
+    {% for post in posts %}
+    <div class="post">
+        <div class="user-info">
+            <!-- Tornando a foto de perfil clicável -->
+            <a href="{% url 'users:micro_profile' post.user.username %}">
+                <img src="{{ post.user.profile.profile_picture.url }}" alt="Foto do Usuário" class="profile-picture">
+            </a>
+            <h2>{{ post.user.username }}</h2>
+            <p class="post-date">@{{ post.user.username }}</p>
+            <p class="post-date">- {{ post.created_at|date:"d M Y" }}</p>
+        </div>
+        <p>{{ post.content|linebreaksbr }}</p>
 
+        <!-- Linha com a data da postagem -->
+        <div class="post-footer">
+            <button class="btn-like" 
+                    data-post-id="{{ post.id }}" 
+                    data-likes="{{ post.likes.count }}" 
+                    {% if post.user_has_liked %} style="color: red;" {% endif %}>
+                <i class="fas fa-heart"></i> Curtir (<span class="like-count">{{ post.likes.count }}</span>)
+            </button>
+            <button class="btn-repost">
+                <i class="fas fa-retweet"></i> Repostar
+            </button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 <script>
-
     document.addEventListener('DOMContentLoaded', function () {
         const likeButtons = document.querySelectorAll('.btn-like');
 
@@ -95,10 +90,6 @@
             ?.split('=')[1];
         return cookieValue || '';
     }
-
 </script>
-
-
-</html>
 
 {% endblock %}

@@ -1,0 +1,8 @@
+<h1>Seus Seguidores</h1>
+<ul>
+    {% for follow in followers %}
+        <li>{{ follow.follower.username }}</li>
+    {% empty %}
+        <p>Você ainda não tem seguidores.</p>
+    {% endfor %}
+</ul>

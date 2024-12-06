@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from .models import Notification
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from .models import Follow
+from django.contrib.auth import get_user_model
 
 
 @login_required
@@ -62,10 +64,10 @@ def toggle_like(request):
 def create_like_notification(like_user, post):
     # Cria uma notificação para o usuário que recebeu o like
     notification = Notification.objects.create(
-        notification_type='like',
+        notification_type="like",
         user=post.user,  # Quem recebeu o like
         post=post,
-        like_user=like_user  # O usuário que deu o like
+        like_user=like_user,  # O usuário que deu o like
     )
     return notification
 
@@ -84,7 +86,9 @@ def notifications(request):
     )
     print(f"Notificações: {notifications}")
     return render(request, "home/notifications.html", {
-        "notifications": notifications})
+        "notifications": notifications
+        }
+    )
 
 
 @login_required
@@ -110,9 +114,9 @@ def retrinar_post(request, post_id):
 
 
 def search(request):
-    query = request.GET.get('q', '')
-    users = User.objects.filter(username__icontains=query)[:5] 
-    posts = Post.objects.filter(text__icontains=query)[:5] 
+    query = request.GET.get("q", "")
+    users = User.objects.filter(username__icontains=query)[:5]
+    posts = Post.objects.filter(text__icontains=query)[:5]
 
     user_results = [{"username": user.username, "id": user.id} for user in users]
     post_results = [{"text": post.text[:100], "id": post.id} for post in posts]
@@ -120,3 +124,40 @@ def search(request):
     results = {"users": user_results, "posts": post_results}
 
     return JsonResponse(results)
+
+
+@login_required
+def follow_user(request, user_id):
+    if request.method == "POST":
+        target_user = get_object_or_404(get_user_model(), id=user_id)
+
+        # Verificar se já existe um relacionamento de seguir
+        if not Follow.objects.filter(
+            follower=request.user, following=target_user
+        ).exists():
+            # Criar o relacionamento de seguir
+            Follow.objects.create(follower=request.user, following=target_user)
+
+            # Criar a notificação para "seguir"
+            Notification.objects.create(
+                notification_type="follow",
+                user=target_user,  # Quem está recebendo a notificação
+                follower=request.user,  # Quem começou a seguir
+            )
+
+        return redirect("users:profile", username=target_user.username)
+
+
+@login_required
+def unfollow_user(request, user_id):
+    user_to_unfollow = get_object_or_404(get_user_model(), id=user_id)
+    Follow.objects.filter(
+        follower=request.user,
+        following=user_to_unfollow).delete()
+    return redirect("users:profile", username=user_to_unfollow.username)
+
+
+@login_required
+def followers_list(request):
+    followers = Follow.objects.filter(following=request.user)
+    return render(request, "users/followers_list.html", {"followers": followers})

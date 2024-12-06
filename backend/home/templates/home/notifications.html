@@ -9,11 +9,11 @@
     <div class="tabs">
         <div class="tab active" onclick="showTab('all')">Tudo</div>
         <div class="tab" onclick="showTab('mentions')">Menções</div>
+        <div class="tab" onclick="showTab('followers')">Seguidores</div>
     </div>
 
-    <!-- Link para carregar o css -->
+    <!-- Link para carregar o CSS -->
     <link rel="stylesheet" href="{% static 'css/home/notifications.css' %}">
-
 
     <h1>Notificações</h1>
 
@@ -22,8 +22,15 @@
         <ul>
             {% for notification in notifications %}
             <li>
+                {% if notification.notification_type == "like" %}
                 <strong>{{ notification.like_user.username }}</strong> 🖒 curtiu a postagem
                 "<em>{{ notification.post.content|slice:":30" }}</em>"
+                {% elif notification.notification_type == "mention" %}
+                <strong>{{ notification.trigger_user.username }}</strong> mencionou você em
+                "<em>{{ notification.post.content|slice:":30" }}</em>"
+                {% elif notification.notification_type == "follow" %}
+                <strong>{{ notification.follower.username }}</strong> começou a seguir você.
+                {% endif %}
                 <br>
                 <small>{{ notification.created_at|timesince }} atrás</small>
             </li>
@@ -37,18 +44,35 @@
     <!-- Conteúdo das menções -->
     <div class="tab-content" id="mentions">
         <h2>Menções</h2>
-        {% for notification in mentions %}
+        {% for notification in notifications %}
+        {% if notification.notification_type == "mention" %}
         <div class="notification-item">
-            <p>{{ notification.content }}</p>
-            <span class="notification-time">{{ notification.created_at }}</span>
+            <p><strong>{{ notification.trigger_user.username }}</strong> mencionou você em uma postagem.</p>
+            <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
         </div>
+        {% endif %}
         {% empty %}
         <p>Você não tem menções.</p>
         {% endfor %}
     </div>
+
+    <!-- Conteúdo dos seguidores -->
+    <div class="tab-content" id="followers">
+        <h2>Novos Seguidores</h2>
+        {% for notification in notifications %}
+        {% if notification.notification_type == "follow" %}
+        <div class="notification-item">
+            <p><strong>{{ notification.follower.username }}</strong> começou a seguir você.</p>
+            <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+        </div>
+        {% endif %}
+        {% empty %}
+        <p>Você não tem novos seguidores.</p>
+        {% endfor %}
+    </div>
 </div>
 
-<!-- Script de funcionamento -->>
+<!-- Script de funcionamento -->
 <script>
     function showTab(tabId) {
         // Remove a classe 'active' de todas as abas e conteúdos
@@ -59,4 +83,5 @@
         document.getElementById(tabId).classList.add('active');
     }
 </script>
+
 {% endblock %}
