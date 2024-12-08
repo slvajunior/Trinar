@@ -6,8 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <title>Home Page</title>
     <!-- Link para o Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- Link para a fonte Montserrat -->
@@ -17,7 +18,7 @@
 
 <body>
     
-    <!-- Cabeçalho padrão -->>
+    <!-- Cabeçalho padrão -->
     <header>
         <div class="header-container">
             <div class="logo">triᴎar</div>
@@ -38,7 +39,7 @@
             <li><a href="{% url 'home:index' %}"><i class="fas fa-home"></i> Home Page</a></li>
             <li><a href="{% url 'home:notifications' %}"><i class="fas fa-bell"></i> Notifications</a></li>
             <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
-            <li><a href="{% url 'users:profile' username=request.user.username %}"><i class="fas fa-user"></i> Profile</a></li> <!-- Alteração aqui -->
+            <li><a href="{% url 'users:profile' username=request.user.username %}"><i class="fas fa-user"></i> Profile</a></li> 
             <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
             <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy</a></li>
         </ul>

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% load static %}
 
@@ -7,81 +7,112 @@
 <div class="content-wrapper">
     <!-- Abas -->
     <div class="tabs">
-        <div class="tab active" onclick="showTab('all')">Tudo</div>
+        <div class="tab active" onclick="showTab('all')">Tudo</div> <!-- Mudou de 'likes' para 'all' -->
+        <div class="tab" onclick="showTab('likes')">Curtidas</div> <!-- Agora 'likes' vem depois de 'all' -->
+        <div class="tab" onclick="showTab('reposts')">Retrinados</div>
+        <div class="tab" onclick="showTab('comments')">Comentários</div>
+        <!-- Adicionando a aba 'Menções' -->
         <div class="tab" onclick="showTab('mentions')">Menções</div>
-        <div class="tab" onclick="showTab('followers')">Seguidores</div>
     </div>
-
-    <!-- Link para carregar o CSS -->
-    <link rel="stylesheet" href="{% static 'css/home/notifications.css' %}">
 
     <h1>Notificações</h1>
 
     {% if notifications %}
-    <div class="notifications-wrapper">
-        <ul>
+    <!-- Envolvendo o conteúdo das notificações com a classe 'notification-wrapper' para aplicar a rolagem -->
+    <div class="notification-wrapper">
+        <!-- Conteúdo geral (agora a aba 'Tudo' será a primeira e estará ativa) -->
+        <div class="tab-content active" id="all">
+            <h2>Tudo</h2>
             {% for notification in notifications %}
-            <li>
+            <div class="notification-item">
                 {% if notification.notification_type == "like" %}
-                <strong>{{ notification.like_user.username }}</strong> 🖒 curtiu a postagem
-                "<em>{{ notification.post.content|slice:":30" }}</em>"
-                {% elif notification.notification_type == "mention" %}
-                <strong>{{ notification.trigger_user.username }}</strong> mencionou você em
-                "<em>{{ notification.post.content|slice:":30" }}</em>"
+                <p><strong>{{ notification.like_user.username }}</strong> curtiu o seu post.</p>
+                {% elif notification.notification_type == "repost" %}
+                <p>Seu post foi repostado por <strong>{{ notification.repost_user.username }}</strong>.</p>
                 {% elif notification.notification_type == "follow" %}
-                <strong>{{ notification.follower.username }}</strong> começou a seguir você.
+                <p><strong>{{ notification.follower.username }}</strong> começou a seguir você.</p>
+                {% elif notification.notification_type == "mention" %}
+                <!-- Exibindo as menções -->
+                <p><strong>{{ notification.mention_user.username }}</strong> mencionou você em um post.</p>
                 {% endif %}
-                <br>
-                <small>{{ notification.created_at|timesince }} atrás</small>
-            </li>
+                <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
+
+        <!-- Conteúdo das curtidas -->
+        <div class="tab-content" id="likes">
+            <h2>Curtidas</h2>
+            {% for notification in notifications %}
+            {% if notification.notification_type == "like" %}
+            <div class="notification-item">
+                <p><strong>{{ notification.like_user.username }}</strong> curtiu o seu post.</p>
+                <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Conteúdo dos retrinados -->
+        <div class="tab-content" id="reposts">
+            <h2>Retrinados</h2>
+            {% for notification in notifications %}
+            {% if notification.notification_type == "repost" %}
+            <div class="notification-item">
+                <p>Seu post foi repostado por <strong>{{ notification.repost_user.username }}</strong>.</p>
+                <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Conteúdo dos comentários -->
+        <div class="tab-content" id="comments">
+            <h2>Comentários</h2>
+            <p>Funcionalidade de comentários ainda não implementada.</p>
+        </div>
+
+        <!-- Conteúdo das menções -->
+        <div class="tab-content" id="mentions">
+            <h2>Menções</h2>
+            <p>Funcionalidade ainda não implementada</p>
+            {% for notification in notifications %}
+            {% if notification.notification_type == "mention" %}
+            <div class="notification-item">
+                <p><strong>{{ notification.mention_user.username }}</strong> mencionou você em um post.</p>
+                <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
     </div>
     {% else %}
     <p>Você não tem notificações.</p>
     {% endif %}
-
-    <!-- Conteúdo das menções -->
-    <div class="tab-content" id="mentions">
-        <h2>Menções</h2>
-        {% for notification in notifications %}
-        {% if notification.notification_type == "mention" %}
-        <div class="notification-item">
-            <p><strong>{{ notification.trigger_user.username }}</strong> mencionou você em uma postagem.</p>
-            <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
-        </div>
-        {% endif %}
-        {% empty %}
-        <p>Você não tem menções.</p>
-        {% endfor %}
-    </div>
-
-    <!-- Conteúdo dos seguidores -->
-    <div class="tab-content" id="followers">
-        <h2>Novos Seguidores</h2>
-        {% for notification in notifications %}
-        {% if notification.notification_type == "follow" %}
-        <div class="notification-item">
-            <p><strong>{{ notification.follower.username }}</strong> começou a seguir você.</p>
-            <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
-        </div>
-        {% endif %}
-        {% empty %}
-        <p>Você não tem novos seguidores.</p>
-        {% endfor %}
-    </div>
 </div>
 
 <!-- Script de funcionamento -->
 <script>
     function showTab(tabId) {
-        // Remove a classe 'active' de todas as abas e conteúdos
-        document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active'));
+        // Oculta todas as abas
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
 
-        // Adiciona a classe 'active' na aba e no conteúdo selecionado
-        document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+        // Remove a classe 'active' de todas as abas
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Exibe a aba selecionada
         document.getElementById(tabId).classList.add('active');
+
+        // Ativa a aba correspondente
+        document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
     }
 </script>
+
+<!-- Link para o CSS -->
+<link rel="stylesheet" href="{% static 'css/home/notifications.css' %}">
 
 {% endblock %}

@@ -12,6 +12,7 @@ class Notification(models.Model):
         ("comment", "Comment"),
         ("mention", "Mention"),
         ("follow", "Follow"),
+        ("repost", "Repost"),
         # outros tipos...
     ]
     notification_type = models.CharField(
@@ -37,15 +38,24 @@ class Notification(models.Model):
         blank=True,
     )
 
+    repost_user = models.ForeignKey(  # Novo campo
+        User,
+        on_delete=models.CASCADE,
+        related_name="reposts_notifications",
+        null=True,
+        blank=True,
+    )
+
     def __str__(self):
-        if self.like_user:
+        if self.notification_type == "like" and self.like_user:
             return f"{self.like_user.username} curtiu seu post '{
                 self.post.text[:30]}...'"
-        elif self.follower:
+        elif self.notification_type == "follow" and self.follower:
             return f"{self.follower.username} começou a seguir você."
+        elif self.notification_type == "repost":
+            return f"Seu post foi repostado por {self.user.username}."
         else:
-            return f"Erro: Like sem usuário associado no post '{
-                self.post.text[:30]}...'"
+            return "Erro na notificação."
 
 
 class Follow(models.Model):
