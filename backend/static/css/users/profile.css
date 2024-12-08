@@ -1,54 +1,102 @@
-strong {
-    font-size: 17px;
-    padding: auto;
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start; /* Posiciona os elementos à esquerda */
+    align-items: flex-start;
+    background-color: #007bff;
+    margin-top: 120px;
+    margin-left: 340px;
+
 }
 
-div.profile-header {
-    height: 170px;
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    margin: 0;
 }
 
-p.info {
-    height: 30px;
-    font-size: 17px;
-    margin-top: 10px;
+.profile-header {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
-a.edit-profile-btn {
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 145px;
-    border: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+.profile-header .user-info {
+    display: flex;
+    align-items: center;
 }
 
-a.edit-profile-btn:hover{
-    background-color: #fafbfc; /* Cor de fundo no hover */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Sombra maior no hover */
-    transform: scale(1.05); /* Efeito de "crescer" no hover */
-}
-
-a.edit-profile-btn:active{
-    background-color: #e0e0e1; /* Cor de fundo no clique */
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Reduz sombra no clique */
-    transform: scale(0.95); /* Efeito de "encolher" no clique */
-}
-
-h2{
-    margin-top: 10px;
-}
-
-img.avatar {
-    border-radius: 100%;
+.profile-header .user-info .user-picture {
+    flex-shrink: 0;
     width: 100px;
     height: 100px;
-    margin-left: -6px;
-    margin-top: -3px;
-    border: 4px solid #7d7d7d;
-    object-fit: cover;
-    padding: 1px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
-
+    margin-right: 20px;
 }
 
+.profile-header .user-info .user-details {
+    flex-grow: 1;
+}
+
+.profile-header .user-info .buttons {
+    text-align: right;
+}
+
+.profile-header .followers-count {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.user-posts-history {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.posts .post {
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Botões */
+
+.btn-primary {
+    margin-top: 110px;
+    font-size: 14px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-danger {
+    margin-top: 110px;
+    font-size: 14px;
+    padding: 8px 12px;
+    background-color: #ff4d4d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover,
+.btn-danger:hover {
+    opacity: 0.9;
+}

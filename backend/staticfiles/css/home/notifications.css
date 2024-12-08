@@ -1,0 +1,18 @@
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab {
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+    font-weight: bold;
+    border-color: #007BFF; /* Cor de destaque */
+}

@@ -23,11 +23,28 @@ def index(request):
 @login_required
 def post(request):
     if request.method == "POST":
-        # Pega o conteúdo da postagem
-        post_content = request.POST.get("content")
+        # Verifica se é um repost
+        original_post_id = request.POST.get("original_post_id")
+        if original_post_id:
+            # Tenta encontrar o post original
+            original_post = get_object_or_404(Post, id=original_post_id)
+            # Cria um novo post com referência ao post original
+            Post.objects.create(  # Criação direta sem a variável new_post
+                user=request.user, original_post=original_post
+            )
 
+            # Cria a notificação para o autor do post original
+            Notification.objects.create(
+                notification_type="repost",
+                user=original_post.user,  # Destinatário: autor do post original
+                post=original_post,
+                repost_user=request.user,  # Quem repostou
+            )
+            return redirect("home:index")
+
+        # Caso seja um novo post
+        post_content = request.POST.get("content")
         if post_content:  # Verifica se o conteúdo não está vazio
-            # Cria o post e salva no banco de dados
             Post.objects.create(content=post_content, user=request.user)
             return redirect("home:index")
         else:
@@ -35,7 +52,7 @@ def post(request):
                 "O conteúdo da postagem não pode ser vazio.", status=400
             )
 
-    return render(request, "home/post_form.html")
+    return render(request, "home/index.html")
 
 
 @csrf_exempt  # Se você estiver usando Ajax e não enviar CSRF token
@@ -85,10 +102,8 @@ def notifications(request):
         "-created_at"
     )
     print(f"Notificações: {notifications}")
-    return render(request, "home/notifications.html", {
-        "notifications": notifications
-        }
-    )
+    return render(
+        request, "home/notifications.html", {"notifications": notifications})
 
 
 @login_required

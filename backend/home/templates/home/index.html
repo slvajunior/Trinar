@@ -18,7 +18,6 @@
     {% for post in posts %}
     <div class="post">
         <div class="user-info">
-            <!-- Tornando a foto de perfil clicável -->
             <a href="{% url 'users:micro_profile' post.user.username %}">
                 <img src="{{ post.user.profile.profile_picture.url }}" alt="Foto do Usuário" class="profile-picture">
             </a>
@@ -26,7 +25,18 @@
             <p class="post-date">@{{ post.user.username }}</p>
             <p class="post-date">- {{ post.created_at|date:"d M Y" }}</p>
         </div>
+        
+        <!-- Exibição do conteúdo ou referência ao post original -->
+        {% if post.original_post %}
+        <p class="repost-info">
+            <strong>Repostou de <a href="{% url 'users:micro_profile' post.original_post.user.username %}"> </strong>
+                {{ post.original_post.user.username }}
+            </a>
+        </p>
+        <p>{{ post.original_post.content|linebreaksbr }}</p>
+        {% else %}
         <p>{{ post.content|linebreaksbr }}</p>
+        {% endif %}
 
         <!-- Linha com a data da postagem -->
         <div class="post-footer">
@@ -36,9 +46,13 @@
                     {% if post.user_has_liked %} style="color: red;" {% endif %}>
                 <i class="fas fa-heart"></i> Curtir (<span class="like-count">{{ post.likes.count }}</span>)
             </button>
-            <button class="btn-repost">
-                <i class="fas fa-retweet"></i> Repostar
-            </button>
+            <form method="POST" action="{% url 'home:post' %}" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="original_post_id" value="{{ post.id }}">
+                <button type="submit" class="btn-repost">
+                    <i class="fas fa-retweet"></i> Repostar
+                </button>
+            </form>
         </div>
     </div>
     {% endfor %}
