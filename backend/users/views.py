@@ -10,6 +10,7 @@ import requests
 from .forms import PostForm
 from home.models import Follow
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 
 
 def register(request):
@@ -149,12 +150,13 @@ def edit_profile(request):
 
     if request.method == "POST":
         form = UserProfileEditForm(
-            request.POST, request.FILES, instance=user_profile)
+            request.POST, request.FILES, instance=user_profile, user=request.user)
 
         if form.is_valid():
             form.save()
+            messages.success(request, "Perfil atualizado com sucesso!")
             return redirect("users:profile", username=request.user.username)
     else:
-        form = UserProfileEditForm(instance=user_profile)
+        form = UserProfileEditForm(instance=user_profile, user=request.user)
 
     return render(request, "users/edit_profile.html", {"form": form})

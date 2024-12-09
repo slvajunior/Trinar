@@ -26,17 +26,32 @@
             <p class="post-date">- {{ post.created_at|date:"d M Y" }}</p>
         </div>
         
-        <!-- Exibição do conteúdo ou referência ao post original -->
-        {% if post.original_post %}
-        <p class="repost-info">
-            <strong>Repostou de <a href="{% url 'users:micro_profile' post.original_post.user.username %}"> </strong>
-                {{ post.original_post.user.username }}
-            </a>
-        </p>
-        <p>{{ post.original_post.content|linebreaksbr }}</p>
-        {% else %}
-        <p>{{ post.content|linebreaksbr }}</p>
-        {% endif %}
+
+
+<!-- Exibição do conteúdo ou referência ao post original -->
+{% if post.original_post %}
+    <p class="repost-info">
+        <strong>Repostou de</strong> 
+        <a href="{% url 'users:micro_profile' post.original_post.user.username %}"> 
+            {{ post.original_post.user.username }}
+        </a>
+    </p>
+    {% if post.original_post.is_html %}
+        <p>{{ post.original_post.content|safe|linebreaksbr }}</p>
+    {% else %}
+        <p>{{ post.original_post.content|urlize|linebreaksbr|safe }}</p>
+    {% endif %}
+{% else %}
+    {% if post.is_html %}
+        <p>{{ post.content|safe|linebreaksbr }}</p>
+    {% else %}
+        <p>{{ post.content|urlize|linebreaksbr|safe }}</p>
+    {% endif %}
+{% endif %}
+
+
+
+
 
         <!-- Linha com a data da postagem -->
         <div class="post-footer">

@@ -56,6 +56,12 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 class UserProfileEditForm(forms.ModelForm):
+    email = forms.EmailField(
+        required=True,
+        label="E-mail",
+        widget=forms.EmailInput(attrs={'placeholder': 'E-mail'})
+    )
+
     class Meta:
         model = UserProfile
         fields = [
@@ -67,6 +73,23 @@ class UserProfileEditForm(forms.ModelForm):
             'locale': forms.TextInput(attrs={'placeholder': 'Location'}),
             'born': forms.DateInput(attrs={'type': 'date'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        # Permitir inicializar o e-mail do usuário
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email
+
+    def save(self, commit=True):
+        # Atualiza o perfil e o e-mail do usuário
+        instance = super().save(commit=False)
+        user = instance.user  # Obtém o usuário relacionado
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+            instance.save()
+        return instance
 
 
 class PostForm(forms.Form):

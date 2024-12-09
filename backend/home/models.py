@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from users.models import Post
+from django.conf import settings
 
 # from .utils import time_diff_in_words
 
@@ -61,10 +62,14 @@ class Notification(models.Model):
 
 class Follow(models.Model):
     follower = models.ForeignKey(
-        User, related_name="user_following", on_delete=models.CASCADE
+        settings.AUTH_USER_MODEL,
+        related_name="user_following",
+        on_delete=models.CASCADE
     )
     following = models.ForeignKey(
-        User, related_name="user_followers", on_delete=models.CASCADE
+        settings.AUTH_USER_MODEL,
+        related_name="user_followers",
+        on_delete=models.CASCADE
     )
     timestamp = models.DateTimeField(auto_now_add=True)
 

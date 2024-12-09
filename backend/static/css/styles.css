@@ -292,3 +292,13 @@ header {
     justify-content: center;
     align-items: center;
 }
+
+
+
+
+
+
+a {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
