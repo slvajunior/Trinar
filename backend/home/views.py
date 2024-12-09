@@ -11,12 +11,31 @@ from django.contrib.auth import get_user_model
 
 
 @login_required
+def mark_as_read(request, notification_id):
+    notification = Notification.objects.get(id=notification_id, user=request.user)
+    notification.is_read = True
+    notification.save()
+    return redirect('home:notifications')
+
+
+@login_required
 def index(request):
+    # Obter todos os posts
     posts = Post.objects.all()
     for post in posts:
+        # Verificar se o usuário curtiu cada post
         post.user_has_liked = post.likes.filter(id=request.user.id).exists()
 
-    context = {"posts": posts}
+    # Contar notificações não lidas
+    unread_count = Notification.objects.filter(
+        user=request.user,
+        is_read=False).count()
+
+    # Adicionar posts e contador ao contexto
+    context = {
+        "posts": posts,
+        "unread_count": unread_count,
+    }
     return render(request, "home/index.html", context)
 
 
@@ -98,12 +117,19 @@ def post_detail(request, post_id):
 
 @login_required
 def notifications(request):
-    notifications = Notification.objects.filter(user=request.user).order_by(
-        "-created_at"
-    )
+    # Buscar notificações do usuário
+    notifications = Notification.objects.filter(
+        user=request.user).order_by("-created_at")
+
+    # Marcar todas as notificações como lidas
+    notifications.filter(is_read=False).update(is_read=True)
+
+    # Debug opcional para confirmar as notificações no console
     print(f"Notificações: {notifications}")
+
     return render(
-        request, "home/notifications.html", {"notifications": notifications})
+        request, "home/notifications.html", {"notifications": notifications}
+    )
 
 
 @login_required
@@ -176,3 +202,7 @@ def unfollow_user(request, user_id):
 def followers_list(request):
     followers = Follow.objects.filter(following=request.user)
     return render(request, "users/followers_list.html", {"followers": followers})
+
+
+def get_unread_notifications_count(user):
+    return Notification.objects.filter(user=user, is_read=False).count()

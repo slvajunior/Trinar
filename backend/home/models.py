@@ -21,6 +21,7 @@ class Notification(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True)
+    is_read = models.BooleanField(default=False)
 
     like_user = models.ForeignKey(
         User,

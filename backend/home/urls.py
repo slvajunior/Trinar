@@ -14,5 +14,8 @@ urlpatterns = [
     path('follow/<int:user_id>/', views.follow_user, name='follow_user'),
     path('unfollow/<int:user_id>/', views.unfollow_user, name='unfollow_user'),
     path('followers/', views.followers_list, name='followers_list'),
+    path(
+        'notifications/mark_as_read/<int:notification_id>/',
+        views.mark_as_read, name='mark_as_read'),
 
 ]
