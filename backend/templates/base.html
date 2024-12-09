@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,14 +18,14 @@
 </head>
 
 <body>
-    
+
     <!-- Cabeçalho padrão -->
     <header>
         <div class="header-container">
             <div class="logo">triᴎar</div>
 
             <div class="logo" style="flex: 1;"> </div>
-            <div class="search-bar" >
+            <div class="search-bar">
                 <input type="text" placeholder=" 🔎  Pesquisa no Trinar">
             </div>
             <div class="user-photo">
@@ -37,17 +38,29 @@
     <div class="side-menu">
         <ul>
             <li><a href="{% url 'home:index' %}"><i class="fas fa-home"></i> Home Page</a></li>
-            <li><a href="{% url 'home:notifications' %}"><i class="fas fa-bell"></i> Notifications</a></li>
+            
+            <li>
+                <a href="{% url 'home:notifications' %}" class="notifications-link" title="Clique para ver as notificações">
+                    <i class="fas fa-bell"></i> Notifications
+                    <div class="notifications-container">
+                        {% if unread_count > 0 %}
+                            <span class="notification-badge">{{ unread_count }}</span>
+                        {% endif %}
+                    </div>
+                </a>
+            </li>
+            
             <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
-            <li><a href="{% url 'users:profile' username=request.user.username %}"><i class="fas fa-user"></i> Profile</a></li> 
+            <li><a href="{% url 'users:profile' username=request.user.username %}"><i class="fas fa-user"></i>Profile</a></li>
             <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
             <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy</a></li>
         </ul>
     </div>
 
-{% block content %}
+    {% block content %}
 
-{% endblock %}
+    {% endblock %}
 
 </body>
+
 </html>

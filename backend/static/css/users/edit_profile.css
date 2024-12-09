@@ -1,125 +1,93 @@
-/* Ajuste geral para inputs e textareas */
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    max-width: 700px; /* Limita o tamanho máximo */
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box; /* Garante que o padding não ultrapasse a largura */
-}
-
-textarea#bio.form-control {
-    height: 70px; /* Ajuste altura inicial */
-}
-
-input#profile_picture.form-control {
-    max-width: 700px; /* Respeita o limite máximo */
-}
-
-/* Botões */
-.btn-primary {
-    width: 100%; /* Preenche a largura disponível */
-    max-width: 700px; /* Limita a largura */
-}
-
-/* Ajustes responsivos para telas menores */
-@media (max-width: 768px) {
-    .profile-header {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .profile-header img {
-        width: 80px;
-        height: 80px;
-    }
-
-    .edit-profile-form {
-        padding: 10px;
-    }
-
-    .form-group input,
-    .form-group textarea {
-        max-width: 100%;
-    }
-}
-
-.timeline {
-    font-family: Arial, sans-serif;
-}
-
-/* Cabeçalho de Edição do Perfil */
+/* Cabeçalho do Perfil */
 .profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header-container {
+    display: flex;
+    align-items: center;
+}
+
+.profile-picture img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 20px;
+    border: 3px solid #007bff;
+}
+
+.profile-info h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    align-items: center;
+}
+
+
+/* Estilos do formulário */
+.edit-profile-form {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.profile-header img {
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.profile-header h2 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-/* Formulário de Edição de Perfil */
-.edit-profile-form {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Define uma largura máxima */
+    margin: 20px auto; /* Centraliza o formulário */
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 .edit-profile-form h3 {
-    font-size: 22px;
-    font-weight: bold;
+    font-size: 24px;
     margin-bottom: 20px;
+    color: #007bff;
+    text-align: center;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
+    display: block;
+    margin-bottom: 8px;
     font-size: 16px;
-    font-weight: bold;
+    color: #333;
 }
 
 .form-group input,
 .form-group textarea {
-    width: 100%;
+    width: 100%; /* Faz os campos ocuparem 100% da largura disponível */
     padding: 10px;
-    font-size: 16px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
 }
 
 .form-group textarea {
-    resize: vertical;
+    resize: vertical; /* Permite redimensionar verticalmente */
 }
 
-.btn-primary {
+.form-group button {
+    width: 100%;
+    padding: 12px;
     background-color: #007bff;
+    color: #fff;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
     border-radius: 5px;
+    font-size: 18px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover {
+.form-group button:hover {
     background-color: #0056b3;
 }

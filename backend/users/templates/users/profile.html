@@ -34,10 +34,10 @@
                     <h2 style="margin: 0; font-size: 24px; font-weight: bold;">{{ user_profile.user.username }} </h2>
                     <p style="margin: 5px 0; color: #666;"> {{ user_profile.bio|default:"Bio não definida." }} </p>
                     <p></p>
-                    <p style="margin: 5px 0; color: #666; font-size: 14px;">
+                    <p style="margin: 25px 0; color: #666; font-size: 14px;">
                         <i class="fas fa-map-marker-alt"> </i> {{ user_profile.locale|default:"Localização não informada" }}
                         |
-                        <i class="fas fa-birthday-cake"> </i> Nascido(a) {{ user_profile.born|date:"j F Y"|default:"Não informado" }}
+                        <i class="fas fa-birthday-cake"> </i> Nascido(a) em {{ user_profile.born|date:"j F Y"|default:"Não informado" }}
                         |
                         <i class="fas fa-calendar-alt"> </i> Ingressou em {{ user_profile.user.date_joined|date:"j F Y" }}
                     </p>
@@ -76,7 +76,10 @@
 
         <!-- Histórico de Posts -->
         <div class="user-posts-history">
-            <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">Histórico de Posts</h2>
+            <p style="margin: 1; color: #666;">
+                <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">Posts de {{ user_profile.user.username }}</h2> 
+            </p>      
+
             <div class="posts">
                 {% for post in user_posts %}
                 <div class="post">

@@ -34,18 +34,20 @@ header {
 .search-bar {
     position: absolute;
     left: 1510px;
-    top: 23px;
+    top: 25px;
     margin-left: 10px;
 }
 
 .search-bar input {
+    
+    background-color:#f5f5f5;
     border-radius: 20px;
     padding: 10px 15px;
     width: 200px;
     border: none;
     font-size: 17px;
     border-radius: 25px;
-    border: 4px solid #007bff;
+    border: 2px solid #007bff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
@@ -68,12 +70,11 @@ header {
 
 .user-photo img {
     border-radius: 100%;
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     object-fit: cover;
-    border: 4px solid #007bff;
-    object-fit: cover;
-    padding: 0.5px;
+    border: 2px solid #007bff;
+    padding: 1px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); 
 
 }
@@ -264,7 +265,30 @@ header {
     margin-right: 5px;
 }
 
+/* Contador de likes */
 
 
+/* Adiciona o estilo da bolinha de notificações no menu lateral */
+/* Bolinha de notificações */
+/* Bolinha de notificações */
+/* Bolinha de notificações */
 
 
+.notifications-link {
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -1px;
+    right: 255px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

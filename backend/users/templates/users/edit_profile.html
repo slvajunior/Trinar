@@ -3,21 +3,20 @@
 {% load static %}
 
 {% block content %}
+<!-- Link para o CSS específico -->
+<link rel="stylesheet" href="{% static 'css/users/edit_profile.css' %}">
 
 <div class="timeline">
     <!-- Cabeçalho de Edição do Perfil -->
     <div class="profile-header">
-        <div style="display: flex; align-items: center;">
+        <div class="profile-header-container">
             <!-- Foto do perfil -->
-            <div style="flex-shrink: 0; width: 100px; height: 100px; margin-right: 20px;">
+            <div class="profile-picture">
                 <img src="{{ user.profile.profile_picture.url }}" alt="Foto do Usuário">
             </div>
-
-            <link rel="stylesheet" href="{% static 'css/users/edit_profile.css' %}">
-
             <!-- Informações do usuário -->
-            <div>
-                <h2>Editar Perfil de {{ user.get_username }}</h2>
+            <div class="profile-info">
+                <h2>Perfil de {{ user.get_username }}</h2>
             </div>
         </div>
     </div>
@@ -25,14 +24,13 @@
     <!-- Formulário de Edição de Perfil -->
     <div class="edit-profile-form">
         <h3>Editar Informações</h3>
-
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-
+            
             <!-- Nome Completo -->
             <div class="form-group">
-                <label for="full_name">Nome Completo</label>
-                <input type="text" id="user.get_username" name="username" value="{{ user.get_username }}" class="form-control">
+                <label for="username">Nome</label>
+                <input type="text" id="username" name="username" value="{{ user.get_username }}" class="form-control">
             </div>
 
             <!-- Bio -->
@@ -43,7 +41,7 @@
 
             <!-- Localização -->
             <div class="form-group">
-                <label for="location">Localização</label>
+                <label for="locale">Localização</label>
                 <input type="text" id="locale" name="locale" value="{{ user.profile.locale }}" class="form-control">
             </div>
 
@@ -68,7 +66,5 @@
         </form>
     </div>
 </div>
-
-
 
 {% endblock %}

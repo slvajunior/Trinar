@@ -1,6 +1,6 @@
 /* Ajuste de layout para o body */
 html, body {
-    max-width: 75%;
+    max-width: 100%;
     font-family: 'Montserrat', sans-serif;
     background-color: #007bff;
     margin: 0;
@@ -11,7 +11,9 @@ html, body {
     box-sizing: border-box;
     max-height: 90%;  /* Ocupa a altura da tela */
     overflow-y: auto;
-    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+
 }
 
 /* Cabeçalho fixo */
@@ -100,7 +102,7 @@ header {
 
 /* Ajuste do layout para que a timeline não se estenda */
 .timeline {
-    width: 75%; /* Limita o tamanho da timeline */
+    width: 100%; /* Limita o tamanho da timeline */
     height: calc(100vh - 100px);
     overflow-y: auto;
     box-sizing: border-box;
@@ -175,4 +177,113 @@ header {
     .tabs {
         flex-wrap: wrap; /* Ajusta as abas para caberem em telas menores */
     }
+}
+
+
+
+
+
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+
+    justify-content: flex-start; /* Posiciona os elementos à esquerda */
+    align-items: flex-start;
+    background-color: #007bff;
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 935px;
+    width: 60%;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    margin: 0;
+}
+
+.profile-header {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.profile-header .user-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-header .user-info .user-picture {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+}
+
+.profile-header .user-info .user-details {
+    flex-grow: 1;
+}
+
+.profile-header .user-info .buttons {
+    text-align: right;
+}
+
+.profile-header .followers-count {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.user-posts-history {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.posts .post {
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Botões */
+
+.btn-primary {
+    margin-top: 110px;
+    font-size: 14px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-danger {
+    margin-top: 110px;
+    font-size: 14px;
+    padding: 8px 12px;
+    background-color: #ff4d4d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover,
+.btn-danger:hover {
+    opacity: 0.9;
 }
