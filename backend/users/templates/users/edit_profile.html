@@ -26,11 +26,17 @@
         <h3>Editar Informações</h3>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            
+
             <!-- Nome Completo -->
             <div class="form-group">
                 <label for="username">Nome</label>
                 <input type="text" id="username" name="username" value="{{ user.get_username }}" class="form-control">
+            </div>
+
+            <!-- E-mail -->
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" class="form-control">
             </div>
 
             <!-- Bio -->
@@ -50,7 +56,7 @@
                 <label for="birth_date">Data de Nascimento</label>
                 {{ form.born }}
             </div>
-            
+
             <!-- Foto de Perfil -->
             <div class="form-group">
                 <label for="profile_picture">Alterar Foto de Perfil</label>

@@ -1,13 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from users.models import Post
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from .models import Notification
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.models import User
-from .models import Follow
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.http import HttpResponse
+from .models import Notification
+from users.models import Post
+from .models import Follow
+import re
+
+
+def convert_links_to_html(content):
+    # Expressão regular para encontrar URLs
+    url_pattern = r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+"
+    # Substituir as URLs encontradas por tags <a>
+    content_with_links = re.sub(
+        url_pattern, r'<a href="\g<0>" target="_blank">\g<0></a>', content
+    )
+    return content_with_links
 
 
 @login_required
@@ -15,27 +26,38 @@ def mark_as_read(request, notification_id):
     notification = Notification.objects.get(id=notification_id, user=request.user)
     notification.is_read = True
     notification.save()
-    return redirect('home:notifications')
+    return redirect("home:notifications")
 
 
 @login_required
 def index(request):
-    # Obter todos os posts
-    posts = Post.objects.all()
+    # Obter os usuários seguidos pelo usuário atual
+    followed_users = Follow.objects.filter(follower=request.user).values_list(
+        "following_id", flat=True
+    )
+    # Incluir o próprio usuário na lista
+    user_ids = list(followed_users) + [request.user.id]
+
+    # Obter os posts dos usuários seguidos e do próprio usuário
+    posts = Post.objects.filter(user_id__in=user_ids).order_by("-created_at")
+
     for post in posts:
         # Verificar se o usuário curtiu cada post
         post.user_has_liked = post.likes.filter(id=request.user.id).exists()
 
+        # Aplicar a conversão de links no conteúdo do post
+        post.content = convert_links_to_html(post.content)
+        post.is_html = True  # Indicar que o conteúdo já é HTML
+
     # Contar notificações não lidas
-    unread_count = Notification.objects.filter(
-        user=request.user,
-        is_read=False).count()
+    unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
 
     # Adicionar posts e contador ao contexto
     context = {
         "posts": posts,
         "unread_count": unread_count,
     }
+
     return render(request, "home/index.html", context)
 
 
@@ -118,8 +140,9 @@ def post_detail(request, post_id):
 @login_required
 def notifications(request):
     # Buscar notificações do usuário
-    notifications = Notification.objects.filter(
-        user=request.user).order_by("-created_at")
+    notifications = Notification.objects.filter(user=request.user).order_by(
+        "-created_at"
+    )
 
     # Marcar todas as notificações como lidas
     notifications.filter(is_read=False).update(is_read=True)
@@ -127,9 +150,7 @@ def notifications(request):
     # Debug opcional para confirmar as notificações no console
     print(f"Notificações: {notifications}")
 
-    return render(
-        request, "home/notifications.html", {"notifications": notifications}
-    )
+    return render(request, "home/notifications.html", {"notifications": notifications})
 
 
 @login_required
@@ -137,10 +158,7 @@ def retrinar_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
     new_post = Post.objects.create(  # type:ignore
-        user=request.user,
-        content=post.content,
-        is_retrinar=True,
-        original_post=post
+        user=request.user, content=post.content, is_retrinar=True, original_post=post
     )
 
     context = {"new_post": new_post}
@@ -192,9 +210,7 @@ def follow_user(request, user_id):
 @login_required
 def unfollow_user(request, user_id):
     user_to_unfollow = get_object_or_404(get_user_model(), id=user_id)
-    Follow.objects.filter(
-        follower=request.user,
-        following=user_to_unfollow).delete()
+    Follow.objects.filter(follower=request.user, following=user_to_unfollow).delete()
     return redirect("users:profile", username=user_to_unfollow.username)
 
 
