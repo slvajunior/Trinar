@@ -12,11 +12,11 @@
         <div class="profile-header-container">
             <!-- Foto do perfil -->
             <div class="profile-picture">
-                <img src="{{ user.profile.profile_picture.url }}" alt="Foto do Usuário">
+                <img src="{{ user.profile.profile_picture.url }}" class="img-profile" alt="Foto do Usuário">
             </div>
             <!-- Informações do usuário -->
             <div class="profile-info">
-                <h2>Perfil de {{ user.get_username }}</h2>
+                <h2>{{ user.get_username }}'s Profile</h2>
             </div>
         </div>
     </div>

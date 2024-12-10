@@ -9,6 +9,7 @@ from .models import Notification
 from users.models import Post
 from .models import Follow
 import re
+from django.urls import reverse
 
 
 def convert_links_to_html(content):
@@ -19,6 +20,19 @@ def convert_links_to_html(content):
         url_pattern, r'<a href="\g<0>" target="_blank">\g<0></a>', content
     )
     return content_with_links
+
+
+def convert_mentions_to_html(content):
+    # Expressão regular para encontrar menções de usuários
+    mention_pattern = r"@([a-zA-Z0-9_áéíóúãâêôãçáàü]+)"
+    
+    # Substituir as menções pelo link do perfil do usuário
+    content_with_mentions = re.sub(
+        mention_pattern,
+        lambda match: f'<a href="{reverse("users:micro_profile", args=[match.group(1)])}">@{match.group(1)}</a>',
+        content
+    )
+    return content_with_mentions
 
 
 @login_required
@@ -45,8 +59,9 @@ def index(request):
         # Verificar se o usuário curtiu cada post
         post.user_has_liked = post.likes.filter(id=request.user.id).exists()
 
-        # Aplicar a conversão de links no conteúdo do post
+        # Aplicar a conversão de links e menções no conteúdo do post
         post.content = convert_links_to_html(post.content)
+        post.content = convert_mentions_to_html(post.content)  # Adicionando as menções
         post.is_html = True  # Indicar que o conteúdo já é HTML
 
     # Contar notificações não lidas
@@ -70,9 +85,7 @@ def post(request):
             # Tenta encontrar o post original
             original_post = get_object_or_404(Post, id=original_post_id)
             # Cria um novo post com referência ao post original
-            Post.objects.create(  # Criação direta sem a variável new_post
-                user=request.user, original_post=original_post
-            )
+            new_post = Post.objects.create(user=request.user, original_post=original_post)
 
             # Cria a notificação para o autor do post original
             Notification.objects.create(
@@ -86,12 +99,25 @@ def post(request):
         # Caso seja um novo post
         post_content = request.POST.get("content")
         if post_content:  # Verifica se o conteúdo não está vazio
-            Post.objects.create(content=post_content, user=request.user)
+            new_post = Post.objects.create(content=post_content, user=request.user)
+
+            # Detecta menções no conteúdo do post
+            mentions = re.findall(r'@(\w+)', post_content)  # Encontra menções com o símbolo @
+            for mention in mentions:
+                try:
+                    mention_user = User.objects.get(username=mention)  # Busca o usuário mencionado
+                    Notification.objects.create(
+                        notification_type="mention",
+                        user=mention_user,  # O usuário que será notificado
+                        post=new_post,  # O post em que foi feita a menção
+                        mention_user=request.user,  # O usuário que fez a menção
+                    )
+                except User.DoesNotExist:
+                    continue  # Caso o usuário mencionado não exista, ignora
+
             return redirect("home:index")
         else:
-            return HttpResponse(
-                "O conteúdo da postagem não pode ser vazio.", status=400
-            )
+            return HttpResponse("O conteúdo da postagem não pode ser vazio.", status=400)
 
     return render(request, "home/index.html")
 

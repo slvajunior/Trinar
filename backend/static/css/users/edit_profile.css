@@ -3,11 +3,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #fff;
+    background-color:#fafafa;
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 150px;
 }
 
 .profile-header-container {
@@ -15,21 +16,33 @@
     align-items: center;
 }
 
-.profile-picture img {
+
+img.img-profile {
+    position: relative; /* Permite ajustar a posição */
+    bottom: 68px;          /* Move para baixo (use valores positivos ou negativos para ajustar) */
+    left: -3px;
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
-    margin-right: 20px;
-    border: 3px solid #007bff;
+    border: 3px solid #fafafa;
+
 }
 
-.profile-info h2 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #333;
-    align-items: center;
+h2 {
+    position: relative; /* Permite ajustar a posição */
+    bottom: 6px;          /* Move para baixo (use valores positivos ou negativos para ajustar) */
+    left: 250px;
+    font-weight: bold;  /* Adiciona destaque ao nome */
+    font-size: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:#007bff;
 }
+
+
+
+
+
 
 
 /* Estilos do formulário */

@@ -79,10 +79,12 @@ header {
 
 }
 
+
+/* Menu Lateral com Design Melhorado */
 .side-menu {
     width: 320px;
     height: calc(100vh - 100px);
-    background-color: #007bff;
+    background-color: #007bff; /* Azul mais escuro para contraste */
     position: fixed;
     top: 100px;
     left: 0;
@@ -90,11 +92,13 @@ header {
     box-sizing: border-box;
     border-right: 1px solid #fff;
     z-index: 1;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
 }
 
 .side-menu ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .side-menu ul li {
@@ -102,40 +106,100 @@ header {
 }
 
 .side-menu ul li a {
-    color: #fff;
+    color: #f5f5f5; /* Cor clara para contraste */
     text-decoration: none;
-    font-size: 22px;
+    font-size: 20px; /* Reduzido para um visual mais limpo */
     font-weight: bold;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     display: flex;
     align-items: center;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, padding-left 0.3s ease;
+    padding: 12px 15px;
+    border-radius: 8px; /* Bordas arredondadas */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Animação mais suave */
 }
 
 .side-menu ul li a i {
-    margin-right: 10px;
+    margin-right: 12px; /* Espaço entre ícone e texto */
+    font-size: 18px; /* Tamanho do ícone */
 }
 
-/* hover da responsiva: menu lateral*/
 .side-menu ul li a:hover {
-    background-color: #2833f7;
-    padding-left: 15px;
+    background-color: #0056b3; /* Cor de hover mais clara */
+    transform: scale(1.05); /* Leve aumento no hover */
 }
 
 .side-menu ul li.active a {
-    background-color: #2833f7;
+    background-color: #007bff; /* Destaque para item ativo */
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
 }
 
+/* Título do Menu */
+.side-menu-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Maiúsculas para ênfase */
+    border-bottom: 2px solid #fff; /* Linha abaixo do título */
+    padding-bottom: 10px;
+}
+
+
+/* Wrapper externo para a barra de rolagem */
+.timeline-wrapper {
+    position: fixed;
+    top: 100px;
+    right: 0;
+    height: calc(100vh - 100px);
+    width: 15px;
+    overflow-y: scroll;
+    background-color: transparent;
+    z-index: 2;
+}
+
+/* Timeline */
 .timeline {
-    margin-left: 320px;
-    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 320px;
     width: 42%;
     height: calc(100vh - 100px);
-    overflow-y: auto;
-    box-sizing: border-box;
+    overflow-y: scroll;
     margin-top: 100px;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: #f5f5f5; /* Fundo da área da timeline */
+}
+
+/* Card de cada post */
+.post {
+    background-color: #ffffff; /* Fundo mais branco para destaque */
+    border-radius: 8px; /* Cantos arredondados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve para profundidade */
+    margin-bottom: 20px; /* Espaço entre os posts */
+    padding: 15px; /* Espaçamento interno */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Efeito de interação */
+}
+
+/* Efeito de hover nos cards */
+.post:hover {
+    transform: translateY(-5px); /* Eleva levemente o card */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Intensifica a sombra */
+}
+
+/* Títulos e conteúdo dos posts */
+.post h2 {
+    margin: 0 0 10px 0; /* Espaçamento do título */
+    font-size: 1.5rem; /* Tamanho do título */
+    color: #333; /* Cor do título */
+}
+
+.post p {
+    margin: 0; /* Remove espaçamento padrão */
+    color: #424141; /* Cor do texto */
+    line-height: 1.6; /* Melhor legibilidade */
+    font-weight:bold;
 }
 
 .post {
@@ -171,12 +235,14 @@ header {
     margin: 0;
     font-size: 20px;
     font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .post p {
     margin-top: 10px;
     font-size: 15px;
-    font-weight: normal;
+    font-weight:unset;
+    color: #424242;
 }
 
 /* Formulário de postagem */
@@ -226,13 +292,12 @@ header {
 }
 
 .post .post-date {
-    color: rgb(92, 91, 91);
+    font-weight:500;
+    color: rgb(150, 149, 149);
     font-size: 13px;
-    margin-top: auto;
-    /* Faz a data ficar no final do post */
-    margin-top: 13px;
+    margin-top: 3px;
     margin-left: 3px;
-    /* Adiciona um pequeno espaço entre o conteúdo e a data */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 /*Botões de curtir e retrinar*/
@@ -294,11 +359,65 @@ header {
 }
 
 
-
-
-
-
 a {
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
+
+
+.author-photo,
+.profile-picture {
+    margin-top: 10px;
+    width: 31px; /* Define uma largura consistente */
+    height: 31px; /* Define uma altura consistente */
+    border-radius: 50%; /* Deixa a imagem circular */
+    object-fit: cover; /* Garante que a imagem se encaixe sem distorção */
+}
+
+
+.nomeA {
+    position: relative; /* Permite ajustar a posição */
+    bottom: 10px;          /* Move para baixo (use valores positivos ou negativos para ajustar) */
+    left: 5px;          /* Move para a direita (negativos movem para a esquerda) */
+    font-weight: bold;  /* Adiciona destaque ao nome */
+    color: #333;        /* Cor do texto */
+    font-size: 17px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.autor {
+    position: relative; /* Permite ajustar a posição */
+    bottom: 10px;
+    left: 6px;         /* Move para a direita */
+    font-size: 0.9rem;  /* Tamanho menor para diferenciar */
+    color: gray;        /* Cor do texto */
+    font-size: 13px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+span {
+    font-size: 15px;
+}
+
+
+
+/* Estilo geral para links */
+a {
+    color: #007bff; /* Azul para links */
+    text-decoration: none; /* Remove o sublinhado */
+    font-weight: bold; /* Deixa o texto mais destacado */
+}
+
+/* Efeito de hover nos links */
+a:hover {
+    color: #0056b3; /* Azul mais escuro no hover */
+    text-decoration: underline; /* Adiciona sublinhado no hover */
+}
+
+
+
+
+
+
+

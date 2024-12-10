@@ -20,7 +20,7 @@ class Notification(models.Model):
         max_length=10, choices=NOTIFICATION_TYPE_CHOICES
     )
     created_at = models.DateTimeField(default=timezone.now)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Usuário que recebe a notificação
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True)
     is_read = models.BooleanField(default=False)
 
@@ -48,14 +48,23 @@ class Notification(models.Model):
         blank=True,
     )
 
+    mention_user = models.ForeignKey(  # Campo adicionado para menções
+        User,
+        on_delete=models.CASCADE,
+        related_name="mentioned_notifications",
+        null=True,
+        blank=True,
+    )
+
     def __str__(self):
         if self.notification_type == "like" and self.like_user:
-            return f"{self.like_user.username} curtiu seu post '{
-                self.post.text[:30]}...'"
+            return f"{self.like_user.username} curtiu seu post '{self.post.text[:30]}...'"
         elif self.notification_type == "follow" and self.follower:
             return f"{self.follower.username} começou a seguir você."
         elif self.notification_type == "repost":
             return f"Seu post foi repostado por {self.user.username}."
+        elif self.notification_type == "mention" and self.mention_user:
+            return f"{self.mention_user.username} mencionou você em um post."
         else:
             return "Erro na notificação."
 

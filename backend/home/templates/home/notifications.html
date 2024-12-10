@@ -10,7 +10,7 @@
     <div class="tabs">
         <div class="tab active" onclick="showTab('all')">Tudo</div> <!-- Mudou de 'likes' para 'all' -->
         <div class="tab" onclick="showTab('likes')">Curtidas</div> <!-- Agora 'likes' vem depois de 'all' -->
-        <div class="tab" onclick="showTab('reposts')">Retrinados</div>
+        <div class="tab" onclick="showTab('reposts')">Repostagens</div>
         <div class="tab" onclick="showTab('comments')">Comentários</div>
         <!-- Adicionando a aba 'Menções' -->
         <div class="tab" onclick="showTab('mentions')">Menções</div>
@@ -56,7 +56,7 @@
 
         <!-- Conteúdo dos retrinados -->
         <div class="tab-content" id="reposts">
-            <h2>Retrinados</h2>
+            <h2>Repostagens</h2>
             {% for notification in notifications %}
             {% if notification.notification_type == "repost" %}
             <div class="notification-item">
@@ -76,7 +76,6 @@
         <!-- Conteúdo das menções -->
         <div class="tab-content" id="mentions">
             <h2>Menções</h2>
-            <p>Funcionalidade ainda não implementada</p>
             {% for notification in notifications %}
             {% if notification.notification_type == "mention" %}
             <div class="notification-item">
