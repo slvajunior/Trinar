@@ -1,9 +1,7 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block content %}
-
 <div class="timeline">
     <!-- Formulário de postagem -->
     <div class="post-form">
@@ -16,30 +14,31 @@
 
     <!-- Exibição das postagens -->
     {% for post in posts %}
-    <div class="post">
+    <div class="post" id="post-{{ post.id }}">
         <!-- Verificando se é um repost -->
         {% if post.original_post %}
         <div class="repost-header">
-            <!-- Ícone de retweet e username do repostador -->
-            <i class="fas fa-retweet"></i> 
+            <i class="fas fa-retweet"></i>
             <span>{{ post.user.username }} repostou</span>
         </div>
 
         <div class="original-post-info">
-            <!-- Foto do autor do post original -->
-            <img src="{{ post.original_post.user.profile.profile_picture.url }}" alt="Foto do Autor" class="author-photo">
-            <strong class="nomeA">{{ post.original_post.user.username }}</strong><span class="autor">@{{ post.original_post.user.username }} {{ post.original_post.created_at|date:"d M" }}</span>
+            <a href="{% url 'users:profile' post.original_post.user.username %}">
+                <img src="{{ post.original_post.user.profile.profile_picture.url }}" alt="Foto do Autor" class="author-photo">
+            </a>
+            <a href="{% url 'users:profile' post.original_post.user.username %}" class="profile-link">
+                <strong class="nomeA">{{ post.original_post.user.username }}</strong>
+            </a>
+            <span class="autor">@{{ post.original_post.user.username }} {{ post.original_post.created_at|date:"d M" }}</span>
         </div>
 
         <div class="post-content">
-            <!-- Conteúdo do post original -->
             {% if post.original_post.is_html %}
-                <p>{{ post.original_post.content|safe|linebreaksbr }}</p>
+            <p>{{ post.original_post.content|safe|linebreaksbr }}</p>
             {% else %}
-                <p>{{ post.original_post.content|urlize|linebreaksbr|safe }}</p>
+            <p>{{ post.original_post.content|urlize|linebreaksbr|safe }}</p>
             {% endif %}
         </div>
-
         {% else %}
         <div class="user-info">
             <a href="{% url 'users:micro_profile' post.user.username %}">
@@ -51,44 +50,79 @@
         </div>
 
         <div class="post-content">
-            <!-- Conteúdo do post -->
             {% if post.is_html %}
-                <p>{{ post.content|safe|linebreaksbr }}</p>
+            <p>{{ post.content|safe|linebreaksbr }}</p>
             {% else %}
-                <p>{{ post.content|urlize|linebreaksbr|safe }}</p>
+            <p>{{ post.content|urlize|linebreaksbr|safe }}</p>
             {% endif %}
         </div>
         {% endif %}
 
         <!-- Linha com a data da postagem -->
         <div class="post-footer">
-            <button class="btn-like" 
-                    data-post-id="{{ post.id }}" 
-                    data-likes="{{ post.likes.count }}" 
-                    {% if post.user_has_liked %} style="color: red;" {% endif %}>
-                <i class="fas fa-heart"></i> Curtir (<span class="like-count">{{ post.likes.count }}</span>)
+            <!-- Botão de like -->
+            <button class="btn-like {% if user in post.likes.all %}active{% endif %}" data-post-id="{{ post.id }}">
+                <i class="fas fa-heart"></i><span class="like-count">{{ post.likes.count }}</span>
             </button>
+
+            <!-- Botão de repost -->
             <form method="POST" action="{% url 'home:post' %}" style="display:inline;">
                 {% csrf_token %}
                 <input type="hidden" name="original_post_id" value="{{ post.id }}">
                 <button type="submit" class="btn-repost">
-                    <i class="fas fa-retweet"></i> Repostar
+                    <i class="fas fa-retweet"></i><span class="repost-count">{{ post.repost_count }}</span>
                 </button>
             </form>
+
+            <!-- Ícone de Comentário -->
+            <button class="comment-btn" data-post-id="{{ post.id }}">
+                <i class="fas fa-comment"></i> Comentar
+            </button>
         </div>
+
+        <!-- Formulário de Comentário -->
+        <div id="comment-form-{{ post.id }}" class="comment-form" style="display: none;">
+            <form method="POST" action="{% url 'home:add_comment' post.id %}">
+                {% csrf_token %}
+                <textarea name="content" placeholder="Comente sobre este post..."></textarea>
+                <button type="submit">Comentar</button>
+            </form>
+        </div>
+
+        <!-- Exibição dos Comentários -->
+        <div class="comments-section" id="comments-section-{{ post.id }}">
+            {% for comment in post.comments.all %}
+            <div class="comment">
+                <p><strong>{{ comment.user.username }}</strong>: {{ comment.content }}</p>
+            </div>
+            {% empty %}
+            <p>Seja o primeiro a comentar!</p>
+            {% endfor %}
+        </div>
+
     </div>
     {% endfor %}
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Configuração do CSRF Token
+        function getCSRFToken() {
+            const cookieValue = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('csrftoken='))
+                ?.split('=')[1];
+            return cookieValue || '';
+        }
+    
+        // Botões de like
         const likeButtons = document.querySelectorAll('.btn-like');
-
+    
         likeButtons.forEach(button => {
             button.addEventListener('click', function () {
                 const postId = this.getAttribute('data-post-id');
                 const likeCountSpan = this.querySelector('.like-count');
-
+    
                 fetch('/toggle-like/', {
                     method: 'POST',
                     headers: {
@@ -97,35 +131,55 @@
                     },
                     body: `post_id=${postId}`
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            console.error(data.error);
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                    } else {
+                        // Atualiza contagem de likes
+                        likeCountSpan.textContent = data.likes_count;
+    
+                        // Atualiza a cor do botão
+                        if (data.user_has_liked) {
+                            button.classList.add('active'); // Ativa o botão de like
                         } else {
-                            // Atualiza contagem de likes
-                            likeCountSpan.textContent = data.likes_count;
-
-                            // Muda a cor do botão
-                            if (data.user_has_liked) {
-                                button.style.color = 'red';
-                            } else {
-                                button.style.color = '';
-                            }
+                            button.classList.remove('active'); // Remove a classe se não curtiu
                         }
-                    })
-                    .catch(error => console.error('Error:', error));
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    
+        // Botões de comentário
+        const commentButtons = document.querySelectorAll('.comment-btn');
+    
+        commentButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const postId = this.getAttribute('data-post-id');
+                const commentForm = document.getElementById(`comment-form-${postId}`);
+    
+                // Alterna a exibição do formulário de comentários
+                if (commentForm.style.display === 'none' || commentForm.style.display === '') {
+                    commentForm.style.display = 'block';
+                } else {
+                    commentForm.style.display = 'none';
+                }
             });
         });
     });
-
-    // Função para obter o CSRF token (se necessário)
-    function getCSRFToken() {
-        const cookieValue = document.cookie
-            .split('; ')
-            .find(row => row.startsWith('csrftoken='))
-            ?.split('=')[1];
-        return cookieValue || '';
-    }
-</script>
-
+    </script>
+    
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

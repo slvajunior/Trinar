@@ -4,6 +4,8 @@ from . import views
 app_name = 'home'
 
 urlpatterns = [
+    path('add_comment/<int:post_id>/', views.add_comment, name='add_comment'),
+    path('toggle-repost/', views.toggle_repost, name='toggle_repost'),
     path('', views.index, name='index'),
     path('post/', views.post, name='post'),
     path('retrinar/<int:post_id>/', views.retrinar_post, name='retrinar'),

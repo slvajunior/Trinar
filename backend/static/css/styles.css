@@ -73,7 +73,7 @@ header {
     width: 65px;
     height: 65px;
     object-fit: cover;
-    border: 2px solid #007bff;
+    border: 1px solid #007bff;
     padding: 1px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); 
 
@@ -401,7 +401,6 @@ span {
 }
 
 
-
 /* Estilo geral para links */
 a {
     color: #007bff; /* Azul para links */
@@ -419,5 +418,97 @@ a:hover {
 
 
 
+/* CSS para o botão de repost */
+.btn-repost.active {
+    color: green; /* Cor verde para o ícone */
+}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilo para os botões de interação */
+.btn-like, .btn-repost, .comment-btn {
+    background: none;
+    border: none;
+    color: #007bff; /* Cor inicial azul para os botões */
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px; /* Espaço entre o ícone e o texto */
+    padding: 5px 10px;
+    border-radius: 20px; /* Botões com bordas arredondadas */
+    transition: all 0.3s ease;
+}
+
+/* Efeito de hover nos botões */
+.btn-like:hover, .btn-repost:hover, .comment-btn:hover {
+    color: #0056b3; /* Cor quando o mouse passa sobre o botão */
+    background-color: #f1f1f1; /* Leve fundo quando o usuário passar o mouse */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho do botão */
+}
+
+/* Estilo específico para o botão de Curtir */
+.btn-like {
+    color: #007bff; /* Cor inicial azul */
+}
+
+.btn-like i {
+    color: #007bff; /* Ícone de coração azul inicialmente */
+}
+
+/* Quando o botão de Curtir for ativo (já clicado) */
+.btn-like.active {
+    color: red; /* Cor vermelha do texto quando curtido */
+}
+
+.btn-like.active i {
+    color: red; /* Ícone de coração vermelho quando curtido */
+}
+
+/* Estilo específico para o botão de Repostar */
+.btn-repost {
+    color: #007bff; /* Cor inicial azul */
+}
+
+.btn-repost i {
+    color: #007bff; /* Ícone inicial azul para repostar */
+}
+
+/* Quando o botão de Repostar for ativo (já clicado) */
+.btn-repost.active {
+    color: green; /* Cor verde do texto quando repostado */
+}
+
+.btn-repost.active i {
+    color: green; /* Ícone de repost verde quando ativo */
+}
+
+/* Contagem de likes */
+.like-count {
+    font-weight: bold;
+    color: inherit; /* A cor herda do botão ativo/inativo */
+}
+
+/* Ajustes adicionais para o ícone de interação */
+.btn-like i, .btn-repost i, .comment-btn i {
+    font-size: 18px; /* Aumenta o tamanho do ícone */
+}
 

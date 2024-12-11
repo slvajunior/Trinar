@@ -5,91 +5,116 @@
 {% block content %}
 
 <div class="tudo">
-<div class="content-wrapper">
-    <!-- Abas -->
-    <div class="tabs">
-        <div class="tab active" onclick="showTab('all')">Tudo</div> <!-- Mudou de 'likes' para 'all' -->
-        <div class="tab" onclick="showTab('likes')">Curtidas</div> <!-- Agora 'likes' vem depois de 'all' -->
-        <div class="tab" onclick="showTab('reposts')">Repostagens</div>
-        <div class="tab" onclick="showTab('comments')">Comentários</div>
-        <!-- Adicionando a aba 'Menções' -->
-        <div class="tab" onclick="showTab('mentions')">Menções</div>
-    </div>
+    <div class="content-wrapper">
+        <!-- Abas -->
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('all')">Tudo</div> <!-- Mudou de 'likes' para 'all' -->
+            <div class="tab" onclick="showTab('likes')">Curtidas</div> <!-- Agora 'likes' vem depois de 'all' -->
+            <div class="tab" onclick="showTab('reposts')">Repostagens</div>
+            <div class="tab" onclick="showTab('comments')">Comentários</div>
+            <!-- Adicionando a aba 'Menções' -->
+            <div class="tab" onclick="showTab('mentions')">Menções</div>
+        </div>
 
-    <h1>Notificações</h1>
+        <h1>Notificações</h1>
 
-    {% if notifications %}
-    <!-- Envolvendo o conteúdo das notificações com a classe 'notification-wrapper' para aplicar a rolagem -->
-    <div class="notification-wrapper">
-        <!-- Conteúdo geral (agora a aba 'Tudo' será a primeira e estará ativa) -->
-        <div class="tab-content active" id="all">
-            <h2>Tudo</h2>
-            {% for notification in notifications %}
-            <div class="notification-item">
-                {% if notification.notification_type == "like" %}
-                <p><strong>{{ notification.like_user.username }}</strong> curtiu o seu post.</p>
-                {% elif notification.notification_type == "repost" %}
-                <p>Seu post foi repostado por <strong>{{ notification.repost_user.username }}</strong>.</p>
-                {% elif notification.notification_type == "follow" %}
-                <p><strong>{{ notification.follower.username }}</strong> começou a seguir você.</p>
-                {% elif notification.notification_type == "mention" %}
-                <!-- Exibindo as menções -->
-                <p><strong>{{ notification.mention_user.username }}</strong> mencionou você em um post.</p>
+        {% if notifications %}
+        <!-- Envolvendo o conteúdo das notificações com a classe 'notification-wrapper' para aplicar a rolagem -->
+        <div class="notification-wrapper">
+            <!-- Conteúdo geral (agora a aba 'Tudo' será a primeira e estará ativa) -->
+            <div class="tab-content active" id="all">
+                <h2>Tudo</h2>
+                {% for notification in notifications %}
+                <div class="notification-item">
+                    {% if notification.notification_type == "like" %}
+                    <p><strong>{{ notification.like_user.username }}</strong> curtiu o seu post.</p>
+                    {% elif notification.notification_type == "repost" %}
+                    <p>Seu post foi repostado por <strong>{{ notification.repost_user.username }}</strong>.</p>
+                    {% elif notification.notification_type == "follow" %}
+                    <p><strong>{{ notification.follower.username }}</strong> começou a seguir você.</p>
+                    {% elif notification.notification_type == "mention" %}
+                    <p><strong>{{ notification.mention_user.username }}</strong> mencionou você em um post.</p>
+                    {% elif notification.notification_type == "comment" %}
+                    <p><strong>{{ notification.comment.user.username }}</strong> comentou no seu post:</p>
+                    <p><em>"{{ notification.comment.content }}"</em></p> <!-- Exibe o comentário completo -->
+                    {% endif %}
+                    <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Conteúdo dos comentários -->
+            <div class="tab-content" id="comments">
+                <h2>Comentários</h2>
+                {% for notification in notifications %}
+                {% if notification.notification_type == "comment" %}
+                <div class="notification-item">
+                    <p><strong>{{ notification.comment_user.username }}</strong> comentou no seu post: </p>
+                    <p><em>"{{ notification.comment.content }}"</em></p> <!-- Exibe o comentário completo -->
+                    <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+                </div>
                 {% endif %}
-                <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
 
-        <!-- Conteúdo das curtidas -->
-        <div class="tab-content" id="likes">
-            <h2>Curtidas</h2>
-            {% for notification in notifications %}
-            {% if notification.notification_type == "like" %}
-            <div class="notification-item">
-                <p><strong>{{ notification.like_user.username }}</strong> curtiu o seu post.</p>
-                <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+            <!-- Conteúdo das curtidas -->
+            <div class="tab-content" id="likes">
+                <h2>Curtidas</h2>
+                {% for notification in notifications %}
+                {% if notification.notification_type == "like" %}
+                <div class="notification-item">
+                    <p><strong>{{ notification.like_user.username }}</strong> curtiu o seu post.</p>
+                    <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
-        </div>
 
-        <!-- Conteúdo dos retrinados -->
-        <div class="tab-content" id="reposts">
-            <h2>Repostagens</h2>
-            {% for notification in notifications %}
-            {% if notification.notification_type == "repost" %}
-            <div class="notification-item">
-                <p>Seu post foi repostado por <strong>{{ notification.repost_user.username }}</strong>.</p>
-                <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+            <!-- Conteúdo das repostagens -->
+            <div class="tab-content" id="reposts">
+                <h2>Repostagens</h2>
+                {% for notification in notifications %}
+                {% if notification.notification_type == "repost" %}
+                <div class="notification-item">
+                    <p>Seu post foi repostado por <strong>{{ notification.repost_user.username }}</strong>.</p>
+                    <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
-        </div>
 
-        <!-- Conteúdo dos comentários -->
-        <div class="tab-content" id="comments">
-            <h2>Comentários</h2>
-            <p>Funcionalidade de comentários ainda não implementada.</p>
-        </div>
-
-        <!-- Conteúdo das menções -->
-        <div class="tab-content" id="mentions">
-            <h2>Menções</h2>
-            {% for notification in notifications %}
-            {% if notification.notification_type == "mention" %}
-            <div class="notification-item">
-                <p><strong>{{ notification.mention_user.username }}</strong> mencionou você em um post.</p>
-                <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+            <!-- Conteúdo dos comentários -->
+            <div class="tab-content" id="comments">
+                <h2>Comentários</h2>
+                {% for notification in notifications %}
+                {% if notification.notification_type == "comment" %}
+                <div class="notification-item">
+                    <p><strong>{{ notification.comment_user.username }}</strong> comentou no seu post: </p>
+                    <p><em>"{{ notification.comment.text }}"</em></p> <!-- Exibe o comentário completo -->
+                    <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
+
+
+            <!-- Conteúdo das menções -->
+            <div class="tab-content" id="mentions">
+                <h2>Menções</h2>
+                {% for notification in notifications %}
+                {% if notification.notification_type == "mention" %}
+                <div class="notification-item">
+                    <p><strong>{{ notification.mention_user.username }}</strong> mencionou você em um post.</p>
+                    <span class="notification-time">{{ notification.created_at|timesince }} atrás</span>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
         </div>
+        {% else %}
+        <p>Você não tem notificações.</p>
+        {% endif %}
     </div>
-    {% else %}
-    <p>Você não tem notificações.</p>
-    {% endif %}
-</div>
 </div>
 <!-- Script de funcionamento -->
 <script>

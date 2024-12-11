@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.http import HttpResponse
 from .models import Notification
-from users.models import Post
+from django.urls import reverse
+from .forms import CommentForm
+from .models import Comment, Post
 from .models import Follow
 import re
-from django.urls import reverse
 
 
 def convert_links_to_html(content):
@@ -25,12 +25,12 @@ def convert_links_to_html(content):
 def convert_mentions_to_html(content):
     # Expressão regular para encontrar menções de usuários
     mention_pattern = r"@([a-zA-Z0-9_áéíóúãâêôãçáàü]+)"
-    
+
     # Substituir as menções pelo link do perfil do usuário
     content_with_mentions = re.sub(
         mention_pattern,
         lambda match: f'<a href="{reverse("users:micro_profile", args=[match.group(1)])}">@{match.group(1)}</a>',
-        content
+        content,
     )
     return content_with_mentions
 
@@ -85,7 +85,9 @@ def post(request):
             # Tenta encontrar o post original
             original_post = get_object_or_404(Post, id=original_post_id)
             # Cria um novo post com referência ao post original
-            new_post = Post.objects.create(user=request.user, original_post=original_post)
+            new_post = Post.objects.create(
+                user=request.user, original_post=original_post
+            )
 
             # Cria a notificação para o autor do post original
             Notification.objects.create(
@@ -102,10 +104,14 @@ def post(request):
             new_post = Post.objects.create(content=post_content, user=request.user)
 
             # Detecta menções no conteúdo do post
-            mentions = re.findall(r'@(\w+)', post_content)  # Encontra menções com o símbolo @
+            mentions = re.findall(
+                r"@(\w+)", post_content
+            )  # Encontra menções com o símbolo @
             for mention in mentions:
                 try:
-                    mention_user = User.objects.get(username=mention)  # Busca o usuário mencionado
+                    mention_user = User.objects.get(
+                        username=mention
+                    )  # Busca o usuário mencionado
                     Notification.objects.create(
                         notification_type="mention",
                         user=mention_user,  # O usuário que será notificado
@@ -117,12 +123,14 @@ def post(request):
 
             return redirect("home:index")
         else:
-            return HttpResponse("O conteúdo da postagem não pode ser vazio.", status=400)
+            return HttpResponse(
+                "O conteúdo da postagem não pode ser vazio.", status=400
+            )
 
     return render(request, "home/index.html")
 
 
-@csrf_exempt  # Se você estiver usando Ajax e não enviar CSRF token
+@login_required
 def toggle_like(request):
     if request.method == "POST":
         post_id = request.POST.get("post_id")
@@ -130,12 +138,15 @@ def toggle_like(request):
         user = request.user
 
         if post.likes.filter(id=user.id).exists():
-            post.likes.remove(user)  # Descurtir
+            # Descurtir
+            post.likes.remove(user)
             user_has_liked = False
         else:
-            post.likes.add(user)  # Curtir
+            # Curtir
+            post.likes.add(user)
             user_has_liked = True
 
+            # Função para notificar o autor do post sobre o like
             create_like_notification(user, post)
 
         return JsonResponse(
@@ -143,6 +154,27 @@ def toggle_like(request):
         )
 
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+def toggle_repost(request):
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        post = Post.objects.get(id=post_id)
+
+        # Verifica se o usuário já repostou o post
+        if post.reposts.filter(id=request.user.id).exists():
+            # Se já repostou, desfaz o repost
+            post.reposts.remove(request.user)
+            user_has_reposted = False
+        else:
+            # Se não repostou, cria o repost
+            post.reposts.add(request.user)
+            user_has_reposted = True
+
+        return JsonResponse({
+            'user_has_reposted': user_has_reposted,
+            'repost_count': post.reposts.count()
+        })
 
 
 def create_like_notification(like_user, post):
@@ -156,11 +188,47 @@ def create_like_notification(like_user, post):
     return notification
 
 
-@login_required
 def post_detail(request, post_id):
-    #  Busca o post pelo ID ou retorna 404 se não encontrado
     post = get_object_or_404(Post, id=post_id)
-    return render(request, "home/post_detail.html", {"post": post})
+
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.post = post
+            comment.save()
+    else:
+        comment_form = CommentForm()
+
+    return render(
+        request, "home/post_detail.html", {"post": post, "comment_form": comment_form}
+    )
+
+
+@login_required
+def add_comment(request, post_id):
+    post = Post.objects.get(id=post_id)
+    comment_content = request.POST.get('content')
+
+    # Criando o comentário
+    comment = Comment.objects.create(
+        user=request.user,
+        post=post,
+        content=comment_content
+    )
+
+    # Criando a notificação para o dono do post
+    Notification.objects.create(
+        notification_type="comment",
+        user=post.user,  # Usuário que recebe a notificação (dono do post)
+        post=post,  # Post no qual o comentário foi feito
+        comment_user=request.user,  # Usuário que fez o comentário
+        comment=comment  # Agora associamos o comentário à notificação
+    )
+
+    # Redirecionar ou renderizar a resposta
+    return redirect('home:index')
 
 
 @login_required

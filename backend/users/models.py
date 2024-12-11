@@ -48,8 +48,9 @@ class Post(models.Model):
     def __str__(self):
         location_info = f"from {self.location}" if self.location else ""
         if self.original_post:
-            return f"Repost by {
-                self.user.username} of Post ID {
-                    self.original_post.id
-            }"
+            return f"Repost by {self.user.username} of Post ID {self.original_post.id}"
         return f"Post by {self.user.username} at {self.created_at}{location_info}"
+
+    def repost_count(self):
+        """Retorna o número de repostes de um post."""
+        return self.reposts.count()
