@@ -1,26 +1,58 @@
+/* :root é usado para declarar variáveis globais */
+:root {
+    /* Paleta de cores */
+    --color-primary: #4CAF50; /* Exemplo de verde elegante */
+    --color-secondary: #FFC107; /* Amarelo vibrante */
+    --color-accent: #F44336; /* Vermelho para alertas */
+    --color-background: #f2f4f7; /* Cor de fundo geral */
+    --color-card: #ffff;
+    --color-text: #333; /* Texto principal */
+    --color-text-light: #777; /* Texto secundário */
+    --color-header: #007bff; /* Azul do header ou navegação */
+    --color-footer: #263238; /* Cinza escuro do footer */
 
+    /* Tipografia */
+    --font-family-sans: 'Roboto', sans-serif; /* Fonte principal */
+    --font-family-serif: 'Merriweather', serif; /* Fonte opcional */
+    --font-family-timeline: 'system-ui', sans-serif;
 
-/* Usando a fonte Montserrat sem serifa */
-body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #007bff;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    --font-size-base: 20px; /* Tamanho base */
+    --font-size-large: 1.25rem; /* Para títulos */
+    --font-size-small: 0.875rem; /* Para detalhes menores */
+
+    /* Espaçamentos */
+    --spacing-small: 2px;
+    --spacing-medium: 16px;
+    --spacing-large: 24px;
+
+    /* Borda */
+    --border-radius: 8px;
+    --border-color: #ddd;
+}
+
+/* HTML base do site */
+html {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 1px;
+    font-family: var(--font-size-base);
+    background-color: var(--color-background);
+
 }
 
 /* Cabeçalho */
 header {
-    background-color: #007bff;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     padding: 20px 20px;
-    border-bottom: 1px solid #fff;
+    border-bottom: 0.5px solid rgb(226, 226, 226);
     width: 100%;
-    height: 100px;
+    height: 80px;
     box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 10;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
 }
 
 .header-container {
@@ -39,7 +71,6 @@ header {
 }
 
 .search-bar input {
-    
     background-color:#f5f5f5;
     border-radius: 20px;
     padding: 10px 15px;
@@ -53,44 +84,42 @@ header {
 
 .logo {
     position: absolute;
-    left: 30px;
-    top: 28px;
+    left: 35px;
+    top: 15px;
     font-size: 40px;
     color: #fff;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: var(--font-family-timeline);
     font-weight: bold;
 }
 
 .user-photo {
     right: 40px;
-    top: 13px;
+    top: 5px;
     object-fit: cover;
     position: absolute;
 }
 
 .user-photo img {
     border-radius: 100%;
-    width: 65px;
-    height: 65px;
+    width: 58px;
+    height: 58px;
     object-fit: cover;
-    border: 1px solid #007bff;
-    padding: 1px;
+    padding: 2px;
+    border: 3px solid #007bff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); 
 
 }
 
-
 /* Menu Lateral com Design Melhorado */
 .side-menu {
     width: 320px;
-    height: calc(100vh - 100px);
-    background-color: #007bff; /* Azul mais escuro para contraste */
+    height: calc(98vh - 100px);
+    background-color: var(--color-background); /* Azul mais escuro para contraste */
     position: fixed;
     top: 100px;
     left: 0;
     padding: 20px;
     box-sizing: border-box;
-    border-right: 1px solid #fff;
     z-index: 1;
     box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
 }
@@ -106,7 +135,7 @@ header {
 }
 
 .side-menu ul li a {
-    color: #f5f5f5; /* Cor clara para contraste */
+    color: #007bff;
     text-decoration: none;
     font-size: 20px; /* Reduzido para um visual mais limpo */
     font-weight: bold;
@@ -124,8 +153,9 @@ header {
 }
 
 .side-menu ul li a:hover {
-    background-color: #0056b3; /* Cor de hover mais clara */
+    background-color: #e6e8ea; /* Cor de hover mais clara */
     transform: scale(1.05); /* Leve aumento no hover */
+    color: #007bff;
 }
 
 .side-menu ul li.active a {
@@ -138,13 +168,12 @@ header {
 .side-menu-title {
     font-size: 24px;
     font-weight: bold;
-    color: #fff;
+    color: var(--color-background);
     margin-bottom: 20px;
     text-transform: uppercase; /* Maiúsculas para ênfase */
     border-bottom: 2px solid #fff; /* Linha abaixo do título */
     padding-bottom: 10px;
 }
-
 
 /* Wrapper externo para a barra de rolagem */
 .timeline-wrapper {
@@ -158,28 +187,25 @@ header {
     z-index: 2;
 }
 
-/* Timeline */
 .timeline {
-    position: absolute;
+    position: relative;
     top: 0;
-    left: 320px;
-    width: 42%;
+    align-items: center;
+    width: 38%;
     height: calc(100vh - 100px);
-    overflow-y: scroll;
-    margin-top: 100px;
+    overflow-y: scroll; /* Mantém a rolagem funcional */
+    margin: 100px auto;
     box-sizing: border-box;
     padding: 20px;
-    background-color: #f5f5f5; /* Fundo da área da timeline */
+    background-color: var(--color-background);
+
+    /* Esconde a barra de rolagem */
+    scrollbar-width: none; /* Para Firefox */
+    -ms-overflow-style: none; /* Para IE/Edge */
 }
 
-/* Card de cada post */
-.post {
-    background-color: #ffffff; /* Fundo mais branco para destaque */
-    border-radius: 8px; /* Cantos arredondados */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve para profundidade */
-    margin-bottom: 20px; /* Espaço entre os posts */
-    padding: 15px; /* Espaçamento interno */
-    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Efeito de interação */
+.timeline::-webkit-scrollbar {
+    display: none; /* Para navegadores baseados no Webkit */
 }
 
 /* Efeito de hover nos cards */
@@ -205,8 +231,8 @@ header {
 .post {
     background-color: #fff;
     margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 8px;
+    padding: 5px;
+    border-radius: 0px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 100%;
     display: flex;
@@ -225,52 +251,95 @@ header {
     height: 50px;
     margin-right: 10px;
     object-fit: cover;
-    border: 3px solid #007bff;
     object-fit: cover;
-    padding: 0.5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); 
+    padding: 2px;
+    border: 3px solid #007bff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .post h2 {
     margin: 0;
     font-size: 20px;
     font-weight: bold;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    font-family: var(--font-family-sans);
 }
 
 .post p {
     margin-top: 10px;
     font-size: 15px;
-    font-weight:unset;
-    color: #424242;
+    font-family: var(--font-family-sans);
+    letter-spacing: 0.4px;
+    font-weight: 100;
+    color: #494848;
+}
+
+.post-strong {
+    font-family: var(--font-family-sans);
 }
 
 /* Formulário de postagem */
 .post-form {
+    margin-left: 0vh;
     background-color: #fff;
-    padding: 15px;
+    padding: 8px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    top: -2vh;
+    position: relative;
+    height: 160px;
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+
+
 }
 
 .post-form textarea {
-    width: 90%;
-    height: 90px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 400px;
+    height: 85px;
     padding: 10px;
     border-radius: 8px;
     border: 1px solid #ddd;
+    position: relative;
     resize: none;
     margin-bottom: 15px;
+    resize: none;
+    left: 0vh;
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+
 }
 
 .post-form button {
     background-color: #007bff;
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px 50px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    scale: 0.95;
+    left: 0vh;
+    bottom:0vh;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .post-form button:hover {
@@ -289,6 +358,12 @@ header {
     align-items: flex-start;
     flex-direction: column;
     /* Alinha os elementos de cima para baixo */
+
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .post .post-date {
@@ -328,6 +403,11 @@ header {
 .btn-repost i,
 .btn-like i {
     margin-right: 5px;
+}
+
+.repost-header {
+    font-size: 15px;
+    font-family: var(--font-family-timeline);
 }
 
 /* Contador de likes */
@@ -396,11 +476,6 @@ a {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-span {
-    font-size: 15px;
-}
-
-
 /* Estilo geral para links */
 a {
     color: #007bff; /* Azul para links */
@@ -414,48 +489,9 @@ a:hover {
     text-decoration: underline; /* Adiciona sublinhado no hover */
 }
 
+.post-footer {
+    margin-top: 50px;
 
-
-
-
-/* CSS para o botão de repost */
-.btn-repost.active {
-    color: green; /* Cor verde para o ícone */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Estilo para os botões de interação */
-.btn-like, .btn-repost, .comment-btn {
-    background: none;
-    border: none;
-    color: #007bff; /* Cor inicial azul para os botões */
-    cursor: pointer;
-    font-size: 16px;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px; /* Espaço entre o ícone e o texto */
-    padding: 5px 10px;
-    border-radius: 20px; /* Botões com bordas arredondadas */
-    transition: all 0.3s ease;
 }
 
 /* Efeito de hover nos botões */
@@ -463,6 +499,131 @@ a:hover {
     color: #0056b3; /* Cor quando o mouse passa sobre o botão */
     background-color: #f1f1f1; /* Leve fundo quando o usuário passar o mouse */
     transform: scale(1.05); /* Aumenta ligeiramente o tamanho do botão */
+}
+
+.comment-container {
+    margin-top: 10px;
+    display: none;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    padding: 8px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilo para o campo de entrada de texto */
+textarea[class="text-comment"] {
+    width: 100%; /* Faz com que o campo ocupe toda a largura disponível */
+    height: 70px; /* Altura do campo */
+    padding: 10px; /* Espaçamento interno */
+    border: 1px solid #ccc; /* Cor e estilo da borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 14px; /* Tamanho da fonte */
+    line-height: 1.5; /* Espaçamento entre as linhas */
+    color: #333; /* Cor do texto */
+    background-color: #f9f9f9; /* Cor de fundo */
+    resize: vertical; /* Permite redimensionar verticalmente */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+
+}
+
+/* Estilo do campo de texto quando está em foco (selecionado) */
+textarea:focus {
+    border-color: #5b9bd5; /* Cor da borda quando em foco */
+    background-color: #e6f3ff; /* Cor de fundo quando em foco */
+    outline: none; /* Remove a borda padrão ao clicar */
+}
+
+.comments-section {
+    margin-top: 30px;
+    font-family: var(--font-family-sans);
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-user-photo {
+    margin-top: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin-right: 10px;
+}
+
+strong.comment-user-name {
+    position:relative;
+    left: -9px;
+    bottom: 3px;
+    
+}
+
+.post-footer {
+    margin-top: 10px; /* Ajusta o espaço entre a postagem e os botões */
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between; /* Distribui os botões uniformemente */
+    align-items: center; /* Alinha os botões verticalmente */
+    padding: 0 20px; /* Espaço interno opcional */
+}
+
+.buttons-container button,
+.buttons-container form {
+    margin: 0 10px; /* Espaçamento entre os botões */
+    flex-grow: 1; /* Permite que os botões cresçam uniformemente */
+    text-align: center; /* Centraliza os ícones e textos dentro de cada botão */
+}
+
+.buttons-container button:nth-child(1) {
+    text-align: left;
+}
+
+.buttons-container button:nth-child(3) {
+    text-align: right;
+}
+
+/* Estilo para os botões de interação */
+.btn-like, .btn-repost, .comment-btn {
+    background: none;
+    border: none;
+    color: #007bff; 
+    cursor: pointer;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px; /* Espaço entre o ícone e o texto */
+    padding: 5px 79.5px;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    margin-left: 10px;
+
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+
+
 }
 
 /* Estilo específico para o botão de Curtir */
@@ -483,32 +644,32 @@ a:hover {
     color: red; /* Ícone de coração vermelho quando curtido */
 }
 
-/* Estilo específico para o botão de Repostar */
-.btn-repost {
-    color: #007bff; /* Cor inicial azul */
+.divider {
+    border-top: 1px solid #ccc; /* Linha cinza */
+    margin: 10px 0; /* Espaço entre o post e os botões */
 }
 
-.btn-repost i {
-    color: #007bff; /* Ícone inicial azul para repostar */
+/* Linha divisória entre o conteúdo e os botões */
+.post-content + .post-footer {
+    border-top: 1px solid #ddd; /* Linha cinza */
+    margin-top: 9px; /* Espaçamento entre o conteúdo e a linha */
 }
 
-/* Quando o botão de Repostar for ativo (já clicado) */
-.btn-repost.active {
-    color: green; /* Cor verde do texto quando repostado */
-}
 
-.btn-repost.active i {
-    color: green; /* Ícone de repost verde quando ativo */
-}
 
-/* Contagem de likes */
-.like-count {
-    font-weight: bold;
-    color: inherit; /* A cor herda do botão ativo/inativo */
-}
 
-/* Ajustes adicionais para o ícone de interação */
-.btn-like i, .btn-repost i, .comment-btn i {
-    font-size: 18px; /* Aumenta o tamanho do ícone */
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

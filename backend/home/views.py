@@ -130,6 +130,11 @@ def post(request):
     return render(request, "home/index.html")
 
 
+def format_post_content(content, max_chars_per_line=46):
+    formatted_content = '\n'.join([content[i:i+max_chars_per_line] for i in range(0, len(content), max_chars_per_line)])
+    return formatted_content
+
+
 @login_required
 def toggle_like(request):
     if request.method == "POST":

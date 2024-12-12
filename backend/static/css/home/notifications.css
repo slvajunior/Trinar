@@ -1,64 +1,72 @@
+/* :root é usado para declarar variáveis globais */
+:root {
+    /* Paleta de cores */
+    --color-primary: #4CAF50; /* Exemplo de verde elegante */
+    --color-secondary: #FFC107; /* Amarelo vibrante */
+    --color-accent: #F44336; /* Vermelho para alertas */
+    --color-background: #f2f4f7; /* Cor de fundo geral */
+    --color-card: #ffff;
+    --color-text: #333; /* Texto principal */
+    --color-text-light: #777; /* Texto secundário */
+    --color-header: #007bff; /* Azul do header ou navegação */
+    --color-footer: #263238; /* Cinza escuro do footer */
+
+    /* Tipografia */
+    --font-family-sans: 'Roboto', sans-serif; /* Fonte principal */
+    --font-family-serif: 'Merriweather', serif; /* Fonte opcional */
+    --font-family-timeline: 'system-ui', sans-serif;
+
+    --font-size-base: 20px; /* Tamanho base */
+    --font-size-large: 1.25rem; /* Para títulos */
+    --font-size-small: 0.875rem; /* Para detalhes menores */
+
+    /* Espaçamentos */
+    --spacing-small: 2px;
+    --spacing-medium: 16px;
+    --spacing-large: 24px;
+
+    /* Borda */
+    --border-radius: 8px;
+    --border-color: #ddd;
+}
+
 /* Ajuste de layout para o body */
-html, body {
-    max-width: 100%;
-    font-family: 'Montserrat', sans-serif;
-    background-color: #007bff;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    margin-left: 10px;
-    margin-top: 10px;
-    box-sizing: border-box;
-    max-height: 90%;  /* Ocupa a altura da tela */
-    overflow-y: auto;
-    position: relative;
-    overflow: hidden;
+html {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 1px;
+    font-family: var(--font-size-base);
+    background-color: var(--color-background);
+    color: #263238;
+    font-family: var(--font-family-sans);
 
 }
 
-/* Cabeçalho fixo */
+/* Cabeçalho */
 header {
-    background-color: #007bff;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     padding: 20px 20px;
-    border-bottom: 1px solid #fff;
+    border-bottom: 0.5px solid rgb(226, 226, 226);
     width: 100%;
-    height: 100px;
+    height: 80px;
     box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 10;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
 }
-
-.header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-}
-
-
-
-
-
-
-
-
-/* Menu lateral */
-
 
 /* Menu Lateral com Design Melhorado */
 .side-menu {
     width: 320px;
-    height: calc(100vh - 100px);
-    background-color: #007bff; /* Azul mais escuro para contraste */
+    height: calc(98vh - 100px);
+    background-color: var(--color-background); /* Azul mais escuro para contraste */
     position: fixed;
     top: 100px;
     left: 0;
     padding: 20px;
     box-sizing: border-box;
-    border-right: 1px solid #fff;
     z-index: 1;
     box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
 }
@@ -74,7 +82,7 @@ header {
 }
 
 .side-menu ul li a {
-    color: #f5f5f5; /* Cor clara para contraste */
+    color: #007bff;
     text-decoration: none;
     font-size: 20px; /* Reduzido para um visual mais limpo */
     font-weight: bold;
@@ -92,8 +100,9 @@ header {
 }
 
 .side-menu ul li a:hover {
-    background-color: #0056b3; /* Cor de hover mais clara */
+    background-color: #e6e8ea; /* Cor de hover mais clara */
     transform: scale(1.05); /* Leve aumento no hover */
+    color: #007bff;
 }
 
 .side-menu ul li.active a {
@@ -106,41 +115,30 @@ header {
 .side-menu-title {
     font-size: 24px;
     font-weight: bold;
-    color: #fff;
+    color: var(--color-background);
     margin-bottom: 20px;
     text-transform: uppercase; /* Maiúsculas para ênfase */
     border-bottom: 2px solid #fff; /* Linha abaixo do título */
     padding-bottom: 10px;
 }
 
-
-
-
-
-
-
-
-
-
 /* Wrapper para conteúdo */
 .content-wrapper {
-    margin-top: 100px; /* Para abaixo do cabeçalho */
-    margin-left: 320px; /* Espaço do menu lateral */
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+    position: absolute; /* Permite posicionar em relação ao contêiner pai */
+    top: 50%; /* Move o elemento para 50% da altura da tela */
+    left: 50%; /* Move o elemento para 50% da largura da tela */
+    transform: translate(-50%, -50%); /* Centraliza ao ajustar o ponto de ancoragem */
+    width: 37%; /* Define uma largura relativa */
+    height: 87vh;
+    overflow-y: auto; /* Mantém a rolagem funcional */
+    box-sizing: border-box;
     padding: 20px;
-    background-color: #fff; /* Fundo branco para as abas e conteúdo */
-    min-height: calc(100vh - 100px); /* Altura total restante da tela */
-    overflow: auto;
-    box-sizing: border-box;
-    border-left: 1px solid #ddd; /* Linha para separar do menu lateral */
-    z-index: 0;
-}
-
-/* Ajuste do layout para que a timeline não se estenda */
-.timeline {
-    width: 100%; /* Limita o tamanho da timeline */
-    height: calc(100vh - 100px);
-    overflow-y: auto;
-    box-sizing: border-box;
+    z-index: 2;
+    max-height: 100%;
+    max-width: 100%;
+    top: 54vh;
+    border-radius: 8px;
 }
 
 /* Abas de Notificação */
@@ -166,7 +164,7 @@ header {
 
 .tab.active {
     background-color: #007bff;
-    color: #fff;
+    color: #ffff;
     border-bottom: none; /* Remover linha inferior para aba ativa */
 }
 
@@ -214,31 +212,14 @@ header {
     }
 }
 
-
-
-
-
-
-
-body {
-    font-family: 'Montserrat', sans-serif;
-
-    justify-content: flex-start; /* Posiciona os elementos à esquerda */
-    align-items: flex-start;
-    background-color: #007bff;
-    margin-top: 10px;
-    margin-left: 10px;
-    height: 935px;
-    width: 60%;
-    overflow: hidden;
+h1.notificaions-aba {
+    background: var(--color-accent);
+    background-color: var(--color-accent);
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 800px;
-    margin: 0;
+div.content-wrapper {
+    background-color: var(--color-card);
+
 }
 
 
@@ -249,105 +230,5 @@ body {
 
 
 
-.profile-header {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.profile-header .user-info {
-    display: flex;
-    align-items: center;
-}
-
-.profile-header .user-info .user-picture {
-    flex-shrink: 0;
-    width: 100px;
-    height: 100px;
-    margin-right: 20px;
-}
-
-.profile-header .user-info .user-details {
-    flex-grow: 1;
-}
-
-.profile-header .user-info .buttons {
-    text-align: right;
-}
-
-.profile-header .followers-count {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-}
 
 
-
-
-
-.user-posts-history {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.posts .post {
-    margin-bottom: 20px;
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Botões */
-
-.btn-primary {
-    margin-top: 110px;
-    font-size: 14px;
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-danger {
-    margin-top: 110px;
-    font-size: 14px;
-    padding: 8px 12px;
-    background-color: #ff4d4d;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-primary:hover,
-.btn-danger:hover {
-    opacity: 0.9;
-}
-
-
-
-
-
-/* Estilo geral para links */
-a {
-    color: #007bff; /* Azul para links */
-    text-decoration: none; /* Remove o sublinhado */
-    font-weight: bold; /* Deixa o texto mais destacado */
-}
-
-/* Efeito de hover nos links */
-a:hover {
-    color: #0056b3; /* Azul mais escuro no hover */
-    text-decoration: underline; /* Adiciona sublinhado no hover */
-}

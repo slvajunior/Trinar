@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
-
 {% load static %}
-
 {% block content %}
 
 <div class="tudo">
@@ -16,7 +14,7 @@
             <div class="tab" onclick="showTab('mentions')">Menções</div>
         </div>
 
-        <h1>Notificações</h1>
+        <h1 class="notifications-aba">Notificações</h1>
 
         {% if notifications %}
         <!-- Envolvendo o conteúdo das notificações com a classe 'notification-wrapper' para aplicar a rolagem -->

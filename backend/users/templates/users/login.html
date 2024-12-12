@@ -1,10 +1,48 @@
+{% load static %}
 
-  <h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
 
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Entrar</button>
-  </form>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trinar-login</title>
+</head>
 
-  <p>Não tem uma conta? <a href="{% url 'users:register' %}">Registre-se aqui</a></p>
+<body>
+  <link rel="stylesheet" href="{% static 'css/users/login.css' %}">
+
+  <div class="login-box">
+    <p>Login</p>
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="user-box">
+        {{ form.username }}
+        <label for="id_username">Username</label>
+      </div>
+
+      <div class="user-box">
+        {{ form.password }}
+        <label for="id_password">Password</label>
+      </div>
+
+      <a href="#" onclick="this.closest('form').submit();">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Submit
+      </a>
+    </form>
+
+    <p>Não tem uma conta? <a href="{% url 'users:register' %}" class="a2">Registre-se aqui</a></p>
+
+  </div>
+
+  <footer>
+    <p class="footer">&copy; 2024 Triᴎar - todos os direitos reservados.</p>
+  </footer>
+</body>
+
+</html>

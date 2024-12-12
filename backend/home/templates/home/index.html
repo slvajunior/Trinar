@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+
 {% load static %}
 
 {% block content %}
+
 <div class="timeline">
     <!-- Formulário de postagem -->
     <div class="post-form">
@@ -24,7 +26,8 @@
 
         <div class="original-post-info">
             <a href="{% url 'users:profile' post.original_post.user.username %}">
-                <img src="{{ post.original_post.user.profile.profile_picture.url }}" alt="Foto do Autor" class="author-photo">
+                <img src="{{ post.original_post.user.profile.profile_picture.url }}" alt="Foto do Autor"
+                    class="author-photo">
             </a>
             <a href="{% url 'users:profile' post.original_post.user.username %}" class="profile-link">
                 <strong class="nomeA">{{ post.original_post.user.username }}</strong>
@@ -37,6 +40,7 @@
             <p>{{ post.original_post.content|safe|linebreaksbr }}</p>
             {% else %}
             <p>{{ post.original_post.content|urlize|linebreaksbr|safe }}</p>
+
             {% endif %}
         </div>
         {% else %}
@@ -54,12 +58,48 @@
             <p>{{ post.content|safe|linebreaksbr }}</p>
             {% else %}
             <p>{{ post.content|urlize|linebreaksbr|safe }}</p>
+
             {% endif %}
         </div>
         {% endif %}
 
-        <!-- Linha com a data da postagem -->
-        <div class="post-footer">
+        <!-- Formulário de Comentário -->
+        <div id="comment-form-{{ post.id }}" class="comment-form" style="display: none;">
+            <form method="POST" action="{% url 'home:add_comment' post.id %}">
+                {% csrf_token %}
+                <textarea name="content" placeholder="Comente sobre este post..."></textarea>
+                <button type="submit">Comentar</button>
+            </form>
+        </div>
+
+        <!-- Exibição dos Comentários -->
+        <div class="comments-section" id="comments-section-{{ post.id }}">
+            {% for comment in post.comments.all %}
+            <div class="text-comment">
+
+                <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
+
+                <!-- Exibe a foto do usuário -->
+                <img src="{{ comment.user.profile.profile_picture.url }}" alt="{{ comment.user.username }}'s photo"
+                    class="comment-user-photo" style="margin-right: 10px;" />
+
+
+                <!-- Exibe o nome do usuário e o conteúdo do comentário -->
+                <strong class="comment-user-name">{{ comment.user.username }}</strong>
+                <p style="margin: 0; color: #666;">{{ comment.content }}</p>
+
+                <!-- Linha divisória após o comentário -->
+
+            </div>
+            {% empty %}
+
+            {% endfor %}
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
+
+        <!-- Linha divisória entre o conteúdo do post e os botões -->
+        <div class="post-footer" style="border-top: 1px solid #ddd; margin-top: 10px;">
             <!-- Botão de like -->
             <button class="btn-like {% if user in post.likes.all %}active{% endif %}" data-post-id="{{ post.id }}">
                 <i class="fas fa-heart"></i><span class="like-count">{{ post.likes.count }}</span>
@@ -80,31 +120,50 @@
             </button>
         </div>
 
-        <!-- Formulário de Comentário -->
-        <div id="comment-form-{{ post.id }}" class="comment-form" style="display: none;">
-            <form method="POST" action="{% url 'home:add_comment' post.id %}">
-                {% csrf_token %}
-                <textarea name="content" placeholder="Comente sobre este post..."></textarea>
-                <button type="submit">Comentar</button>
-            </form>
-        </div>
-
-        <!-- Exibição dos Comentários -->
-        <div class="comments-section" id="comments-section-{{ post.id }}">
-            {% for comment in post.comments.all %}
-            <div class="comment">
-                <p><strong>{{ comment.user.username }}</strong>: {{ comment.content }}</p>
-            </div>
-            {% empty %}
-            <p>Seja o primeiro a comentar!</p>
-            {% endfor %}
-        </div>
-
     </div>
     {% endfor %}
 </div>
 
 <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const textareas = document.querySelectorAll('textarea[name="content"]');
+
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', function () {
+                const maxCharsPerLine = 500; // Máximo de caracteres por linha
+                const caretPosition = this.selectionStart; // Posição atual do cursor
+
+                // Divide o texto em linhas
+                const lines = this.value.split('\n').map(line => {
+                    if (line.length > maxCharsPerLine) {
+                        return line.match(new RegExp(`.{1,${maxCharsPerLine}}`, 'g')).join('\n');
+                    }
+                    return line;
+                });
+
+                const formattedText = lines.join('\n'); // Recria o texto com quebras de linha
+                const beforeText = this.value.slice(0, caretPosition); // Texto antes do cursor
+                const afterText = this.value.slice(caretPosition); // Texto depois do cursor
+
+                const formattedBeforeText = beforeText.split('\n').map(line => {
+                    if (line.length > maxCharsPerLine) {
+                        return line.match(new RegExp(`.{1,${maxCharsPerLine}}`, 'g')).join('\n');
+                    }
+                    return line;
+                }).join('\n');
+
+                const newCaretPosition = formattedBeforeText.length; // Nova posição do cursor
+
+                // Atualiza o texto no textarea
+                this.value = formattedText;
+
+                // Define a nova posição do cursor
+                this.setSelectionRange(newCaretPosition, newCaretPosition);
+            });
+        });
+    });
+
     document.addEventListener('DOMContentLoaded', function () {
         // Configuração do CSRF Token
         function getCSRFToken() {
@@ -114,15 +173,15 @@
                 ?.split('=')[1];
             return cookieValue || '';
         }
-    
+
         // Botões de like
         const likeButtons = document.querySelectorAll('.btn-like');
-    
+
         likeButtons.forEach(button => {
             button.addEventListener('click', function () {
                 const postId = this.getAttribute('data-post-id');
                 const likeCountSpan = this.querySelector('.like-count');
-    
+
                 fetch('/toggle-like/', {
                     method: 'POST',
                     headers: {
@@ -131,34 +190,34 @@
                     },
                     body: `post_id=${postId}`
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        console.error(data.error);
-                    } else {
-                        // Atualiza contagem de likes
-                        likeCountSpan.textContent = data.likes_count;
-    
-                        // Atualiza a cor do botão
-                        if (data.user_has_liked) {
-                            button.classList.add('active'); // Ativa o botão de like
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error(data.error);
                         } else {
-                            button.classList.remove('active'); // Remove a classe se não curtiu
+                            // Atualiza contagem de likes
+                            likeCountSpan.textContent = data.likes_count;
+
+                            // Atualiza a cor do botão
+                            if (data.user_has_liked) {
+                                button.classList.add('active'); // Ativa o botão de like
+                            } else {
+                                button.classList.remove('active'); // Remove a classe se não curtiu
+                            }
                         }
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                    })
+                    .catch(error => console.error('Error:', error));
             });
         });
-    
+
         // Botões de comentário
         const commentButtons = document.querySelectorAll('.comment-btn');
-    
+
         commentButtons.forEach(button => {
             button.addEventListener('click', function () {
                 const postId = this.getAttribute('data-post-id');
                 const commentForm = document.getElementById(`comment-form-${postId}`);
-    
+
                 // Alterna a exibição do formulário de comentários
                 if (commentForm.style.display === 'none' || commentForm.style.display === '') {
                     commentForm.style.display = 'block';
@@ -168,18 +227,6 @@
             });
         });
     });
-    </script>
-    
+</script>
+
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
