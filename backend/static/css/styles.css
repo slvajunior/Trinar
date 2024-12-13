@@ -655,6 +655,16 @@ strong.comment-user-name {
     margin-top: 9px; /* Espaçamento entre o conteúdo e a linha */
 }
 
+button[type="submit-comment"] {
+    border-radius: 5px;
+    width: 50px;
+    height: 33px;
+    font-size: 18px;
+}
+
+button[type="submit-comment"]:hover {
+    background-color: #0056b3; /* Cor no hover */
+}
 
 
 

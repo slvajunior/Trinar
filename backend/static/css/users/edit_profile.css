@@ -1,3 +1,35 @@
+/* :root é usado para declarar variáveis globais */
+:root {
+    /* Paleta de cores */
+    --color-primary: #4CAF50; /* Exemplo de verde elegante */
+    --color-secondary: #FFC107; /* Amarelo vibrante */
+    --color-accent: #F44336; /* Vermelho para alertas */
+    --color-background: #f2f4f7; /* Cor de fundo geral */
+    --color-card: #ffff;
+    --color-text: #333; /* Texto principal */
+    --color-text-light: #777; /* Texto secundário */
+    --color-header: #007bff; /* Azul do header ou navegação */
+    --color-footer: #263238; /* Cinza escuro do footer */
+
+    /* Tipografia */
+    --font-family-sans: 'Roboto', sans-serif; /* Fonte principal */
+    --font-family-serif: 'Merriweather', serif; /* Fonte opcional */
+    --font-family-timeline: 'system-ui', sans-serif;
+
+    --font-size-base: 20px; /* Tamanho base */
+    --font-size-large: 1.25rem; /* Para títulos */
+    --font-size-small: 0.875rem; /* Para detalhes menores */
+
+    /* Espaçamentos */
+    --spacing-small: 2px;
+    --spacing-medium: 16px;
+    --spacing-large: 24px;
+
+    /* Borda */
+    --border-radius: 8px;
+    --border-color: #ddd;
+}
+
 /* Cabeçalho do Perfil */
 .profile-header {
     display: flex;
@@ -16,34 +48,26 @@
     align-items: center;
 }
 
-
 img.img-profile {
     position: relative; /* Permite ajustar a posição */
-    bottom: 68px;          /* Move para baixo (use valores positivos ou negativos para ajustar) */
-    left: -3px;
+    bottom: 67px;          /* Move para baixo (use valores positivos ou negativos para ajustar) */
+    left: 230px;
     border-radius: 50%;
     width: 150px;
     height: 150px;
     object-fit: cover;
     border: 3px solid #fafafa;
-
 }
 
 h2 {
-    position: relative; /* Permite ajustar a posição */
-    bottom: 6px;          /* Move para baixo (use valores positivos ou negativos para ajustar) */
-    left: 250px;
-    font-weight: bold;  /* Adiciona destaque ao nome */
-    font-size: 20px;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color:#007bff;
+    position: relative; /* Fixa o elemento na janela */
+    top: 150px;       /* Ajuste a posição a partir do topo */
+    left: 170px;     /* Ajuste a posição a partir da esquerda */
+    font-weight: bold;
+    font-size: 25px;
+    font-family: var(--font-family-sans);
+    color: #007bff;
 }
-
-
-
-
-
-
 
 /* Estilos do formulário */
 .edit-profile-form {
@@ -55,13 +79,15 @@ h2 {
     margin: 20px auto; /* Centraliza o formulário */
     box-sizing: border-box;
     max-width: 100%;
+    font-family: var(--font-family-sans);
 }
 
 .edit-profile-form h3 {
-    font-size: 24px;
+    font-size: 20px;
     margin-bottom: 20px;
+    margin-top: -5px;
     color: #007bff;
-    text-align: center;
+    text-align: left;
 }
 
 .form-group {

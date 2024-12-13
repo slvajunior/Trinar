@@ -5,6 +5,8 @@
 {% block content %}
 
 <div class="timeline">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <!-- Formulário de postagem -->
     <div class="post-form">
         <form method="POST" action="{% url 'home:post' %}">
@@ -68,10 +70,12 @@
             <form method="POST" action="{% url 'home:add_comment' post.id %}">
                 {% csrf_token %}
                 <textarea name="content" placeholder="Comente sobre este post..."></textarea>
-                <button type="submit">Comentar</button>
+                <button type="submit-comment">
+                    <i class="bi bi-arrow-up-circle-fill"></i>                
+                </button>
             </form>
         </div>
-
+        
         <!-- Exibição dos Comentários -->
         <div class="comments-section" id="comments-section-{{ post.id }}">
             {% for comment in post.comments.all %}
@@ -96,7 +100,6 @@
             {% endfor %}
         </div>
 
-        <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
 
         <!-- Linha divisória entre o conteúdo do post e os botões -->
         <div class="post-footer" style="border-top: 1px solid #ddd; margin-top: 10px;">

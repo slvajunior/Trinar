@@ -38,11 +38,11 @@
     <!-- Menu lateral -->
     <div class="side-menu">
         <ul>
-            <li><a href="{% url 'home:index' %}"><i class="fas fa-home"></i> Home Page</a></li>
+            <li><a href="{% url 'home:index' %}"><i class="bi bi-house-fill"></i>Home Page</a></li>
             
             <li>
                 <a href="{% url 'home:notifications' %}" class="notifications-link" title="Clique para ver as notificações">
-                    <i class="fas fa-bell"></i> Notifications
+                    <i class="fas fa-bell"></i>Notifications
                     <div class="notifications-container">
                         {% if unread_count > 0 %}
                             <span class="notification-badge">{{ unread_count }}</span>
@@ -51,11 +51,14 @@
                 </a>
             </li>
             
-            <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
-            <li><a href="{% url 'users:profile' username=request.user.username %}"><i class="fas fa-user"></i>Profile</a></li>
-            <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
-            <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy</a></li>
+            <li><a href="#"><i class="bi bi-chat-left-fill"></i>Messages</a></li>
+            <li><a href="{% url 'users:profile' username=request.user.username %}"><i class="bi bi-person-circle"></i>Profile</a></li>
+            <li><a href="#"><i class="bi bi-gear-wide-connected"></i>Settings</a></li>
+            <li><a href="#"><i class="fas fa-shield-alt"></i>Privacy</a></li>
+            <div class="post-footer" style="border-top: 1.5px solid #ddd; margin-top: 10px;">
+
         </ul>
+
     </div>
 
     {% block content %}

@@ -1,8 +1,59 @@
+{% load static %}
 
-  <h2>Registro de Usuário</h2>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinar - Registro</title>
+    <link rel="stylesheet" href="{% static 'css/users/register.css' %}">
+</head>
+<body>
+    <div class="login-box">
+        <p>Registro</p>
+        <form method="POST" action="{% url 'users:register' %}">
+            {% csrf_token %}
+            <div class="user-box">
+                <input type="text" name="username" required>
+                <label for="username">Nome de Usuário</label>
+            </div>
 
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Registrar</button>
-  </form>
+            <div class="user-box">
+                <input type="email" name="email" required>
+                <label for="email">E-mail</label>
+            </div>
+
+            <div class="user-box">
+                <input type="text" name="full_name" required>
+                <label for="full_name">Nome Completo</label>
+            </div>
+
+            <div class="user-box">
+                <input type="password" name="password1" required>
+                <label for="password1">Senha</label>
+            </div>
+
+            <div class="user-box">
+                <input type="password" name="password2" required>
+                <label for="password2">Confirmar Senha</label>
+            </div>
+
+            <div class="user-box">
+                <input type="file" name="profile_picture">
+                <label for="profile_picture">Foto de Perfil</label>
+            </div>
+            <a href="#" onclick="this.closest('form').submit();">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Submit
+            </a>
+        </form>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Trinar - todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
