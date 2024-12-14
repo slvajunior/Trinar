@@ -278,7 +278,6 @@ header {
     overflow-x: hidden;
     box-sizing: border-box;
 
-
 }
 
 .post-form textarea {
@@ -305,28 +304,61 @@ header {
 
 }
 
-.post-form button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 50px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    scale: 0.95;
-    left: 0vh;
-    bottom:0vh;
+/* Button de postagem */
+/* From Uiverse.io by JaydipPrajapati1910 */ 
+.button {
+    --color: rgba(88, 101, 242, 1);
+    padding: 0.4em 1.5em;
+    background-color: transparent;
+    border-radius: .3em;
     position: relative;
-
-    display: flex;
-    flex-direction: column;
-    max-width: 100%;
-    overflow-x: hidden;
-    box-sizing: border-box;
-}
-
-.post-form button:hover {
-    background-color: #0056b3;
-}
+    overflow: hidden;
+    cursor: pointer;
+    transition: .5s;
+    font-weight: 400;
+    font-size: 17px;
+    border: 1px solid;
+    font-family: var(--font-family-sans);
+    color: var(--color);
+    z-index: 1;
+  }
+  
+  .button::before, .button::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    background-color: var(--color);
+    transition: 1s ease;
+  }
+  
+  .button::before {
+    top: -1em;
+    left: -1em;
+  }
+  
+  .button::after {
+    left: calc(100% + 1em);
+    top: calc(100% + 1em);
+  }
+  
+  .button:hover::before, .button:hover::after {
+    height: 410px;
+    width: 410px;
+  }
+  
+  .button:hover {
+    color: rgb(10, 25, 30);
+    color: #fff;
+  }
+  
+  .button:active {
+    filter: brightness(.8);
+  }
 
 /*EXIF de postagens dd/mm/aaaa*/
 .post {
