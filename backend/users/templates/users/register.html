@@ -1,59 +1,68 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trinar - Registro</title>
-    <link rel="stylesheet" href="{% static 'css/users/register.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trinar-register</title>
 </head>
+
 <body>
-    <div class="login-box">
-        <p>Registro</p>
-        <form method="POST" action="{% url 'users:register' %}">
-            {% csrf_token %}
-            <div class="user-box">
-                <input type="text" name="username" required>
-                <label for="username">Nome de Usuário</label>
-            </div>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/users/register.css' %}">
 
-            <div class="user-box">
-                <input type="email" name="email" required>
-                <label for="email">E-mail</label>
-            </div>
+<div class="login-box">
+  <p>Registro de Usuário</p>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 
-            <div class="user-box">
-                <input type="text" name="full_name" required>
-                <label for="full_name">Nome Completo</label>
-            </div>
-
-            <div class="user-box">
-                <input type="password" name="password1" required>
-                <label for="password1">Senha</label>
-            </div>
-
-            <div class="user-box">
-                <input type="password" name="password2" required>
-                <label for="password2">Confirmar Senha</label>
-            </div>
-
-            <div class="user-box">
-                <input type="file" name="profile_picture">
-                <label for="profile_picture">Foto de Perfil</label>
-            </div>
-            <a href="#" onclick="this.closest('form').submit();">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              Submit
-            </a>
-        </form>
+    <!-- Campos do Formulário -->
+    <div class="user-box">
+      {{ form.username }}
+      <label for="id_username">Username</label>
     </div>
-    
-    <footer>
-        <p>&copy; 2024 Trinar - todos os direitos reservados.</p>
-    </footer>
-</body>
-</html>
+
+    <div class="user-box">
+      {{ form.first_name }}
+      <label for="id_first_name">Fullname</label>
+    </div>
+
+    <div class="user-box">
+      {{ form.email }}
+      <label for="id_email">Email</label>
+    </div>
+
+    <div class="user-box">
+      {{ form.profile_picture }}
+      <label for="id_profile_picture">Photo</label>
+    </div>
+
+    <div class="user-box">
+      {{ form.password }}
+      <label for="id_password1">Password</label>
+    </div>
+
+    <div class="user-box">
+      {{ form.password_confirm }}
+      <label for="id_password2">Confirm Password</label>
+    </div>
+
+    <!-- Botão de Envio -->
+    <a href="#" onclick="this.closest('form').submit();">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Submit
+      </a>
+  </form>
+
+
+
+  <p>Já possui uma conta? <a href="{% url 'users:login' %}" class="a2">Login</a></p>
+</div>
+<footer>
+    <p class="footer">&copy; 2024 Trinar - todos os direitos reservados.</p>
+</footer>

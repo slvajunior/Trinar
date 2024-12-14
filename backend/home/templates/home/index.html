@@ -6,6 +6,7 @@
 
 <div class="timeline">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- Formulário de postagem -->
     <div class="post-form">
@@ -71,11 +72,11 @@
                 {% csrf_token %}
                 <textarea name="content" placeholder="Comente sobre este post..."></textarea>
                 <button type="submit-comment">
-                    <i class="bi bi-arrow-up-circle-fill"></i>                
+                    <i class="bi bi-arrow-up-circle-fill"></i>
                 </button>
             </form>
         </div>
-        
+
         <!-- Exibição dos Comentários -->
         <div class="comments-section" id="comments-section-{{ post.id }}">
             {% for comment in post.comments.all %}
@@ -129,6 +130,44 @@
 
 <script>
 
+    // Selecionando o elemento da timeline
+    const timeline = document.querySelector('.timeline');
+
+    // Função para calcular a velocidade da rolagem com base na largura da tela
+    function getScrollSpeed() {
+        const screenWidth = window.innerWidth;
+
+        // Velocidade de rolagem adaptada à largura da tela e taxa de atualização
+        if (screenWidth > 1200) {
+            return 50;  // Rápida para telas grandes (1920x1080)
+        } else if (screenWidth > 768) {
+            return 30;  // Média para telas médias (tablets)
+        } else {
+            return 15;  // Lenta para telas pequenas (dispositivos móveis)
+        }
+    }
+
+    // Adicionando um ouvinte de evento para o scroll da página
+    window.addEventListener('wheel', function (event) {
+        // Verifica se o evento de scroll não é disparado sobre a timeline
+        if (!timeline.contains(event.target)) {
+            // Impede o comportamento padrão do evento de rolagem (scroll na página)
+            event.preventDefault();
+
+            // Obtém a velocidade da rolagem de acordo com o tamanho da tela
+            const scrollSpeed = getScrollSpeed();
+
+            // Rolagem manual na timeline
+            if (event.deltaY > 0) {
+                // Se o scroll for para baixo, rola para baixo
+                timeline.scrollTop += scrollSpeed;
+            } else {
+                // Se o scroll for para cima, rola para cima
+                timeline.scrollTop -= scrollSpeed;
+            }
+        }
+    }, { passive: false });
+
     document.addEventListener('DOMContentLoaded', function () {
         const textareas = document.querySelectorAll('textarea[name="content"]');
 
@@ -137,7 +176,6 @@
                 const maxCharsPerLine = 500; // Máximo de caracteres por linha
                 const caretPosition = this.selectionStart; // Posição atual do cursor
 
-                // Divide o texto em linhas
                 const lines = this.value.split('\n').map(line => {
                     if (line.length > maxCharsPerLine) {
                         return line.match(new RegExp(`.{1,${maxCharsPerLine}}`, 'g')).join('\n');
@@ -158,10 +196,8 @@
 
                 const newCaretPosition = formattedBeforeText.length; // Nova posição do cursor
 
-                // Atualiza o texto no textarea
                 this.value = formattedText;
 
-                // Define a nova posição do cursor
                 this.setSelectionRange(newCaretPosition, newCaretPosition);
             });
         });

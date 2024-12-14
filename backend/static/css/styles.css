@@ -15,6 +15,7 @@
     --font-family-sans: 'Roboto', sans-serif; /* Fonte principal */
     --font-family-serif: 'Merriweather', serif; /* Fonte opcional */
     --font-family-timeline: 'system-ui', sans-serif;
+    --font-logo: 'Poppins';
 
     --font-size-base: 20px; /* Tamanho base */
     --font-size-large: 1.25rem; /* Para títulos */
@@ -35,14 +36,14 @@ html {
     width: 100%;
     height: 100%;
     margin-bottom: 1px;
-    font-family: var(--font-size-base);
+    font-family: var(--font-logo);
     background-color: var(--color-background);
-
+    overflow-y: hidden;  /* Esconde a barra de rolagem vertical */
 }
 
 /* Cabeçalho */
 header {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: linear-gradient(135deg, #8000ff, #2575fc);
     padding: 20px 20px;
     border-bottom: 0.5px solid rgb(226, 226, 226);
     width: 100%;
@@ -63,32 +64,13 @@ header {
     height: 100%;
 }
 
-.search-bar {
-    position: absolute;
-    left: 1510px;
-    top: 25px;
-    margin-left: 10px;
-}
-
-.search-bar input {
-    background-color:#f5f5f5;
-    border-radius: 20px;
-    padding: 10px 15px;
-    width: 200px;
-    border: none;
-    font-size: 17px;
-    border-radius: 25px;
-    border: 2px solid #007bff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-}
-
 .logo {
     position: absolute;
-    left: 35px;
-    top: 15px;
+    left: 39px;
+    top: 9px;
     font-size: 40px;
     color: #fff;
-    font-family: var(--font-family-timeline);
+    font-family: var(--font-logo);
     font-weight: bold;
 }
 
@@ -134,12 +116,13 @@ header {
     margin-bottom: 15px;
 }
 
-.side-menu ul li a {
-    color: #007bff;
+.side-menu ul li a {    
+    color:#007bff;
     text-decoration: none;
-    font-size: 20px; /* Reduzido para um visual mais limpo */
+    font-size: 19px; /* Reduzido para um visual mais limpo */
     font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
+   /* font-family: 'Montserrat', sans-serif; */
+   font-family: var(--font-logo);
     display: flex;
     align-items: center;
     padding: 12px 15px;
@@ -210,7 +193,7 @@ header {
 
 /* Efeito de hover nos cards */
 .post:hover {
-    transform: translateY(-5px); /* Eleva levemente o card */
+    transform: translateY(-1px); /* Eleva levemente o card */
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Intensifica a sombra */
 }
 
@@ -259,10 +242,9 @@ header {
 
 .post h2 {
     margin: 0;
-    font-size: 20px;
+    font-size: 21px;
     font-weight: bold;
-
-    font-family: var(--font-family-sans);
+    font-family: var(--font-logo);
 }
 
 .post p {
@@ -411,13 +393,10 @@ header {
 }
 
 /* Contador de likes */
-
-
 /* Adiciona o estilo da bolinha de notificações no menu lateral */
 /* Bolinha de notificações */
 /* Bolinha de notificações */
 /* Bolinha de notificações */
-
 
 .notifications-link {
     position: relative;
@@ -425,25 +404,23 @@ header {
 
 .notification-badge {
     position: absolute;
-    top: -1px;
-    right: 255px;
+    top: 4px;
+    right: 252px;
     background-color: red;
     color: white;
     font-size: 12px;
     border-radius: 50%;
-    width: 22px;
-    height: 22px;
+    width: 21px;
+    height: 21px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-
 a {
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
-
 
 .author-photo,
 .profile-picture {
@@ -454,7 +431,6 @@ a {
     object-fit: cover; /* Garante que a imagem se encaixe sem distorção */
 }
 
-
 .nomeA {
     position: relative; /* Permite ajustar a posição */
     bottom: 10px;          /* Move para baixo (use valores positivos ou negativos para ajustar) */
@@ -462,9 +438,8 @@ a {
     font-weight: bold;  /* Adiciona destaque ao nome */
     color: #333;        /* Cor do texto */
     font-size: 17px;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: var(--font-logo);
 }
-
 
 .autor {
     position: relative; /* Permite ajustar a posição */
@@ -481,6 +456,7 @@ a {
     color: #007bff; /* Azul para links */
     text-decoration: none; /* Remove o sublinhado */
     font-weight: bold; /* Deixa o texto mais destacado */
+    font-family: var(--font-logo);
 }
 
 /* Efeito de hover nos links */
@@ -570,6 +546,7 @@ textarea:focus {
 }
 
 strong.comment-user-name {
+    font-family: var(--font-logo);
     position:relative;
     left: -9px;
     bottom: 3px;
@@ -666,20 +643,131 @@ button[type="submit-comment"]:hover {
     background-color: #0056b3; /* Cor no hover */
 }
 
+.bi bi-chat-left-fill {
+    position: relative;
+    top:10px;
+}
 
+/* From Uiverse.io by satyamchaudharydev */ 
+/* From uiverse.io by @satyamchaudharydev */
+/* this button is inspired by -- whatsapp input */
+/* == type to see fully interactive and click the close buttom to remove the text  == */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.form {
+    --input-bg: #FFf;
+   /*  background of input */
+    --padding: 1.5em;
+    --rotate: 80deg;
+   /*  rotation degree of input*/
+    --gap: 2em;
+    /*  gap of items in input */
+    --icon-change-color: #15A986;
+   /*  when rotating changed icon color */
+    --height: 40px;
+   /*  height */
+    width: 200px;
+    padding-inline-end: 1em;
+   /*  change this for padding in the end of input */
+    background: var(--input-bg);
+    position: relative;
+    border-radius: 4px;
+    left: 1525px;
+    bottom: 2px;
+  }
+  
+  .form label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: var(--height);
+  }
+  
+  .form input {
+    width: 100%;
+    padding-inline-start: calc(var(--padding) + var(--gap));
+    outline: none;
+    background: none;
+    border: 0;
+  }
+  /* style for both icons -- search,close */
+  .form svg {
+    /* display: block; */
+    color: #111;
+    transition: 0.3s cubic-bezier(.4,0,.2,1);
+    position: absolute;
+    height: 15px;
+  }
+  /* search icon */
+  .icon {
+    position: absolute;
+    left: var(--padding);
+    transition: 0.3s cubic-bezier(.4,0,.2,1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* arrow-icon*/
+  .swap-off {
+    transform: rotate(-80deg);
+    opacity: 0;
+    visibility: hidden;
+  }
+  /* close button */
+  .close-btn {
+    /* removing default bg of button */
+    background: none;
+    border: none;
+    right: calc(var(--padding) - var(--gap));
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    padding: 0.1em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transition: 0.3s;
+    opacity: 0;
+    transform: scale(0);
+    visibility: hidden;
+  }
+  
+  .form input:focus ~ .icon {
+    transform: rotate(var(--rotate)) scale(1.3);
+  }
+  
+  .form input:focus ~ .icon .swap-off {
+    opacity: 1;
+    transform: rotate(-80deg);
+    visibility: visible;
+    color: var(--icon-change-color);
+  }
+  
+  .form input:focus ~ .icon .swap-on {
+    opacity: 0;
+    visibility: visible;
+  }
+  
+  .form input:valid ~ .icon {
+    transform: scale(1.3) rotate(var(--rotate))
+  }
+  
+  .form input:valid ~ .icon .swap-off {
+    opacity: 1;
+    visibility: visible;
+    color: var(--icon-change-color);
+  }
+  
+  .form input:valid ~ .icon .swap-on {
+    opacity: 0;
+    visibility: visible;
+  }
+  
+  .form input:valid ~ .close-btn {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    transition: 0s;
+  }
+  

@@ -24,9 +24,9 @@ class UserRegistrationForm(forms.ModelForm):
         model = User
         fields = ["username", "email", "first_name"]  # Usando 'first_name'
         widgets = {
-            "username": forms.TextInput(attrs={"placeholder": "Username"}),
+            "username": forms.TextInput(attrs={"placeholder": ""}),
             "email": forms.EmailInput(attrs={"placeholder": "Email"}),
-            "first_name": forms.TextInput(attrs={"placeholder": "Full Name"}),
+            "first_name": forms.TextInput(attrs={"placeholder": "Fullname"}),
         }
 
     def clean_password_confirm(self):
@@ -61,31 +61,44 @@ class UserProfileEditForm(forms.ModelForm):
         label="E-mail",
         widget=forms.EmailInput(attrs={'placeholder': 'E-mail'})
     )
+    username = forms.CharField(
+        required=True,
+        label="Username",
+        widget=forms.TextInput(attrs={'placeholder': 'Username'})
+    )
+    full_name = forms.CharField(
+        required=False,
+        label="Full Name",
+        widget=forms.TextInput(attrs={'placeholder': 'Full Name'})
+    )
 
     class Meta:
         model = UserProfile
         fields = [
-            'profile_picture', 'full_name', 'bio', 'locale', 'born'
+            'profile_picture', 'bio', 'locale', 'born'
         ]
         widgets = {
-            'full_name': forms.TextInput(attrs={'placeholder': 'Full Name'}),
             'bio': forms.Textarea(attrs={'placeholder': 'Tell us about yourself'}),
             'locale': forms.TextInput(attrs={'placeholder': 'Location'}),
             'born': forms.DateInput(attrs={'type': 'date'}),
         }
 
     def __init__(self, *args, **kwargs):
-        # Permitir inicializar o e-mail do usuário
+        # Permitir inicializar o e-mail, username e full_name do usuário
         user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         if user:
             self.fields['email'].initial = user.email
+            self.fields['username'].initial = user.username
+            self.fields['full_name'].initial = user.get_full_name()  # Use get_full_name se estiver no CustomUser
 
     def save(self, commit=True):
-        # Atualiza o perfil e o e-mail do usuário
+        # Atualiza o perfil, e-mail, username e full_name do usuário
         instance = super().save(commit=False)
         user = instance.user  # Obtém o usuário relacionado
         user.email = self.cleaned_data['email']
+        user.username = self.cleaned_data['username']
+        user.full_name = self.cleaned_data['full_name']  # Atualiza o campo full_name
         if commit:
             user.save()
             instance.save()

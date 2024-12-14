@@ -15,6 +15,7 @@
     --font-family-sans: 'Roboto', sans-serif; /* Fonte principal */
     --font-family-serif: 'Merriweather', serif; /* Fonte opcional */
     --font-family-timeline: 'system-ui', sans-serif;
+    --font-padrao: 'Poppins';
 
     --font-size-base: 20px; /* Tamanho base */
     --font-size-large: 1.25rem; /* Para títulos */
@@ -35,7 +36,7 @@ html {
     width: 100%;
     height: 100%;
     margin-bottom: 1px;
-    font-family: var(--font-family-sans);
+    font-family: var(--font-padrao);
     background-color: var(--color-background);
 }
 
@@ -51,16 +52,16 @@ html {
     background-color: var(--color-background);
     z-index: 2;
     max-width: 100%;
-    top: 53.5vh;
+    top: 55vh;
     width: 840px;
 }
 
 .profile-header {
     background-color: #fff;
-    padding: 20px;
+    padding: 19px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .profile-header .user-info {
@@ -101,6 +102,7 @@ html {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow-y: scroll;
     height: 600px;
+    font-family: var(--font-padrao);
 }
 
 /* Estilizar a barra de rolagem */
@@ -154,11 +156,16 @@ html {
     border-radius: 5px;
     border: none;
     cursor: pointer;
+    font-family: var(--font-padrao);
 }
 
 .btn-primary:hover,
 .btn-danger:hover {
     opacity: 0.9;
+}
+
+.btn-danger:hover {
+    background-color: #ff4d4d;
 }
 
 a.btn-primary {
@@ -181,4 +188,5 @@ a.btn-primary:hover {
     border-radius: 5px;
     border: none;
     cursor: pointer;
+    font-family: var(--font-padrao);
 }
