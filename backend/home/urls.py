@@ -4,6 +4,7 @@ from . import views
 app_name = 'home'
 
 urlpatterns = [
+    path('hashtag/<str:hashtag>/', views.hashtag_search, name='hashtag_search'),
     path('add_comment/<int:post_id>/', views.add_comment, name='add_comment'),
     path('toggle-repost/', views.toggle_repost, name='toggle_repost'),
     path('', views.index, name='index'),

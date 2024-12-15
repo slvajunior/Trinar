@@ -67,10 +67,14 @@ def index(request):
     # Contar notificações não lidas
     unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
 
-    # Adicionar posts e contador ao contexto
+    # Adicionar uma hashtag de exemplo ao contexto
+    hashtag = "ExemploDeHashtag"  # Ou derive isso de alguma lógica específica
+
+    # Adicionar posts, hashtag e contador ao contexto
     context = {
         "posts": posts,
         "unread_count": unread_count,
+        "hashtag": hashtag,  # Incluindo a hashtag no contexto
     }
 
     return render(request, "home/index.html", context)
@@ -321,3 +325,8 @@ def followers_list(request):
 
 def get_unread_notifications_count(user):
     return Notification.objects.filter(user=user, is_read=False).count()
+
+
+def hashtag_search(request, hashtag):
+    posts = Post.objects.filter(content__icontains=f"#{hashtag}")
+    return render(request, 'home/hashtag_search.html', {'posts': posts, 'hashtag': hashtag})

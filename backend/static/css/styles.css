@@ -621,7 +621,7 @@ strong.comment-user-name {
     display: inline-flex;
     align-items: center;
     gap: 3px; /* Espaço entre o ícone e o texto */
-    padding: 5px 79.5px;
+    padding: 5px 80px;
     transition: all 0.3s ease;
     margin-top: 8px;
     margin-left: 10px;
@@ -803,3 +803,191 @@ button[type="submit-comment"]:hover {
     transition: 0s;
   }
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.comment-modal {
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.comment-modal textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+
+
+
+
+
+
+button[class="comentar"] {
+    --color: rgba(88, 101, 242, 1);
+    padding: 0.4em 0.4em;
+    background-color: transparent;
+    border-radius: .1em;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .5s;
+    font-weight: 400;
+    font-size: 17px;
+    border: 1px solid;
+    font-family: var(--font-family-sans);
+    color: var(--color);
+    z-index: 1;
+  }
+  
+  button[class="comentar"]::before, .button::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    background-color: var(--color);
+    transition: 1s ease;
+  }
+  
+  button[class="comentar"]::before {
+    top: -1em;
+    left: -1em;
+  }
+  
+  button[class="comentar"]::after {
+    left: calc(100% + 1em);
+    top: calc(100% + 1em);
+  }
+  
+  button[class="comentar"]:hover::before, .button:hover::after {
+    height: 410px;
+    width: 410px;
+  }
+  
+  button[class="comentar"]:hover {
+    color: rgb(10, 25, 30);
+    color: #fff;
+  }
+  
+  button[class="comentar"]:active {
+    filter: brightness(.8);
+  }
+
+
+
+
+
+
+
+
+
+button[class="close-modal"] {
+    --color: rgba(88, 101, 242, 1);
+    padding: 0.3em 0.4em;
+    background-color: transparent;
+    border-radius: .1em;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .5s;
+    font-weight: 400;
+    font-size: 17px;
+    border: 1px solid;
+    font-family: var(--font-family-sans);
+    color: var(--color);
+    z-index: 1;
+  }
+  
+  button[class="close-modal"]::before, .button::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    background-color: var(--color);
+    transition: 1s ease;
+  }
+  
+  button[class="close-modal"]::before {
+    top: -1em;
+    left: -1em;
+  }
+  
+  button[class="close-modal"]::after {
+    left: calc(100% + 1em);
+    top: calc(100% + 1em);
+  }
+  
+  button[class="close-modal"]:hover::before, .button:hover::after {
+    height: 410px;
+    width: 410px;
+  }
+  
+  button[class="close-modal"]:hover {
+    color: rgb(10, 25, 30);
+    color: #fff;
+  }
+  
+  button[class="close-modal"]:active {
+    filter: brightness(.8);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
