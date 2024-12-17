@@ -56,6 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// Scroll da tela mais rápido
+
 // Selecionando o elemento da timeline
 const timeline = document.querySelector('.timeline');
 
@@ -93,3 +95,51 @@ window.addEventListener('wheel', function(event) {
         }
     }
 }, { passive: false });
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Seleciona todas as seções de conteúdo do post
+    const posts = document.querySelectorAll(".post-content");
+
+    posts.forEach(post => {
+        const textElement = post.querySelector("p");
+        const content = textElement.innerHTML || textElement.innerText; // Mantém o conteúdo com HTML
+
+        // Remover conteúdo HTML (links e hashtags) para medir apenas o texto simples
+        const textOnly = textElement.innerText || content.replace(/<[^>]+>/g, ''); // Remove todas as tags HTML
+
+        if (textOnly.length <= 55) {
+            // Textos com até 55 caracteres: Fonte maior
+            textElement.classList.add("short");
+        } else if (textOnly.length <= 220) {
+            // Textos entre 56 e 100 caracteres: Fonte intermediária
+            textElement.classList.add("medium");
+        } else {
+            // Textos longos com mais de 100 caracteres
+            const originalContent = content; // Salva o conteúdo original, incluindo links e hashtags
+            const truncatedContent = content.slice(0, 100) + "..."; // Trunca a partir de 55 caracteres
+            textElement.innerHTML = truncatedContent; // Usa innerHTML para preservar os links
+
+            textElement.classList.add("long");
+
+            // Cria o botão "Ler mais"
+            const readMoreButton = document.createElement("button");
+            readMoreButton.classList.add("read-more-btn");
+            readMoreButton.textContent = "Ler mais";
+            post.appendChild(readMoreButton);
+
+            // Adiciona evento de clique ao botão
+            let isExpanded = false;
+            readMoreButton.addEventListener("click", () => {
+                if (isExpanded) {
+                    textElement.innerHTML = truncatedContent; // Volta ao texto truncado, mantendo os links
+                    readMoreButton.textContent = "Ler mais";
+                    isExpanded = false;
+                } else {
+                    textElement.innerHTML = originalContent; // Mostra o texto completo, incluindo links
+                    readMoreButton.textContent = "Mostrar menos";
+                    isExpanded = true;
+                }
+            });
+        }
+    });
+});

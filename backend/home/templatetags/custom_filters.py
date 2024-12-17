@@ -19,3 +19,13 @@ def hashtagize(text):
         return f'<a href="{url}" class="hashtag">{match.group("hashtag")}</a>'
 
     return mark_safe(re.sub(hashtag_pattern, replace, text))
+
+
+@register.filter
+def mentionize(value):
+    """
+    Substitui as menções (@usuário) por links para o perfil do usuário.
+    """
+    mention_pattern = r'@(\w+)'  # Regex para encontrar @username
+    value = re.sub(mention_pattern, r'<a href="/users/profile/\1">@\1</a>', value)
+    return mark_safe(value)  # Retorna como HTML seguro

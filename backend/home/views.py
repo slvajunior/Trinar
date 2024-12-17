@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from .models import Notification
 from django.urls import reverse
 from .forms import CommentForm
@@ -135,7 +136,12 @@ def post(request):
 
 
 def format_post_content(content, max_chars_per_line=46):
-    formatted_content = '\n'.join([content[i:i+max_chars_per_line] for i in range(0, len(content), max_chars_per_line)])
+    formatted_content = "\n".join(
+        [
+            content[i: i + max_chars_per_line]
+            for i in range(0, len(content), max_chars_per_line)
+        ]
+    )
     return formatted_content
 
 
@@ -166,8 +172,8 @@ def toggle_like(request):
 
 
 def toggle_repost(request):
-    if request.method == 'POST':
-        post_id = request.POST.get('post_id')
+    if request.method == "POST":
+        post_id = request.POST.get("post_id")
         post = Post.objects.get(id=post_id)
 
         # Verifica se o usuário já repostou o post
@@ -180,10 +186,12 @@ def toggle_repost(request):
             post.reposts.add(request.user)
             user_has_reposted = True
 
-        return JsonResponse({
-            'user_has_reposted': user_has_reposted,
-            'repost_count': post.reposts.count()
-        })
+        return JsonResponse(
+            {
+                "user_has_reposted": user_has_reposted,
+                "repost_count": post.reposts.count(),
+            }
+        )
 
 
 def create_like_notification(like_user, post):
@@ -217,27 +225,41 @@ def post_detail(request, post_id):
 
 @login_required
 def add_comment(request, post_id):
-    post = Post.objects.get(id=post_id)
-    comment_content = request.POST.get('content')
+    if request.method == "POST":
+        # Obter o post relacionado ao comentário
+        post = get_object_or_404(Post, id=post_id)
+        content = request.POST.get("content")
 
-    # Criando o comentário
-    comment = Comment.objects.create(
-        user=request.user,
-        post=post,
-        content=comment_content
-    )
+        if content:
+            # Criar o comentário
+            comment = Comment.objects.create(
+                user=request.user, post=post, content=content
+            )
 
-    # Criando a notificação para o dono do post
-    Notification.objects.create(
-        notification_type="comment",
-        user=post.user,  # Usuário que recebe a notificação (dono do post)
-        post=post,  # Post no qual o comentário foi feito
-        comment_user=request.user,  # Usuário que fez o comentário
-        comment=comment  # Agora associamos o comentário à notificação
-    )
+            # Detectar menções no comentário
+            mentions = re.findall(r"@(\w+)", content)
+            for mention in mentions:
+                try:
+                    mention_user = User.objects.get(username=mention)
+                    # Criar notificação para o usuário mencionado
+                    Notification.objects.create(
+                        notification_type="mention",
+                        user=mention_user,  # Destinatário da notificação
+                        comment=comment,  # Comentário em que foi feita a menção
+                        mention_user=request.user,  # Usuário que fez a menção
+                    )
+                except User.DoesNotExist:
+                    continue  # Ignorar se o usuário mencionado não existir
 
-    # Redirecionar ou renderizar a resposta
-    return redirect('home:index')
+            # Após processar a criação e as notificações, redireciona para a página principal
+            return HttpResponseRedirect(reverse("home:index"))
+
+        else:
+            return HttpResponse(
+                "O conteúdo do comentário não pode ser vazio.", status=400
+            )
+
+    return HttpResponse("Método não permitido.", status=405)
 
 
 @login_required
@@ -329,4 +351,6 @@ def get_unread_notifications_count(user):
 
 def hashtag_search(request, hashtag):
     posts = Post.objects.filter(content__icontains=f"#{hashtag}")
-    return render(request, 'home/hashtag_search.html', {'posts': posts, 'hashtag': hashtag})
+    return render(
+        request, "home/hashtag_search.html", {"posts": posts, "hashtag": hashtag}
+    )

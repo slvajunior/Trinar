@@ -1,427 +1,464 @@
 /* :root é usado para declarar variáveis globais */
 :root {
-    /* Paleta de cores */
-    --color-primary: #4CAF50; /* Exemplo de verde elegante */
-    --color-secondary: #FFC107; /* Amarelo vibrante */
-    --color-accent: #F44336; /* Vermelho para alertas */
-    --color-background: #f2f4f7; /* Cor de fundo geral */
-    --color-card: #ffff;
-    --color-text: #333; /* Texto principal */
-    --color-text-light: #777; /* Texto secundário */
-    --color-header: #007bff; /* Azul do header ou navegação */
-    --color-footer: #263238; /* Cinza escuro do footer */
+  /* Paleta de cores */
+  --color-primary: #4CAF50; /* Exemplo de verde elegante */
+  --color-secondary: #FFC107; /* Amarelo vibrante */
+  --color-accent: #F44336; /* Vermelho para alertas */
+  --color-background: #f2f4f7; /* Cor de fundo geral */
+  --color-card: #ffff;
+  --color-text: #333; /* Texto principal */
+  --color-text-light: #777; /* Texto secundário */
+  --color-header: #007bff; /* Azul do header ou navegação */
+  --color-footer: #263238; /* Cinza escuro do footer */
 
-    /* Tipografia */
-    --font-family-sans: 'Roboto', sans-serif; /* Fonte principal */
-    --font-family-serif: 'Merriweather', serif; /* Fonte opcional */
-    --font-family-timeline: 'system-ui', sans-serif;
-    --font-logo: 'Poppins';
+  /* Tipografia */
+  --font-family-sans: 'Roboto', sans-serif; /* Fonte principal */
+  --font-family-serif: 'Merriweather', serif; /* Fonte opcional */
+  --font-family-timeline: 'system-ui', sans-serif;
+  --font-logo: 'Poppins';
 
-    --font-size-base: 20px; /* Tamanho base */
-    --font-size-large: 1.25rem; /* Para títulos */
-    --font-size-small: 0.875rem; /* Para detalhes menores */
+  --font-size-base: 20px; /* Tamanho base */
+  --font-size-large: 1.25rem; /* Para títulos */
+  --font-size-small: 0.875rem; /* Para detalhes menores */
 
-    /* Espaçamentos */
-    --spacing-small: 2px;
-    --spacing-medium: 16px;
-    --spacing-large: 24px;
+  /* Espaçamentos */
+  --spacing-small: 2px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
 
-    /* Borda */
-    --border-radius: 8px;
-    --border-color: #ddd;
+  /* Borda */
+  --border-radius: 8px;
+  --border-color: #ddd;
 }
 
 /* HTML base do site */
 html {
-    width: 100%;
-    height: 100%;
-    margin-bottom: 1px;
-    font-family: var(--font-logo);
-    background-color: var(--color-background);
-    overflow-y: hidden;  /* Esconde a barra de rolagem vertical */
+  width: 100%;
+  height: 100%;
+  margin-bottom: 1px;
+  font-family: var(--font-logo);
+  background-color: var(--color-background);
+  overflow-y: hidden;  /* Esconde a barra de rolagem vertical */
 }
 
 /* Cabeçalho */
 header {
-    background: linear-gradient(135deg, #8000ff, #2575fc);
-    padding: 20px 20px;
-    border-bottom: 0.5px solid rgb(226, 226, 226);
-    width: 100%;
-    height: 80px;
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
+  background: linear-gradient(135deg, #8000ff, #2575fc);
+  padding: 20px 20px;
+  border-bottom: 0.5px solid rgb(226, 226, 226);
+  width: 100%;
+  height: 80px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
 }
 
 .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
 }
 
 .logo {
-    position: absolute;
-    left: 39px;
-    top: 9px;
-    font-size: 40px;
-    color: #fff;
-    font-family: var(--font-logo);
-    font-weight: bold;
+  position: absolute;
+  left: 39px;
+  top: 9px;
+  font-size: 40px;
+  color: #fff;
+  font-family: var(--font-logo);
+  font-weight: bold;
 }
 
 .user-photo {
-    right: 40px;
-    top: 5px;
-    object-fit: cover;
-    position: absolute;
+  right: 40px;
+  top: 5px;
+  object-fit: cover;
+  position: absolute;
 }
 
 .user-photo img {
-    border-radius: 100%;
-    width: 58px;
-    height: 58px;
-    object-fit: cover;
-    padding: 2px;
-    border: 3px solid #007bff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); 
+  border-radius: 100%;
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  padding: 2px;
+  border: 3px solid #007bff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); 
 
 }
 
 /* Menu Lateral com Design Melhorado */
 .side-menu {
-    width: 320px;
-    height: calc(98vh - 100px);
-    background-color: var(--color-background); /* Azul mais escuro para contraste */
-    position: fixed;
-    top: 100px;
-    left: 0;
-    padding: 20px;
-    box-sizing: border-box;
-    z-index: 1;
-    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
+  width: 320px;
+  height: calc(98vh - 100px);
+  background-color: var(--color-background); /* Azul mais escuro para contraste */
+  position: fixed;
+  top: 100px;
+  left: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
 }
 
 .side-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .side-menu ul li {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .side-menu ul li a {    
-    color:#007bff;
-    text-decoration: none;
-    font-size: 19px; /* Reduzido para um visual mais limpo */
-    font-weight: bold;
-   /* font-family: 'Montserrat', sans-serif; */
-   font-family: var(--font-logo);
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    border-radius: 8px; /* Bordas arredondadas */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Animação mais suave */
+  color:#007bff;
+  text-decoration: none;
+  font-size: 19px; /* Reduzido para um visual mais limpo */
+  font-weight: bold;
+ /* font-family: 'Montserrat', sans-serif; */
+ font-family: var(--font-logo);
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 8px; /* Bordas arredondadas */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Animação mais suave */
 }
 
 .side-menu ul li a i {
-    margin-right: 12px; /* Espaço entre ícone e texto */
-    font-size: 18px; /* Tamanho do ícone */
+  margin-right: 12px; /* Espaço entre ícone e texto */
+  font-size: 18px; /* Tamanho do ícone */
 }
 
 .side-menu ul li a:hover {
-    background-color: #e6e8ea; /* Cor de hover mais clara */
-    transform: scale(1.05); /* Leve aumento no hover */
-    color: #007bff;
+  background-color: #e6e8ea; /* Cor de hover mais clara */
+  transform: scale(1.05); /* Leve aumento no hover */
+  color: #007bff;
 }
 
 .side-menu ul li.active a {
-    background-color: #007bff; /* Destaque para item ativo */
-    color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+  background-color: #007bff; /* Destaque para item ativo */
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
 }
 
 /* Título do Menu */
 .side-menu-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--color-background);
-    margin-bottom: 20px;
-    text-transform: uppercase; /* Maiúsculas para ênfase */
-    border-bottom: 2px solid #fff; /* Linha abaixo do título */
-    padding-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--color-background);
+  margin-bottom: 20px;
+  text-transform: uppercase; /* Maiúsculas para ênfase */
+  border-bottom: 2px solid #fff; /* Linha abaixo do título */
+  padding-bottom: 10px;
 }
 
 /* Wrapper externo para a barra de rolagem */
 .timeline-wrapper {
-    position: fixed;
-    top: 100px;
-    right: 0;
-    height: calc(100vh - 100px);
-    width: 15px;
-    overflow-y: scroll;
-    background-color: transparent;
-    z-index: 2;
+  position: fixed;
+  top: 100px;
+  right: 0;
+  height: calc(100vh - 100px);
+  width: 15px;
+  overflow-y: scroll;
+  background-color: transparent;
+  z-index: 2;
 }
 
 .timeline {
-    position: relative;
-    top: 0;
-    align-items: center;
-    width: 38%;
-    height: calc(100vh - 100px);
-    overflow-y: scroll; /* Mantém a rolagem funcional */
-    margin: 100px auto;
-    box-sizing: border-box;
-    padding: 20px;
-    background-color: var(--color-background);
+  position: relative;
+  top: 0;
+  align-items: center;
+  width: 38%;
+  height: calc(100vh - 100px);
+  overflow-y: scroll; /* Mantém a rolagem funcional */
+  margin: 100px auto;
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: var(--color-background);
 
-    /* Esconde a barra de rolagem */
-    scrollbar-width: none; /* Para Firefox */
-    -ms-overflow-style: none; /* Para IE/Edge */
+  /* Esconde a barra de rolagem */
+  scrollbar-width: none; /* Para Firefox */
+  -ms-overflow-style: none; /* Para IE/Edge */
 }
 
 .timeline::-webkit-scrollbar {
-    display: none; /* Para navegadores baseados no Webkit */
-}
-
-/* Efeito de hover nos cards */
-.post:hover {
-    transform: translateY(-1px); /* Eleva levemente o card */
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Intensifica a sombra */
+  display: none; /* Para navegadores baseados no Webkit */
 }
 
 /* Títulos e conteúdo dos posts */
 .post h2 {
-    margin: 0 0 10px 0; /* Espaçamento do título */
-    font-size: 1.5rem; /* Tamanho do título */
-    color: #333; /* Cor do título */
-}
-
-.post p {
-    margin: 0; /* Remove espaçamento padrão */
-    color: #424141; /* Cor do texto */
-    line-height: 1.6; /* Melhor legibilidade */
-    font-weight:bold;
+  margin: 0 0 10px 0; /* Espaçamento do título */
+  font-size: 1.5rem; /* Tamanho do título */
+  color: #333; /* Cor do título */
 }
 
 .post {
-    background-color: #fff;
-    margin-bottom: 20px;
-    padding: 5px;
-    border-radius: 0px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    display: flex;
-    align-items: flex-start;
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 5px;
+  border-radius: 0px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  display: flex;
+  align-items: flex-start;
 }
 
 .post .user-info {
-    display: flex;
-    align-items: center;
-    margin-right: 15px;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
 }
 
 .post .user-info img {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-    object-fit: cover;
-    object-fit: cover;
-    padding: 2px;
-    border: 3px solid #007bff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  object-fit: cover;
+  object-fit: cover;
+  padding: 2px;
+  border: 3px solid #007bff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .post h2 {
-    margin: 0;
-    font-size: 21px;
-    font-weight: bold;
-    font-family: var(--font-logo);
+  margin: 0;
+  font-size: 21px;
+  font-weight: bold;
+  font-family: var(--font-logo);
 }
+
+
 
 .post p {
-    margin-top: 10px;
-    font-size: 15px;
-    font-family: var(--font-family-sans);
-    letter-spacing: 0.4px;
-    font-weight: 100;
-    color: #494848;
+  margin: 0; /* Remove espaçamento padrão */
+  color: #545353; /* Cor do texto */
+  line-height: 1.6; /* Melhor legibilidade */
+  font-family: var(--font-family-sans);
 }
 
+
+
+
+
+
+
+
+
+/* Posts com até 55 caracteres */
+.post-content p.short {
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+/* Posts entre 56 e 100 caracteres */
+.post-content p.medium {
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+/* Posts longos truncados */
+.post-content p.long {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Botão "Ler mais" */
+.read-more-btn {
+  background: none;
+  border: none;
+  color: #007BFF;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+  text-decoration: underline;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .post-strong {
-    font-family: var(--font-family-sans);
+  font-family: var(--font-family-sans);
 }
 
 /* Formulário de postagem */
 .post-form {
-    margin-left: 0vh;
-    background-color: #fff;
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    top: -2vh;
-    position: relative;
-    height: 160px;
+  margin-left: 0vh;
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  top: -2vh;
+  position: relative;
+  height: 160px;
 
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 
 }
 
 .post-form textarea {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    width: 400px;
-    height: 85px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    position: relative;
-    resize: none;
-    margin-bottom: 15px;
-    resize: none;
-    left: 0vh;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  width: 400px;
+  height: 85px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  position: relative;
+  resize: none;
+  margin-bottom: 15px;
+  resize: none;
+  left: 0vh;
 
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 
 }
 
 /* Button de postagem */
 /* From Uiverse.io by JaydipPrajapati1910 */ 
 .button {
-    --color: rgba(88, 101, 242, 1);
-    padding: 0.4em 1.5em;
-    background-color: transparent;
-    border-radius: .3em;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: .5s;
-    font-weight: 400;
-    font-size: 17px;
-    border: 1px solid;
-    font-family: var(--font-family-sans);
-    color: var(--color);
-    z-index: 1;
-  }
-  
-  .button::before, .button::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 50px;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    border-radius: 50%;
-    z-index: -1;
-    background-color: var(--color);
-    transition: 1s ease;
-  }
-  
-  .button::before {
-    top: -1em;
-    left: -1em;
-  }
-  
-  .button::after {
-    left: calc(100% + 1em);
-    top: calc(100% + 1em);
-  }
-  
-  .button:hover::before, .button:hover::after {
-    height: 410px;
-    width: 410px;
-  }
-  
-  .button:hover {
-    color: rgb(10, 25, 30);
-    color: #fff;
-  }
-  
-  .button:active {
-    filter: brightness(.8);
-  }
+  --color: rgba(88, 101, 242, 1);
+  padding: 0.4em 1.5em;
+  background-color: transparent;
+  border-radius: .3em;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .5s;
+  font-weight: 400;
+  font-size: 17px;
+  border: 1px solid;
+  font-family: var(--font-family-sans);
+  color: var(--color);
+  z-index: 1;
+}
+
+.button::before, .button::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--color);
+  transition: 1s ease;
+}
+
+.button::before {
+  top: -1em;
+  left: -1em;
+}
+
+.button::after {
+  left: calc(100% + 1em);
+  top: calc(100% + 1em);
+}
+
+.button:hover::before, .button:hover::after {
+  height: 410px;
+  width: 410px;
+}
+
+.button:hover {
+  color: rgb(10, 25, 30);
+  color: #fff;
+}
+
+.button:active {
+  filter: brightness(.8);
+}
 
 /*EXIF de postagens dd/mm/aaaa*/
 .post {
-    background-color: #fff;
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    /* Alinha os elementos de cima para baixo */
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  /* Alinha os elementos de cima para baixo */
 
-    display: flex;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .post .post-date {
-    font-weight:500;
-    color: rgb(150, 149, 149);
-    font-size: 13px;
-    margin-top: 3px;
-    margin-left: 3px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight:500;
+  color: rgb(150, 149, 149);
+  font-size: 13px;
+  margin-top: 3px;
+  margin-left: 3px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 /*Botões de curtir e retrinar*/
 .post-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .btn-repost,
 .btn-like {
-    background-color: #f5f5f5;
-    color: #333;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
+  background-color: #f5f5f5;
+  color: #333;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
 }
 
 .btn-repost:hover,
 .btn-like:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 
 .btn-repost i,
 .btn-like i {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .repost-header {
-    font-size: 15px;
-    font-family: var(--font-family-timeline);
+  font-size: 15px;
+  font-family: var(--font-family-timeline);
 }
 
 /* Contador de likes */
@@ -431,253 +468,253 @@ header {
 /* Bolinha de notificações */
 
 .notifications-link {
-    position: relative;
+  position: relative;
 }
 
 .notification-badge {
-    position: absolute;
-    top: 4px;
-    right: 252px;
-    background-color: red;
-    color: white;
-    font-size: 12px;
-    border-radius: 50%;
-    width: 21px;
-    height: 21px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  top: 4px;
+  right: 252px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+  width: 21px;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 a {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .author-photo,
 .profile-picture {
-    margin-top: 10px;
-    width: 31px; /* Define uma largura consistente */
-    height: 31px; /* Define uma altura consistente */
-    border-radius: 50%; /* Deixa a imagem circular */
-    object-fit: cover; /* Garante que a imagem se encaixe sem distorção */
+  margin-top: 10px;
+  width: 31px; /* Define uma largura consistente */
+  height: 31px; /* Define uma altura consistente */
+  border-radius: 50%; /* Deixa a imagem circular */
+  object-fit: cover; /* Garante que a imagem se encaixe sem distorção */
 }
 
 .nomeA {
-    position: relative; /* Permite ajustar a posição */
-    bottom: 10px;          /* Move para baixo (use valores positivos ou negativos para ajustar) */
-    left: 5px;          /* Move para a direita (negativos movem para a esquerda) */
-    font-weight: bold;  /* Adiciona destaque ao nome */
-    color: #333;        /* Cor do texto */
-    font-size: 17px;
-    font-family: var(--font-logo);
+  position: relative; /* Permite ajustar a posição */
+  bottom: 10px;          /* Move para baixo (use valores positivos ou negativos para ajustar) */
+  left: 5px;          /* Move para a direita (negativos movem para a esquerda) */
+  font-weight: bold;  /* Adiciona destaque ao nome */
+  color: #333;        /* Cor do texto */
+  font-size: 17px;
+  font-family: var(--font-logo);
 }
 
 .autor {
-    position: relative; /* Permite ajustar a posição */
-    bottom: 10px;
-    left: 6px;         /* Move para a direita */
-    font-size: 0.9rem;  /* Tamanho menor para diferenciar */
-    color: gray;        /* Cor do texto */
-    font-size: 13px;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  position: relative; /* Permite ajustar a posição */
+  bottom: 10px;
+  left: 6px;         /* Move para a direita */
+  font-size: 0.9rem;  /* Tamanho menor para diferenciar */
+  color: gray;        /* Cor do texto */
+  font-size: 13px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 /* Estilo geral para links */
 a {
-    color: #007bff; /* Azul para links */
-    text-decoration: none; /* Remove o sublinhado */
-    font-weight: bold; /* Deixa o texto mais destacado */
-    font-family: var(--font-logo);
+  color: #007bff; /* Azul para links */
+  text-decoration: none; /* Remove o sublinhado */
+  font-weight: bold; /* Deixa o texto mais destacado */
+  font-family: var(--font-family-sans);
 }
 
 /* Efeito de hover nos links */
 a:hover {
-    color: #0056b3; /* Azul mais escuro no hover */
-    text-decoration: underline; /* Adiciona sublinhado no hover */
+  color: #0056b3; /* Azul mais escuro no hover */
+  text-decoration: underline; /* Adiciona sublinhado no hover */
 }
 
 .post-footer {
-    margin-top: 50px;
+  margin-top: 50px;
 
 }
 
 /* Efeito de hover nos botões */
 .btn-like:hover, .btn-repost:hover, .comment-btn:hover {
-    color: #0056b3; /* Cor quando o mouse passa sobre o botão */
-    background-color: #f1f1f1; /* Leve fundo quando o usuário passar o mouse */
-    transform: scale(1.05); /* Aumenta ligeiramente o tamanho do botão */
+  color: #0056b3; /* Cor quando o mouse passa sobre o botão */
+  background-color: #f1f1f1; /* Leve fundo quando o usuário passar o mouse */
+  transform: scale(1.05); /* Aumenta ligeiramente o tamanho do botão */
 }
 
 .comment-container {
-    margin-top: 10px;
-    display: none;
-  }
-  
-  textarea {
-    width: 100%;
-    height: 60px;
-    margin-bottom: 10px;
-  }
-  
-  button {
-    padding: 8px 15px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Estilo para o campo de entrada de texto */
+  margin-top: 10px;
+  display: none;
+}
+
+textarea {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 8px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para o campo de entrada de texto */
 textarea[class="text-comment"] {
-    width: 100%; /* Faz com que o campo ocupe toda a largura disponível */
-    height: 70px; /* Altura do campo */
-    padding: 10px; /* Espaçamento interno */
-    border: 1px solid #ccc; /* Cor e estilo da borda */
-    border-radius: 5px; /* Bordas arredondadas */
-    font-size: 14px; /* Tamanho da fonte */
-    line-height: 1.5; /* Espaçamento entre as linhas */
-    color: #333; /* Cor do texto */
-    background-color: #f9f9f9; /* Cor de fundo */
-    resize: vertical; /* Permite redimensionar verticalmente */
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+  width: 100%; /* Faz com que o campo ocupe toda a largura disponível */
+  height: 70px; /* Altura do campo */
+  padding: 10px; /* Espaçamento interno */
+  border: 1px solid #ccc; /* Cor e estilo da borda */
+  border-radius: 5px; /* Bordas arredondadas */
+  font-size: 14px; /* Tamanho da fonte */
+  line-height: 1.5; /* Espaçamento entre as linhas */
+  color: #333; /* Cor do texto */
+  background-color: #f9f9f9; /* Cor de fundo */
+  resize: vertical; /* Permite redimensionar verticalmente */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 
 
 }
 
 /* Estilo do campo de texto quando está em foco (selecionado) */
 textarea:focus {
-    border-color: #5b9bd5; /* Cor da borda quando em foco */
-    background-color: #e6f3ff; /* Cor de fundo quando em foco */
-    outline: none; /* Remove a borda padrão ao clicar */
+  border-color: #5b9bd5; /* Cor da borda quando em foco */
+  background-color: #e6f3ff; /* Cor de fundo quando em foco */
+  outline: none; /* Remove a borda padrão ao clicar */
 }
 
 .comments-section {
-    margin-top: 30px;
-    font-family: var(--font-family-sans);
+  margin-top: 30px;
+  font-family: var(--font-family-sans);
 }
 
 .comment {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .comment-user-photo {
-    margin-top: 10px;
-    width: 20px;
-    height: 20px;
-    border-radius: 100%;
-    margin-right: 10px;
+  margin-top: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  margin-right: 10px;
 }
 
 strong.comment-user-name {
-    font-family: var(--font-logo);
-    position:relative;
-    left: -9px;
-    bottom: 3px;
-    
+  font-family: var(--font-logo);
+  position:relative;
+  left: -9px;
+  bottom: 3px;
+  
 }
 
 .post-footer {
-    margin-top: 10px; /* Ajusta o espaço entre a postagem e os botões */
+  margin-top: 10px; /* Ajusta o espaço entre a postagem e os botões */
 }
 
 .buttons-container {
-    display: flex;
-    justify-content: space-between; /* Distribui os botões uniformemente */
-    align-items: center; /* Alinha os botões verticalmente */
-    padding: 0 20px; /* Espaço interno opcional */
+  display: flex;
+  justify-content: space-between; /* Distribui os botões uniformemente */
+  align-items: center; /* Alinha os botões verticalmente */
+  padding: 0 20px; /* Espaço interno opcional */
 }
 
 .buttons-container button,
 .buttons-container form {
-    margin: 0 10px; /* Espaçamento entre os botões */
-    flex-grow: 1; /* Permite que os botões cresçam uniformemente */
-    text-align: center; /* Centraliza os ícones e textos dentro de cada botão */
+  margin: 0 10px; /* Espaçamento entre os botões */
+  flex-grow: 1; /* Permite que os botões cresçam uniformemente */
+  text-align: center; /* Centraliza os ícones e textos dentro de cada botão */
 }
 
 .buttons-container button:nth-child(1) {
-    text-align: left;
+  text-align: left;
 }
 
 .buttons-container button:nth-child(3) {
-    text-align: right;
+  text-align: right;
 }
 
 /* Estilo para os botões de interação */
 .btn-like, .btn-repost, .comment-btn {
-    background: none;
-    border: none;
-    color: #007bff; 
-    cursor: pointer;
-    font-size: 15px;
-    display: inline-flex;
-    align-items: center;
-    gap: 3px; /* Espaço entre o ícone e o texto */
-    padding: 5px 80px;
-    transition: all 0.3s ease;
-    margin-top: 8px;
-    margin-left: 10px;
+  background: none;
+  border: none;
+  color: #007bff; 
+  cursor: pointer;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px; /* Espaço entre o ícone e o texto */
+  padding: 5px 80px;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+  margin-left: 10px;
 
-    display: flex;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 
 
 }
 
 /* Estilo específico para o botão de Curtir */
 .btn-like {
-    color: #007bff; /* Cor inicial azul */
+  color: #007bff; /* Cor inicial azul */
 }
 
 .btn-like i {
-    color: #007bff; /* Ícone de coração azul inicialmente */
+  color: #007bff; /* Ícone de coração azul inicialmente */
 }
 
 /* Quando o botão de Curtir for ativo (já clicado) */
 .btn-like.active {
-    color: red; /* Cor vermelha do texto quando curtido */
+  color: red; /* Cor vermelha do texto quando curtido */
 }
 
 .btn-like.active i {
-    color: red; /* Ícone de coração vermelho quando curtido */
+  color: red; /* Ícone de coração vermelho quando curtido */
 }
 
 .divider {
-    border-top: 1px solid #ccc; /* Linha cinza */
-    margin: 10px 0; /* Espaço entre o post e os botões */
+  border-top: 1px solid #ccc; /* Linha cinza */
+  margin: 10px 0; /* Espaço entre o post e os botões */
 }
 
 /* Linha divisória entre o conteúdo e os botões */
 .post-content + .post-footer {
-    border-top: 1px solid #ddd; /* Linha cinza */
-    margin-top: 9px; /* Espaçamento entre o conteúdo e a linha */
+  border-top: 1px solid #ddd; /* Linha cinza */
+  margin-top: 9px; /* Espaçamento entre o conteúdo e a linha */
 }
 
 button[type="submit-comment"] {
-    border-radius: 5px;
-    width: 50px;
-    height: 33px;
-    font-size: 18px;
+  border-radius: 5px;
+  width: 50px;
+  height: 33px;
+  font-size: 18px;
 }
 
 button[type="submit-comment"]:hover {
-    background-color: #0056b3; /* Cor no hover */
+  background-color: #0056b3; /* Cor no hover */
 }
 
 .bi bi-chat-left-fill {
-    position: relative;
-    top:10px;
+  position: relative;
+  top:10px;
 }
 
 /* From Uiverse.io by satyamchaudharydev */ 
@@ -686,123 +723,123 @@ button[type="submit-comment"]:hover {
 /* == type to see fully interactive and click the close buttom to remove the text  == */
 
 .form {
-    --input-bg: #FFf;
-   /*  background of input */
-    --padding: 1.5em;
-    --rotate: 80deg;
-   /*  rotation degree of input*/
-    --gap: 2em;
-    /*  gap of items in input */
-    --icon-change-color: #15A986;
-   /*  when rotating changed icon color */
-    --height: 40px;
-   /*  height */
-    width: 200px;
-    padding-inline-end: 1em;
-   /*  change this for padding in the end of input */
-    background: var(--input-bg);
-    position: relative;
-    border-radius: 4px;
-    left: 1525px;
-    bottom: 2px;
-  }
-  
-  .form label {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: var(--height);
-  }
-  
-  .form input {
-    width: 100%;
-    padding-inline-start: calc(var(--padding) + var(--gap));
-    outline: none;
-    background: none;
-    border: 0;
-  }
-  /* style for both icons -- search,close */
-  .form svg {
-    /* display: block; */
-    color: #111;
-    transition: 0.3s cubic-bezier(.4,0,.2,1);
-    position: absolute;
-    height: 15px;
-  }
-  /* search icon */
-  .icon {
-    position: absolute;
-    left: var(--padding);
-    transition: 0.3s cubic-bezier(.4,0,.2,1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  /* arrow-icon*/
-  .swap-off {
-    transform: rotate(-80deg);
-    opacity: 0;
-    visibility: hidden;
-  }
-  /* close button */
-  .close-btn {
-    /* removing default bg of button */
-    background: none;
-    border: none;
-    right: calc(var(--padding) - var(--gap));
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #111;
-    padding: 0.1em;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    transition: 0.3s;
-    opacity: 0;
-    transform: scale(0);
-    visibility: hidden;
-  }
-  
-  .form input:focus ~ .icon {
-    transform: rotate(var(--rotate)) scale(1.3);
-  }
-  
-  .form input:focus ~ .icon .swap-off {
-    opacity: 1;
-    transform: rotate(-80deg);
-    visibility: visible;
-    color: var(--icon-change-color);
-  }
-  
-  .form input:focus ~ .icon .swap-on {
-    opacity: 0;
-    visibility: visible;
-  }
-  
-  .form input:valid ~ .icon {
-    transform: scale(1.3) rotate(var(--rotate))
-  }
-  
-  .form input:valid ~ .icon .swap-off {
-    opacity: 1;
-    visibility: visible;
-    color: var(--icon-change-color);
-  }
-  
-  .form input:valid ~ .icon .swap-on {
-    opacity: 0;
-    visibility: visible;
-  }
-  
-  .form input:valid ~ .close-btn {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
-    transition: 0s;
-  }
-  
+  --input-bg: #FFf;
+ /*  background of input */
+  --padding: 1.5em;
+  --rotate: 80deg;
+ /*  rotation degree of input*/
+  --gap: 2em;
+  /*  gap of items in input */
+  --icon-change-color: #15A986;
+ /*  when rotating changed icon color */
+  --height: 40px;
+ /*  height */
+  width: 200px;
+  padding-inline-end: 1em;
+ /*  change this for padding in the end of input */
+  background: var(--input-bg);
+  position: relative;
+  border-radius: 4px;
+  left: 1525px;
+  bottom: 2px;
+}
+
+.form label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--height);
+}
+
+.form input {
+  width: 100%;
+  padding-inline-start: calc(var(--padding) + var(--gap));
+  outline: none;
+  background: none;
+  border: 0;
+}
+/* style for both icons -- search,close */
+.form svg {
+  /* display: block; */
+  color: #111;
+  transition: 0.3s cubic-bezier(.4,0,.2,1);
+  position: absolute;
+  height: 15px;
+}
+/* search icon */
+.icon {
+  position: absolute;
+  left: var(--padding);
+  transition: 0.3s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* arrow-icon*/
+.swap-off {
+  transform: rotate(-80deg);
+  opacity: 0;
+  visibility: hidden;
+}
+/* close button */
+.close-btn {
+  /* removing default bg of button */
+  background: none;
+  border: none;
+  right: calc(var(--padding) - var(--gap));
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111;
+  padding: 0.1em;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: 0.3s;
+  opacity: 0;
+  transform: scale(0);
+  visibility: hidden;
+}
+
+.form input:focus ~ .icon {
+  transform: rotate(var(--rotate)) scale(1.3);
+}
+
+.form input:focus ~ .icon .swap-off {
+  opacity: 1;
+  transform: rotate(-80deg);
+  visibility: visible;
+  color: var(--icon-change-color);
+}
+
+.form input:focus ~ .icon .swap-on {
+  opacity: 0;
+  visibility: visible;
+}
+
+.form input:valid ~ .icon {
+  transform: scale(1.3) rotate(var(--rotate))
+}
+
+.form input:valid ~ .icon .swap-off {
+  opacity: 1;
+  visibility: visible;
+  color: var(--icon-change-color);
+}
+
+.form input:valid ~ .icon .swap-on {
+  opacity: 0;
+  visibility: visible;
+}
+
+.form input:valid ~ .close-btn {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: 0s;
+}
+
 
 
 
@@ -825,23 +862,23 @@ button[type="submit-comment"]:hover {
 
 
 .comment-modal {
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .comment-modal textarea {
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 
@@ -852,58 +889,58 @@ dialog::backdrop {
 
 
 button[class="comentar"] {
-    --color: rgba(88, 101, 242, 1);
-    padding: 0.4em 0.4em;
-    background-color: transparent;
-    border-radius: .1em;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: .5s;
-    font-weight: 400;
-    font-size: 17px;
-    border: 1px solid;
-    font-family: var(--font-family-sans);
-    color: var(--color);
-    z-index: 1;
-  }
-  
-  button[class="comentar"]::before, .button::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 50px;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    border-radius: 50%;
-    z-index: -1;
-    background-color: var(--color);
-    transition: 1s ease;
-  }
-  
-  button[class="comentar"]::before {
-    top: -1em;
-    left: -1em;
-  }
-  
-  button[class="comentar"]::after {
-    left: calc(100% + 1em);
-    top: calc(100% + 1em);
-  }
-  
-  button[class="comentar"]:hover::before, .button:hover::after {
-    height: 410px;
-    width: 410px;
-  }
-  
-  button[class="comentar"]:hover {
-    color: rgb(10, 25, 30);
-    color: #fff;
-  }
-  
-  button[class="comentar"]:active {
-    filter: brightness(.8);
-  }
+  --color: rgba(88, 101, 242, 1);
+  padding: 0.4em 0.4em;
+  background-color: transparent;
+  border-radius: .1em;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .5s;
+  font-weight: 400;
+  font-size: 17px;
+  border: 1px solid;
+  font-family: var(--font-family-sans);
+  color: var(--color);
+  z-index: 1;
+}
+
+button[class="comentar"]::before, .button::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--color);
+  transition: 1s ease;
+}
+
+button[class="comentar"]::before {
+  top: -1em;
+  left: -1em;
+}
+
+button[class="comentar"]::after {
+  left: calc(100% + 1em);
+  top: calc(100% + 1em);
+}
+
+button[class="comentar"]:hover::before, .button:hover::after {
+  height: 410px;
+  width: 410px;
+}
+
+button[class="comentar"]:hover {
+  color: rgb(10, 25, 30);
+  color: #fff;
+}
+
+button[class="comentar"]:active {
+  filter: brightness(.8);
+}
 
 
 
@@ -914,80 +951,55 @@ button[class="comentar"] {
 
 
 button[class="close-modal"] {
-    --color: rgba(88, 101, 242, 1);
-    padding: 0.3em 0.4em;
-    background-color: transparent;
-    border-radius: .1em;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: .5s;
-    font-weight: 400;
-    font-size: 17px;
-    border: 1px solid;
-    font-family: var(--font-family-sans);
-    color: var(--color);
-    z-index: 1;
-  }
-  
-  button[class="close-modal"]::before, .button::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 50px;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    border-radius: 50%;
-    z-index: -1;
-    background-color: var(--color);
-    transition: 1s ease;
-  }
-  
-  button[class="close-modal"]::before {
-    top: -1em;
-    left: -1em;
-  }
-  
-  button[class="close-modal"]::after {
-    left: calc(100% + 1em);
-    top: calc(100% + 1em);
-  }
-  
-  button[class="close-modal"]:hover::before, .button:hover::after {
-    height: 410px;
-    width: 410px;
-  }
-  
-  button[class="close-modal"]:hover {
-    color: rgb(10, 25, 30);
-    color: #fff;
-  }
-  
-  button[class="close-modal"]:active {
-    filter: brightness(.8);
-  }
+  --color: rgba(88, 101, 242, 1);
+  padding: 0.3em 0.4em;
+  background-color: transparent;
+  border-radius: .1em;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .5s;
+  font-weight: 400;
+  font-size: 17px;
+  border: 1px solid;
+  font-family: var(--font-family-sans);
+  color: var(--color);
+  z-index: 1;
+}
 
+button[class="close-modal"]::before, .button::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--color);
+  transition: 1s ease;
+}
 
+button[class="close-modal"]::before {
+  top: -1em;
+  left: -1em;
+}
 
+button[class="close-modal"]::after {
+  left: calc(100% + 1em);
+  top: calc(100% + 1em);
+}
 
+button[class="close-modal"]:hover::before, .button:hover::after {
+  height: 410px;
+  width: 410px;
+}
 
+button[class="close-modal"]:hover {
+  color: rgb(10, 25, 30);
+  color: #fff;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+button[class="close-modal"]:active {
+  filter: brightness(.8);
+}

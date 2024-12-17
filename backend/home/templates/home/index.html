@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load custom_filters %}
+
 {% load static %}
 
 {% block content %}
@@ -84,12 +85,11 @@
                     <img src="{{ comment.user.profile.profile_picture.url }}" alt="{{ comment.user.username }}'s photo"
                         class="comment-user-photo" />
                     <strong class="comment-user-name">{{ comment.user.username }}</strong>
-                    <p>{{ comment.content }}</p>
+                    <p>{{ comment.content|urlize|hashtagize|mentionize|safe }}</p>
                 </div>
                 {% empty %}
                 <p>Nenhum comentário ainda.</p>
                 {% endfor %}
-
                 <div class="post-footer" style="border-top: 1px solid #ddd; margin-top: 10px;">
                 <p></p>
             </div>

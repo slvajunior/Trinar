@@ -1,8 +1,12 @@
+
 {% extends 'base.html' %}
+
+{% load custom_filters %}
 
 {% load static %}
 
 {% block content %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -11,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/users/profile.css' %}">
-    <title>Perfil</title>
+    <title>Trinar | Profile</title>
     <!-- Link para o Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- Link para a fonte Montserrat -->
@@ -20,6 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 </head>
+
 
 <body>
     <div class="container">
@@ -81,33 +86,40 @@
         <div class="user-posts-history">
             <p style="margin: 1; color: #666;">
                 <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">Posts de {{ user_profile.user.username }}</h2> 
-            </p>      
-
+            </p>
+        
             <div class="posts">
                 {% for post in user_posts %}
                 <div class="post">
                     <h3 style="font-size: 18px; font-weight: bold; margin: 0;">
-                        {% if post.original_post %}
-                        Repostado de {{ post.original_post.user.username }}
+                        {% if post.original_post.is_html %}
+                        Repostado de {{ post.original_post.user.username|urlize|hashtagize|safe|linebreaksbr }}
                         {% else %}
-                        {{ post.title }}
+                        <p>{{ post.original_post.content|urlize|hashtagize|safe|linebreaksbr }}</p>
                         {% endif %}
                     </h3>
                     <p style="margin: 10px 0; color: #666;">
-                        {% if post.original_post %}
-                        {{ post.original_post.content }}
+                        {% if post.is_html %}
+                        <p>{{ post.original_post.content|urlize|hashtagize|safe|linebreaksbr }}</p>
                         {% else %}
-                        {{ post.content }}
+                        <p>{{ post.content|mentionize|urlize|hashtagize|safe|linebreaksbr }}</p>
                         {% endif %}
                     </p>
-                    <p style="font-size: 12px; color: #aaa;">Postado em {{ post.created_at|date:"d M Y" }}</p>
+
+                    <p>Postado em {{ post.created_at|date:"d M Y" }}</p>
                 </div>
                 {% empty %}
+
                 <p style="font-size: 16px; color: #999;">Este usuário ainda não postou nada.</p>
+
                 {% endfor %}
+
             </div>
+
         </div>
+
     </div>
+
 </body>
 
 </html>
