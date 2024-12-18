@@ -104,6 +104,7 @@ header {
   box-sizing: border-box;
   z-index: 1;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
+  border-radius: 8px;
 }
 
 .side-menu ul {
@@ -217,8 +218,8 @@ header {
 
 .post .user-info img {
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   margin-right: 10px;
   object-fit: cover;
   object-fit: cover;
@@ -234,22 +235,12 @@ header {
   font-family: var(--font-logo);
 }
 
-
-
 .post p {
   margin: 0; /* Remove espaçamento padrão */
   color: #545353; /* Cor do texto */
   line-height: 1.6; /* Melhor legibilidade */
   font-family: var(--font-family-sans);
 }
-
-
-
-
-
-
-
-
 
 /* Posts com até 55 caracteres */
 .post-content p.short {
@@ -282,16 +273,10 @@ header {
   display: inline-block;
 }
 
-
-
-
-
-
-
-
-
-
-
+.read-more-btn:hover {
+  color: #0056b3;
+  background-color: #f1f1f1;
+}
 
 .post-strong {
   font-family: var(--font-family-sans);
@@ -426,41 +411,6 @@ header {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-/*Botões de curtir e retrinar*/
-.post-footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.btn-repost,
-.btn-like {
-  background-color: #f5f5f5;
-  color: #333;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-}
-
-.btn-repost:hover,
-.btn-like:hover {
-  background-color: #e0e0e0;
-}
-
-.btn-repost i,
-.btn-like i {
-  margin-right: 5px;
-}
-
-.repost-header {
-  font-size: 15px;
-  font-family: var(--font-family-timeline);
-}
-
 /* Contador de likes */
 /* Adiciona o estilo da bolinha de notificações no menu lateral */
 /* Bolinha de notificações */
@@ -584,8 +534,6 @@ textarea[class="text-comment"] {
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word;
-
-
 }
 
 /* Estilo do campo de texto quando está em foco (selecionado) */
@@ -635,8 +583,8 @@ strong.comment-user-name {
 
 .buttons-container button,
 .buttons-container form {
-  margin: 0 10px; /* Espaçamento entre os botões */
-  flex-grow: 1; /* Permite que os botões cresçam uniformemente */
+  margin: 5 25px; /* Espaçamento entre os botões */
+  flex-grow: 5; /* Permite que os botões cresçam uniformemente */
   text-align: center; /* Centraliza os ícones e textos dentro de cada botão */
 }
 
@@ -646,6 +594,13 @@ strong.comment-user-name {
 
 .buttons-container button:nth-child(3) {
   text-align: right;
+}
+
+/*Botões de curtir e retrinar*/
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 /* Estilo para os botões de interação */
@@ -658,23 +613,23 @@ strong.comment-user-name {
   display: inline-flex;
   align-items: center;
   gap: 3px; /* Espaço entre o ícone e o texto */
-  padding: 5px 80px;
+  padding: 3px 84px;
   transition: all 0.3s ease;
   margin-top: 8px;
-  margin-left: 10px;
+  margin-left: 3px;
 
   display: flex;
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
   box-sizing: border-box;
-
-
 }
+
 
 /* Estilo específico para o botão de Curtir */
 .btn-like {
   color: #007bff; /* Cor inicial azul */
+  text-align: center;
 }
 
 .btn-like i {
@@ -698,11 +653,11 @@ strong.comment-user-name {
 /* Linha divisória entre o conteúdo e os botões */
 .post-content + .post-footer {
   border-top: 1px solid #ddd; /* Linha cinza */
-  margin-top: 9px; /* Espaçamento entre o conteúdo e a linha */
+  margin-top: 10px; /* Espaçamento entre o conteúdo e a linha */
 }
 
 button[type="submit-comment"] {
-  border-radius: 5px;
+  border-radius: 8px;
   width: 50px;
   height: 33px;
   font-size: 18px;
@@ -710,11 +665,6 @@ button[type="submit-comment"] {
 
 button[type="submit-comment"]:hover {
   background-color: #0056b3; /* Cor no hover */
-}
-
-.bi bi-chat-left-fill {
-  position: relative;
-  top:10px;
 }
 
 /* From Uiverse.io by satyamchaudharydev */ 
@@ -840,27 +790,6 @@ button[type="submit-comment"]:hover {
   transition: 0s;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .comment-modal {
   border: none;
   border-radius: 10px;
@@ -880,13 +809,6 @@ button[type="submit-comment"]:hover {
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.7);
 }
-
-
-
-
-
-
-
 
 button[class="comentar"] {
   --color: rgba(88, 101, 242, 1);
@@ -942,14 +864,6 @@ button[class="comentar"]:active {
   filter: brightness(.8);
 }
 
-
-
-
-
-
-
-
-
 button[class="close-modal"] {
   --color: rgba(88, 101, 242, 1);
   padding: 0.3em 0.4em;
@@ -1002,4 +916,8 @@ button[class="close-modal"]:hover {
 
 button[class="close-modal"]:active {
   filter: brightness(.8);
+}
+
+.repost-user {
+  font-size: 15px;
 }

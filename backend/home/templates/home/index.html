@@ -8,7 +8,7 @@
 
 <div class="timeline">
     <!-- Exemplo de hashtag manual -->
-    <a href="{% url 'home:hashtag_search' hashtag=hashtag %}" class="hashtag">%23{{ hashtag }}</a>
+    <a href="{% url 'home:hashtag_search' hashtag=hashtag %}" class="hashtag">#{{ hashtag }}</a>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@
         {% if post.original_post %}
         <div class="repost-header">
             <i class="fas fa-retweet"></i>
-            <span>{{ post.user.username }} repostou</span>
+            <span class="repost-user">{{ post.user.username }} repostou</span>
         </div>
 
         <div class="original-post-info">

@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             // Textos longos com mais de 100 caracteres
             const originalContent = content; // Salva o conteúdo original, incluindo links e hashtags
-            const truncatedContent = content.slice(0, 100) + "..."; // Trunca a partir de 55 caracteres
+            const truncatedContent = content.slice(0, 180) + "..."; // Trunca a partir de 55 caracteres
             textElement.innerHTML = truncatedContent; // Usa innerHTML para preservar os links
 
             textElement.classList.add("long");
